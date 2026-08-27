@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 600" width="100%" height="100%">
+  <!-- Layer Giày Dán Xé Trắng Phối Xanh (Trong Suốt) -->
+  <g id="layer-shoes-velcro">
+    <!-- Giày trái -->
+    <ellipse cx="145" cy="535" rx="34" ry="20" fill="#FFFFFF" stroke="#514B48" stroke-width="3.5"/>
+    <path d="M 125 528 L 165 528" stroke="#73C7E8" stroke-width="6" stroke-linecap="round"/>
+    <path d="M 128 538 L 162 538" stroke="#73C7E8" stroke-width="6" stroke-linecap="round"/>
+    <ellipse cx="145" cy="546" rx="28" ry="6" fill="#CFD8DC"/>
+
+    <!-- Giày phải -->
+    <ellipse cx="255" cy="535" rx="34" ry="20" fill="#FFFFFF" stroke="#514B48" stroke-width="3.5"/>
+    <path d="M 235 528 L 275 528" stroke="#73C7E8" stroke-width="6" stroke-linecap="round"/>
+    <path d="M 238 538 L 272 538" stroke="#73C7E8" stroke-width="6" stroke-linecap="round"/>
+    <ellipse cx="255" cy="546" rx="28" ry="6" fill="#CFD8DC"/>
+  </g>
+</svg>

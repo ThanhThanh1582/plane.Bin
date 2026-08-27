@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="blueCase" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#4FC3F7"/>
+      <stop offset="100%" stop-color="#0288D1"/>
+    </linearGradient>
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+  <g filter="url(#softShadow)">
+    <rect x="115" y="15" width="70" height="50" rx="10" fill="none" stroke="#78909C" stroke-width="10"/>
+    <rect x="105" y="15" width="90" height="14" rx="7" fill="#37474F"/>
+    <rect x="40" y="55" width="220" height="300" rx="36" fill="url(#blueCase)" stroke="#01579B" stroke-width="6"/>
+    <!-- Sticker tên lửa -->
+    <circle cx="150" cy="200" r="55" fill="#FFFFFF" stroke="#81D4FA" stroke-width="4"/>
+    <path d="M 150 160 Q 165 190 165 220 L 135 220 Q 135 190 150 160 Z" fill="#FF5252"/>
+    <polygon points="135,200 120,225 135,220" fill="#FFB74D"/>
+    <polygon points="165,200 180,225 165,220" fill="#FFB74D"/>
+    <circle cx="150" cy="185" r="7" fill="#E1F5FE"/>
+    <circle cx="70" cy="358" r="16" fill="#37474F" stroke="#212121" stroke-width="3"/>
+    <circle cx="230" cy="358" r="16" fill="#37474F" stroke="#212121" stroke-width="3"/>
+  </g>
+</svg>

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bootGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5D4037"/>
+      <stop offset="100%" stop-color="#3E2723"/>
+    </linearGradient>
+    <filter id="softItemShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="5" flood-color="#000" flood-opacity="0.16"/>
+    </filter>
+  </defs>
+  <g filter="url(#softItemShadow)">
+    <!-- Bốt cao cổ dày cộp -->
+    <path d="M 100 50 L 170 50 L 170 180 L 230 200 L 230 250 L 80 250 L 80 180 L 100 180 Z" fill="url(#bootGrad)" stroke="#271815" stroke-width="6" stroke-linejoin="round"/>
+    <!-- Dây buộc chằng chịt phức tạp -->
+    <line x1="120" y1="80" x2="150" y2="100" stroke="#FFCA28" stroke-width="5" stroke-linecap="round"/>
+    <line x1="150" y1="80" x2="120" y2="100" stroke="#FFCA28" stroke-width="5" stroke-linecap="round"/>
+    <line x1="120" y1="120" x2="150" y2="140" stroke="#FFCA28" stroke-width="5" stroke-linecap="round"/>
+    <line x1="150" y1="120" x2="120" y2="140" stroke="#FFCA28" stroke-width="5" stroke-linecap="round"/>
+    <line x1="120" y1="160" x2="150" y2="180" stroke="#FFCA28" stroke-width="5" stroke-linecap="round"/>
+    <line x1="150" y1="160" x2="120" y2="180" stroke="#FFCA28" stroke-width="5" stroke-linecap="round"/>
+    <!-- Đế giày dày -->
+    <rect x="75" y="240" width="160" height="20" rx="6" fill="#212121"/>
+  </g>
+</svg>

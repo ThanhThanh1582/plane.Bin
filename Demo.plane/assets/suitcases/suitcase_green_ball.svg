@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="greenCase" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#81C784"/>
+      <stop offset="100%" stop-color="#388E3C"/>
+    </linearGradient>
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+  <g filter="url(#softShadow)">
+    <rect x="115" y="15" width="70" height="50" rx="10" fill="none" stroke="#78909C" stroke-width="10"/>
+    <rect x="105" y="15" width="90" height="14" rx="7" fill="#37474F"/>
+    <rect x="40" y="55" width="220" height="300" rx="36" fill="url(#greenCase)" stroke="#1B5E20" stroke-width="6"/>
+    <!-- Sticker quả bóng -->
+    <circle cx="150" cy="200" r="55" fill="#FFFFFF" stroke="#A5D6A7" stroke-width="4"/>
+    <circle cx="150" cy="200" r="36" fill="#FFFFFF" stroke="#212121" stroke-width="3"/>
+    <polygon points="150,185 162,194 157,208 143,208 138,194" fill="#212121"/>
+    <circle cx="70" cy="358" r="16" fill="#37474F" stroke="#212121" stroke-width="3"/>
+    <circle cx="230" cy="358" r="16" fill="#37474F" stroke="#212121" stroke-width="3"/>
+  </g>
+</svg>

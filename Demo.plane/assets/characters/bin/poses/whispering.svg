@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="skinWh" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFE0B2"/>
+      <stop offset="100%" stop-color="#FFCC80"/>
+    </linearGradient>
+  </defs>
+
+  <g id="pose-whispering">
+    <!-- Đùi & Chân ngồi ngay ngắn -->
+    <rect x="130" y="380" width="60" height="90" rx="20" fill="var(--bin-pants-color, #1E88E5)"/>
+    <rect x="210" y="380" width="60" height="90" rx="20" fill="var(--bin-pants-color, #1E88E5)"/>
+    <rect x="142" y="440" width="36" height="70" rx="18" fill="url(#skinWh)"/>
+    <rect x="222" y="440" width="36" height="70" rx="18" fill="url(#skinWh)"/>
+    <ellipse cx="160" cy="515" rx="28" ry="16" fill="var(--bin-shoes-color, #1976D2)"/>
+    <ellipse cx="240" cy="515" rx="28" ry="16" fill="var(--bin-shoes-color, #1976D2)"/>
+
+    <!-- Thân áo -->
+    <rect x="110" y="230" width="180" height="170" rx="36" fill="var(--bin-shirt-color, #FDD835)" stroke="#F57F17" stroke-width="4"/>
+
+    <!-- Tay trái đưa ngón trỏ lên môi "suỵt" -->
+    <rect x="180" y="190" width="34" height="90" rx="17" transform="rotate(-15 180 190)" fill="var(--bin-shirt-color, #FDD835)" stroke="#F57F17" stroke-width="3"/>
+    <!-- Bàn tay với ngón trỏ dựng thẳng trước môi -->
+    <circle cx="200" cy="180" r="16" fill="url(#skinWh)"/>
+    <rect x="195" y="145" width="10" height="30" rx="5" fill="url(#skinWh)" stroke="#FFA726" stroke-width="2"/>
+
+    <!-- Tay phải chống nhẹ bên hông -->
+    <rect x="80" y="250" width="38" height="100" rx="19" transform="rotate(15 80 250)" fill="var(--bin-shirt-color, #FDD835)" stroke="#F57F17" stroke-width="3"/>
+
+    <!-- Đầu & Mặt Bé Bin -->
+    <circle cx="200" cy="135" r="85" fill="url(#skinWh)" stroke="#FFA726" stroke-width="4"/>
+    <circle cx="115" cy="140" r="18" fill="url(#skinWh)"/>
+    <circle cx="285" cy="140" r="18" fill="url(#skinWh)"/>
+    
+    <!-- Tóc nâu đen -->
+    <path d="M 115 115 C 115 45, 285 45, 285 115 C 275 90, 230 80, 200 95 C 170 80, 125 90, 115 115 Z" fill="#3E2723"/>
+    <path d="M 195 55 Q 210 25 225 40 Q 215 55 205 60 Z" fill="#3E2723"/>
+    
+    <!-- Mắt nháy tinh nghịch -->
+    <circle cx="165" cy="130" r="10" fill="#212121"/>
+    <circle cx="162" cy="127" r="3" fill="#FFFFFF"/>
+    <!-- Mắt phải chớp nháy duyên dáng -->
+    <path d="M 225 130 Q 235 122 245 130" stroke="#212121" stroke-width="4" fill="none" stroke-linecap="round"/>
+
+    <circle cx="145" cy="150" r="14" fill="#FF8A80" opacity="0.6"/>
+    <circle cx="255" cy="150" r="14" fill="#FF8A80" opacity="0.6"/>
+
+    <!-- Miệng chúm chím -->
+    <ellipse cx="200" cy="160" rx="8" ry="10" fill="#D32F2F"/>
+  </g>
+</svg>

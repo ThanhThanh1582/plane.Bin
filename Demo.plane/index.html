@@ -1,0 +1,1430 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0, user-scalable=yes, viewport-fit=cover">
+    <title>Cùng Bé Bin Đi Máy Bay (13 Hoạt Động Kỹ Năng Độc Lập - Master Storybook UI)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+
+<style id="runtime-hotfix-css">
+/* ===== HOTFIX SHELL ===== */
+.hidden { display: none !important; }
+.activity-container { display: none; }
+.activity-container.active { display: block; }
+.activity-intro-view.hidden,
+.activity-gameplay-view.hidden,
+.activity-feedback-overlay.hidden { display: none !important; }
+
+.parent-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(22,34,49,.55);
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+}
+.parent-modal-overlay.open { display: flex; }
+.parent-control-card {
+  width: min(720px, 94vw);
+  max-height: 88vh;
+  overflow: auto;
+  background: #fff;
+  border-radius: 24px;
+  padding: 18px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.25);
+}
+.golden-medal-modal {
+  display: none;
+  position: fixed;
+  inset: 8% 10%;
+  z-index: 9000;
+  background: rgba(255,255,255,.97);
+  border-radius: 28px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 20px 70px rgba(0,0,0,.28);
+}
+.golden-medal-modal.show { display: block; }
+
+.stage-dot.locked { opacity: .38; cursor: not-allowed; filter: grayscale(1); }
+.stage-dot.completed { opacity: .9; }
+.stage-dot.active { opacity: 1; filter: none; }
+
+.asset-load-error {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:140px;
+  border:2px dashed #d66;
+  background:#fff7f7;
+  color:#9d2929;
+  border-radius:16px;
+  padding:12px;
+  font:700 14px/1.4 system-ui,sans-serif;
+  text-align:center;
+}
+
+#bin-character-mount-lvl1 {
+  position: relative;
+  min-width: 180px;
+  min-height: 300px;
+}
+.bin-runtime-base,
+.bin-runtime-layer {
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  object-fit:contain;
+  pointer-events:none;
+}
+.bin-runtime-base {
+  inset:0;
+  width:100%;
+  height:100%;
+}
+.bin-runtime-layer.shirt { width:48%; top:31%; z-index:3; }
+.bin-runtime-layer.pants { width:46%; top:55%; z-index:4; }
+.bin-runtime-layer.shoes { width:52%; top:78%; z-index:5; }
+
+.runtime-selected {
+  outline: 4px solid #4caf50 !important;
+  transform: scale(1.03);
+}
+.runtime-packed {
+  opacity:.35;
+  pointer-events:none;
+}
+.xray-item-tile.runtime-checked {
+  outline:4px solid #4caf50;
+  border-radius:14px;
+}
+.gate-hud-btn.runtime-correct {
+  background:#c8f7d1 !important;
+  border-color:#2e7d32 !important;
+}
+.real-suitcase-card.runtime-wrong {
+  animation: runtimeShake .25s linear 2;
+}
+@keyframes runtimeShake {
+  0%,100%{transform:translateX(0)}
+  50%{transform:translateX(8px)}
+}
+
+/* ===== REMOVE WHITE BOX AROUND BIN ===== */
+.room-bin-character-mount,
+#bin-character-mount-lvl1,
+.bin-character-frame,
+.bin-character-mount {
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    overflow: visible !important;
+}
+
+#bin-character-mount-lvl1 img,
+.bin-character-frame img,
+.bin-character-mount img,
+.bin-runtime-base,
+.bin-runtime-layer {
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.room-bin-character-mount::before,
+.room-bin-character-mount::after,
+.bin-character-frame::before,
+.bin-character-frame::after,
+.bin-character-mount::before,
+.bin-character-mount::after {
+    content: none !important;
+    display: none !important;
+}
+</style>
+
+</head>
+<body>
+    <div id="app-root">
+        <!-- Canvas Pháo hoa, Sao lấp lánh & Trái tim -->
+        <canvas id="effects-canvas"></canvas>
+
+        <!-- TẦNG 1: TOP BAR - 8 CHẶNG LỚN & CỔNG BA MẸ -->
+        <header class="top-nav">
+            <nav class="stage-indicators" aria-label="Tiến trình 8 chặng chuyến bay">
+                <button class="stage-dot active" data-stage="1" aria-label="Chặng 1: Chuẩn bị trang phục">👕</button>
+                <button class="stage-dot locked" data-stage="2" aria-label="Chặng 2: Xếp hành lý">🧳</button>
+                <button class="stage-dot locked" data-stage="3" aria-label="Chặng 3: Kiểm tra an ninh">🎫</button>
+                <button class="stage-dot locked" data-stage="4" aria-label="Chặng 4: Tìm Cổng Bay">🚪</button>
+                <button class="stage-dot locked" data-stage="5" aria-label="Chặng 5: Ngồi trên máy bay">🦸</button>
+                <button class="stage-dot locked" data-stage="6" aria-label="Chặng 6: Ngắm mây">☁️</button>
+                <button class="stage-dot locked" data-stage="7" aria-label="Chặng 7: Lịch sự">🤫</button>
+                <button class="stage-dot locked" data-stage="8" aria-label="Chặng 8: Hạ cánh & Nhận vali">🏆</button>
+            </nav>
+
+            <!-- Cổng Ba Mẹ (Giữ 3 giây để mở) -->
+            <button id="btn-parent-gate" class="tycoon-btn parent-gate-btn" aria-label="Cổng Ba Mẹ (Giữ 3 giây)">
+                <svg class="parent-hold-ring" viewBox="0 0 60 60">
+                    <circle id="parent-ring-circle" cx="30" cy="30" r="26"></circle>
+                </svg>
+                ⚙️ <span>Ba Mẹ</span>
+            </button>
+        </header>
+
+        <!-- TẦNG 2: TIẾN TRÌNH PHỤ & LỜI THOẠI BA MẸ ĐỌC -->
+        <div class="parent-prompt-container">
+            <div id="sub-progress-bar" class="sub-progress-bar">
+                <span id="sub-progress-text">Chặng 1 — Hoạt động 1: Chọn trang phục</span>
+            </div>
+
+            <div class="parent-prompt-signboard">
+                <div id="parent-prompt-avatar" class="prompt-avatar-badge">👩</div>
+                <span id="parent-prompt-text" class="prompt-speech-text">“Bin sắp đi máy bay rồi. Con chọn bộ đồ nào giúp Bin dễ vận động nhé!”</span>
+            </div>
+        </div>
+
+        <!-- TẦNG 3: VIEWPORT 13 HOẠT ĐỘNG ĐỘC LẬP -->
+        <main class="screens-viewport">
+
+            <!-- ==========================================================================
+                 CHẶNG 1 — HOẠT ĐỘNG 1: CHỌN TRANG PHỤC THOẢI MÁI (100% JPG ARTWORK)
+                 ========================================================================== -->
+            <section id="act-1" class="activity-container active" data-act="1" data-stage="1">
+                <div class="activity-intro-view" id="intro-act-1">
+                    <span class="intro-header-badge">CHẶNG 1 — HOẠT ĐỘNG 1</span>
+                    <h2 class="intro-activity-title">CHỌN TRANG PHỤC THOẢI MÁI</h2>
+                    <div class="intro-art-frame">
+                        <img src="assets/images/act1_bedroom_full_bin_1787803632562.jpg" alt="Phòng ngủ Bé Bin">
+                    </div>
+                    <p class="intro-prompt-quote">Mẹ: “Bin sắp đi máy bay rồi. Con chọn bộ đồ nào giúp Bin dễ vận động nhé!”</p>
+                    <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="1" style="font-size: 17px; padding: 8px 28px;">
+                        BẮT ĐẦU HOẠT ĐỘNG 🚀
+                    </button>
+                </div>
+
+                <div class="activity-gameplay-view hidden" id="gameplay-act-1">
+                    <div class="level1-room-scene" style="position: relative; width: 100%; max-width: 860px; height: 88%; border-radius: 24px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.18), 0 0 0 4px #FFFFFF; margin: auto 0; padding: 0;">
+                        <!-- Bối cảnh 16:9 full JPG nguyên bản của Bé Bin trong phòng ngủ -->
+                        <img id="act1-room-scene-img" src="assets/images/act1_bedroom_initial_bin_1787803669361.jpg" alt="Phòng ngủ Bé Bin" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;">
+
+                        <!-- Tủ quần áo bên trái căn phòng -->
+                        <div class="room-wardrobe-grid" style="position: absolute; left: 24px; top: 50%; transform: translateY(-50%); z-index: 10; background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(8px); border: 3px solid #FFE082; border-radius: 20px; padding: 8px; box-shadow: 0 8px 20px rgba(0,0,0,0.14); display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;">
+                            <button class="clothes-tile-item" data-clothing-item="true" data-fit="soft" data-type="shirt">
+                                <span style="font-size: 26px;">👕</span>
+                                <span>Áo thun máy bay</span>
+                            </button>
+                            <button class="clothes-tile-item" data-clothing-item="true" data-fit="stiff" data-type="jeans">
+                                <span style="font-size: 26px;">👖</span>
+                                <span>Quần bò cứng</span>
+                            </button>
+                            <button class="clothes-tile-item" data-clothing-item="true" data-fit="soft" data-type="pants">
+                                <span style="font-size: 26px;">🩳</span>
+                                <span>Quần short cam</span>
+                            </button>
+                            <button class="clothes-tile-item" data-clothing-item="true" data-fit="stiff" data-type="dress">
+                                <span style="font-size: 26px;">👗</span>
+                                <span>Bộ yếm rườm rà</span>
+                            </button>
+                            <button class="clothes-tile-item" data-clothing-item="true" data-fit="soft" data-type="shoes">
+                                <span style="font-size: 26px;">👟</span>
+                                <span>Giày dán xé</span>
+                            </button>
+                            <button class="clothes-tile-item" data-clothing-item="true" data-fit="stiff" data-type="boots">
+                                <span style="font-size: 26px;">🥾</span>
+                                <span>Bốt cao cổ</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="activity-feedback-overlay hidden" id="feedback-act-1">
+                        <span class="feedback-text">Mẹ: “Bin sẵn sàng rồi! Mình đi xếp vali nhé!”</span>
+                        <button class="tycoon-btn tycoon-btn-green btn-next-activity" data-next="2">
+                            TIẾP TỤC 🧳 ➡️
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==========================================================================
+                 CHẶNG 2 — HOẠT ĐỘNG 2: XẾP ĐỒ VÀO VALI (VALI MỞ THỰC TẾ + BỈM + GẤU BÔNG)
+                 ========================================================================== -->
+            <section id="act-2" class="activity-container" data-act="2" data-stage="2">
+                <div class="activity-intro-view" id="intro-act-2">
+                    <span class="intro-header-badge">CHẶNG 2 — HOẠT ĐỘNG 2</span>
+                    <h2 class="intro-activity-title">XẾP ĐỒ VÀO VALI</h2>
+                    <div class="intro-art-frame">
+                        <img src="assets/images/act2_packing_dad_bin_exact_1787803736224.jpg" alt="Bé Bin và Bố xếp đồ vào vali">
+                    </div>
+                    <p class="intro-prompt-quote">Bố: “Bin mang gì đi máy bay nhỉ? Con xếp vali giúp Bin nhé!”</p>
+                    <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="2" style="font-size: 17px; padding: 8px 28px;">
+                        BẮT ĐẦU HOẠT ĐỘNG 🚀
+                    </button>
+                </div>
+
+                <div class="activity-gameplay-view hidden" id="gameplay-act-2">
+                    <div class="level1-room-scene" style="position: relative; width: 100%; max-width: 860px; height: 88%; border-radius: 24px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.18), 0 0 0 4px #FFFFFF; margin: auto 0; padding: 0;">
+                        <!-- Ảnh nền Vali Mở Rộng 16:9 JPG cùng Bố và Bé Bin -->
+                        <img src="assets/images/act2_packing_dad_bin_exact_1787803736224.jpg" alt="Vali mở xếp đồ" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;">
+
+                        <!-- Khoang chứa đồ đã xếp vào vali giữa màn hình -->
+                        <div id="suitcase-packed-items" style="position: absolute; left: 50%; top: 56%; transform: translate(-50%, -50%); width: 220px; height: 180px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: center; z-index: 10; pointer-events: none;">
+                            <!-- Đồ xếp vào sẽ hiện tại đây dạng mini card -->
+                        </div>
+
+                        <!-- Cột đồ bên trái (Thẻ hình ảnh minh họa) -->
+                        <div style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); z-index: 20; display: flex; flex-direction: column; gap: 8px;">
+                            <button class="luggage-item-card" data-luggage-item="true" data-category="PACK" data-name="Bỉm em bé" data-img="assets/images/item_diaper_bin_1787805919326.jpg">
+                                <img class="luggage-item-thumb" src="assets/images/item_diaper_bin_1787805919326.jpg" alt="Bỉm em bé">
+                                <span class="luggage-item-title">Bỉm em bé</span>
+                            </button>
+                            <button class="luggage-item-card" data-luggage-item="true" data-category="PACK" data-name="Gấu bông nhỏ" data-img="assets/images/item_teddy_bin_1787805945593.jpg">
+                                <img class="luggage-item-thumb" src="assets/images/item_teddy_bin_1787805945593.jpg" alt="Gấu bông">
+                                <span class="luggage-item-title">Gấu bông nhỏ</span>
+                            </button>
+                            <button class="luggage-item-card" data-luggage-item="true" data-category="PACK" data-name="Quần áo mềm" data-img="assets/images/item_clothes_bin_1787805969758.jpg">
+                                <img class="luggage-item-thumb" src="assets/images/item_clothes_bin_1787805969758.jpg" alt="Quần áo">
+                                <span class="luggage-item-title">Quần áo mềm</span>
+                            </button>
+                            <button class="luggage-item-card" data-luggage-item="true" data-category="LEAVE_HOME" data-name="Kéo nhọn" data-img="assets/images/item_sharp_scissors_1787806087872.jpg">
+                                <img class="luggage-item-thumb" src="assets/images/item_sharp_scissors_1787806087872.jpg" alt="Kéo nhọn">
+                                <span class="luggage-item-title">Kéo nhọn</span>
+                            </button>
+                        </div>
+
+                        <!-- Cột đồ bên phải (Thẻ hình ảnh minh họa) -->
+                        <div style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); z-index: 20; display: flex; flex-direction: column; gap: 8px;">
+                            <button class="luggage-item-card" data-luggage-item="true" data-category="PACK" data-name="Bàn chải" data-img="assets/images/item_toothbrush_bin_1787805999817.jpg">
+                                <img class="luggage-item-thumb" src="assets/images/item_toothbrush_bin_1787805999817.jpg" alt="Bàn chải">
+                                <span class="luggage-item-title">Bàn chải</span>
+                            </button>
+                            <button class="luggage-item-card" data-luggage-item="true" data-category="PACK" data-name="Mũ che nắng" data-img="assets/images/item_sunhat_bin_1787806030489.jpg">
+                                <img class="luggage-item-thumb" src="assets/images/item_sunhat_bin_1787806030489.jpg" alt="Mũ che nắng">
+                                <span class="luggage-item-title">Mũ che nắng</span>
+                            </button>
+                            <button class="luggage-item-card" data-luggage-item="true" data-category="LEAVE_HOME" data-name="Ô tô to" data-img="assets/images/item_big_car_toy_1787806058422.jpg">
+                                <img class="luggage-item-thumb" src="assets/images/item_big_car_toy_1787806058422.jpg" alt="Ô tô đồ chơi">
+                                <span class="luggage-item-title">Ô tô đồ chơi</span>
+                            </button>
+                            <button class="luggage-item-card" data-luggage-item="true" data-category="LEAVE_HOME" data-name="Bình nước lớn" data-img="assets/images/item_large_bottle_1787806116315.jpg">
+                                <img class="luggage-item-thumb" src="assets/images/item_large_bottle_1787806116315.jpg" alt="Bình nước lớn">
+                                <span class="luggage-item-title">Bình nước lớn</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="activity-feedback-overlay hidden" id="feedback-act-2">
+                        <span class="feedback-text">Mẹ: “Vali của Bin sẵn sàng rồi! Đến sân bay thôi!”</span>
+                        <button class="tycoon-btn tycoon-btn-green btn-next-activity" data-next="3">
+                            ĐẾN SÂN BAY 🚗 ➡️
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==========================================================================
+                 CHẶNG 3 — HOẠT ĐỘNG 3: KIỂM TRA VÉ & CHỌN SỐ GHẾ (KHOANH ĐỎ SỐ GHẾ 12A)
+                 ========================================================================== -->
+            <section id="act-3" class="activity-container" data-act="3" data-stage="3">
+                <div class="activity-intro-view" id="intro-act-3">
+                    <span class="intro-header-badge">CHẶNG 3 — HOẠT ĐỘNG 3</span>
+                    <h2 class="intro-activity-title">KIỂM TRA VÉ & CHỌN SỐ GHẾ</h2>
+                    <div class="intro-art-frame">
+                        <img src="assets/images/act3_checkin_mom_bin_exact_1787803769855.jpg" alt="Quầy làm thủ tục sân bay">
+                    </div>
+                    <p class="intro-prompt-quote">Mẹ: “Đến quầy kiểm tra rồi. Con tìm và chọn số ghế của Bin trên vé nhé!”</p>
+                    <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="3" style="font-size: 17px; padding: 8px 28px;">
+                        BẮT ĐẦU HOẠT ĐỘNG 🚀
+                    </button>
+                </div>
+
+                <div class="activity-gameplay-view hidden" id="gameplay-act-3">
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 88%; gap: 14px;">
+                        
+                        <div style="background: rgba(255, 255, 255, 0.95); padding: 6px 20px; border-radius: 999px; font-size: 14px; font-weight: 900; color: #0277BD; border: 2px solid #81D4FA; box-shadow: 0 4px 10px rgba(0,0,0,0.06);">
+                            👇 Chạm vào ô <strong style="color: #E65100;">SỐ GHẾ</strong> trên vé để khoanh tròn và xác nhận
+                        </div>
+
+                        <!-- THẺ LÊN MÁY BAY CHUẨN CỦA BÉ BIN -->
+                        <div class="real-boarding-pass" id="boarding-pass-card" style="width: 100%; max-width: 660px; background: #FFFFFF; border-radius: 24px; border: 4px solid #0288D1; box-shadow: 0 14px 35px rgba(2, 136, 209, 0.22); overflow: hidden; position: relative;">
+                            <!-- Dải tiêu đề vé -->
+                            <div style="background: linear-gradient(90deg, #0288D1, #01579B); color: white; padding: 12px 24px; display: flex; justify-content: space-between; align-items: center;">
+                                <div style="font-weight: 900; font-size: 16px; display: flex; align-items: center; gap: 8px;">
+                                    <span>✈️ THẺ LÊN MÁY BAY (BOARDING PASS)</span>
+                                </div>
+                                <div style="font-weight: 900; font-size: 14px; background: rgba(255,255,255,0.25); padding: 4px 14px; border-radius: 999px;">
+                                    CHUYẾN BAY VN-304
+                                </div>
+                            </div>
+                            
+                            <!-- Nội dung vé máy bay -->
+                            <div style="padding: 22px 26px; background: #FFFDF9; display: grid; grid-template-columns: 1.4fr 1fr; gap: 16px; align-items: center;">
+                                <div style="display: flex; flex-direction: column; gap: 12px;">
+                                    <div>
+                                        <div style="font-size: 11px; font-weight: 800; color: #78909C; text-transform: uppercase;">HÀNH KHÁCH / PASSENGER</div>
+                                        <div style="font-size: 22px; font-weight: 900; color: #01579B;">BÉ BIN 🧒</div>
+                                    </div>
+                                    
+                                    <div style="display: flex; gap: 16px; align-items: center;">
+                                        <div>
+                                            <div style="font-size: 11px; font-weight: 800; color: #78909C;">TỪ / FROM</div>
+                                            <div style="font-size: 17px; font-weight: 900; color: #263238;">HÀ NỘI (HAN)</div>
+                                        </div>
+                                        <div style="font-size: 22px; color: #0288D1; font-weight: 900;">➔</div>
+                                        <div>
+                                            <div style="font-size: 11px; font-weight: 800; color: #78909C;">ĐẾN / TO</div>
+                                            <div style="font-size: 17px; font-weight: 900; color: #263238;">ĐÀ NẴNG (DAD)</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div style="display: flex; gap: 12px; justify-content: flex-end; align-items: center;">
+                                    <!-- Ô SỐ GHẾ (CHẠM VÀO ĐỂ KHOANH ĐỎ) -->
+                                    <div id="seat-selection-btn" class="circle-highlight-seat" style="background: #E1F5FE; border: 3px solid #0288D1; border-radius: 18px; padding: 10px 16px; text-align: center; min-width: 90px;">
+                                        <div style="font-size: 11px; font-weight: 800; color: #0288D1;">SỐ GHẾ</div>
+                                        <div style="font-size: 26px; font-weight: 900; color: #01579B;">12A</div>
+                                        <!-- Vòng tròn đỏ vẽ tay khoanh tròn số ghế -->
+                                        <div id="seat-red-circle" class="seat-red-circle"></div>
+                                    </div>
+
+                                    <div style="background: #FFF3E0; border: 2px solid #FF9800; border-radius: 18px; padding: 10px 16px; text-align: center; min-width: 90px;">
+                                        <div style="font-size: 11px; font-weight: 800; color: #E65100;">CỬA RA</div>
+                                        <div style="font-size: 26px; font-weight: 900; color: #E65100;">03</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Con dấu ĐÃ KIỂM TRA -->
+                            <div id="pass-stamp-overlay" style="display: none; position: absolute; right: 30px; top: 48%; transform: translateY(-50%) rotate(-12deg); border: 4px solid #D32F2F; color: #D32F2F; padding: 8px 20px; border-radius: 14px; font-weight: 900; font-size: 20px; text-transform: uppercase; letter-spacing: 1.5px; background: rgba(255,255,255,0.92); box-shadow: 0 4px 16px rgba(211,47,47,0.35); z-index: 20;">
+                                ✓ ĐÃ KIỂM TRA
+                            </div>
+                        </div>
+
+                        <button id="btn-show-ticket-3" class="tycoon-btn tycoon-btn-primary" style="font-size: 16px; padding: 8px 28px;">
+                            🎫 Chạm chọn Ghế 12A & đóng dấu vé
+                        </button>
+                    </div>
+
+                    <div class="activity-feedback-overlay hidden" id="feedback-act-3">
+                        <span class="feedback-text">Mẹ: “Giỏi lắm! Ghế 12A là ghế cạnh cửa sổ của Bin đấy!”</span>
+                        <button class="tycoon-btn tycoon-btn-green btn-next-activity" data-next="4">
+                            SOI HÀNH LÝ 📦 ➡️
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==========================================================================
+                 CHẶNG 3 — HOẠT ĐỘNG 4: SOI HÀNH LÝ QUA MÁY QUÉT (CHUẨN BỐ & BIN + MÀN HÌNH TO RÕ)
+                 ========================================================================== -->
+            <section id="act-4" class="activity-container" data-act="4" data-stage="3">
+                <div class="activity-intro-view" id="intro-act-4">
+                    <span class="intro-header-badge">CHẶNG 3 — HOẠT ĐỘNG 4</span>
+                    <h2 class="intro-activity-title">SOI HÀNH LÝ QUA MÁY QUÉT</h2>
+                    <div class="intro-art-frame">
+                        <img src="assets/images/act4_xray_dad_bin_exact_1787803835711.jpg" alt="Bin và Bố quan sát vali qua máy soi">
+                    </div>
+                    <p class="intro-prompt-quote">Bố: “Bây giờ vali của Bin sẽ đi qua máy soi. Con xem bên trong có gì nhé!”</p>
+                    <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="4" style="font-size: 17px; padding: 8px 28px;">
+                        BẮT ĐẦU HOẠT ĐỘNG 🚀
+                    </button>
+                </div>
+
+                <div class="activity-gameplay-view hidden" id="gameplay-act-4">
+                    <div class="unified-scene-stage">
+                        <img class="unified-scene-img" src="assets/images/act4_xray_dad_bin_exact_1787803835711.jpg" alt="Màn hình soi X-Ray">
+
+                        <div class="scene-interactive-hud" style="position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); z-index: 20; background: rgba(255,255,255,0.95); padding: 8px 18px; border-radius: 18px; display: flex; gap: 10px; align-items: center; box-shadow: 0 6px 16px rgba(0,0,0,0.15);">
+                            <span style="font-size: 13px; font-weight: 900; color: #004D40;">Chạm 3 vật an toàn trong vali:</span>
+                            <button class="tycoon-btn xray-item-tile" data-name="Bỉm">🍼 Bỉm</button>
+                            <button class="tycoon-btn xray-item-tile" data-name="Gấu bông">🧸 Gấu bông</button>
+                            <button class="tycoon-btn xray-item-tile" data-name="Quần áo">👕 Quần áo</button>
+                            <button class="tycoon-btn xray-item-tile" data-name="Mũ che nắng">👒 Mũ nắng</button>
+                        </div>
+                    </div>
+
+                    <div class="activity-feedback-overlay hidden" id="feedback-act-4">
+                        <span class="feedback-text">Mẹ: “Vali của Bin an toàn rồi! Qua cổng kiểm tra nhé!”</span>
+                        <button class="tycoon-btn tycoon-btn-green btn-next-activity" data-next="5">
+                            QUA CỔNG AN NINH 🚪 ➡️
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==========================================================================
+                 CHẶNG 3 — HOẠT ĐỘNG 5: ĐI QUA CỔNG AN NINH (100% JPG ARTWORK)
+                 ========================================================================== -->
+            <section id="act-5" class="activity-container" data-act="5" data-stage="3">
+                <div class="activity-intro-view" id="intro-act-5">
+                    <span class="intro-header-badge">CHẶNG 3 — HOẠT ĐỘNG 5</span>
+                    <h2 class="intro-activity-title">ĐI QUA CỔNG AN NINH</h2>
+                    <div class="intro-art-frame">
+                        <img src="assets/images/act5_gate_bin_exact_1787803993294.jpg" alt="Bin đi qua cổng an ninh">
+                    </div>
+                    <p class="intro-prompt-quote">Mẹ: “Đến cổng an ninh rồi. Con giúp Bin đi qua nhé!”</p>
+                    <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="5" style="font-size: 17px; padding: 8px 28px;">
+                        BẮT ĐẦU HOẠT ĐỘNG 🚀
+                    </button>
+                </div>
+
+                <div class="activity-gameplay-view hidden" id="gameplay-act-5">
+                    <div class="unified-scene-stage">
+                        <img id="scene-img-act-5" class="unified-scene-img" src="assets/images/act5_gate_bin_exact_1787803993294.jpg" alt="Scene Cổng an ninh">
+
+                        <div class="scene-interactive-hud">
+                            <button id="btn-walk-gate-5" class="tycoon-btn tycoon-btn-primary" style="font-size: 17px; padding: 8px 24px;">
+                                🚶 Chạm để Bin bước qua cổng an ninh
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="activity-feedback-overlay hidden" id="feedback-act-5">
+                        <span class="feedback-text">Mẹ: “Bíp boong! Bin qua cửa an toàn rồi!”</span>
+                        <button class="tycoon-btn tycoon-btn-green btn-next-activity" data-next="6">
+                            TÌM CỔNG BAY 🚪 ➡️
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==========================================================================
+                 CHẶNG 4 — HOẠT ĐỘNG 6: TÌM ĐÚNG CỔNG 03 (JPG ARTWORK TỪ ARTIFACTS)
+                 ========================================================================== -->
+            <section id="act-6" class="activity-container" data-act="6" data-stage="4">
+                <div class="activity-intro-view" id="intro-act-6">
+                    <span class="intro-header-badge">CHẶNG 4 — HOẠT ĐỘNG 6</span>
+                    <h2 class="intro-activity-title">TÌM ĐÚNG CỔNG 03</h2>
+                    <div class="intro-art-frame">
+                        <img src="assets/images/act6_gate03_dad_bin_exact_1787804038291.jpg" alt="Tìm Cổng 03">
+                    </div>
+                    <p class="intro-prompt-quote">Bố: “Vé của Bin ghi số 03. Con tìm cổng số 03 nhé!”</p>
+                    <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="6" style="font-size: 17px; padding: 8px 28px;">
+                        BẮT ĐẦU HOẠT ĐỘNG 🚀
+                    </button>
+                </div>
+
+                <div class="activity-gameplay-view hidden" id="gameplay-act-6">
+                    <div class="unified-scene-stage">
+                        <img class="unified-scene-img" src="assets/images/act6_gate03_dad_bin_exact_1787804038291.jpg" alt="Sảnh chờ Cổng 03">
+
+                        <div class="scene-interactive-hud">
+                            <span style="font-weight: 900; font-size: 13px; color: #37474F;">Vé ghi Cổng 03. Con chọn:</span>
+                            <button class="tycoon-btn gate-hud-btn" data-gate="01">Cổng 01</button>
+                            <button class="tycoon-btn gate-hud-btn" data-gate="02">Cổng 02</button>
+                            <button class="tycoon-btn gate-hud-btn" data-gate="03">Cổng 03 ✈️</button>
+                            <button class="tycoon-btn gate-hud-btn" data-gate="05">Cổng 05</button>
+                        </div>
+                    </div>
+
+                    <div class="activity-feedback-overlay hidden" id="feedback-act-6">
+                        <span class="feedback-text">Tiếp viên: “Đúng rồi! Cổng 03 đây rồi! Chào mừng Bin lên máy bay!”</span>
+                        <button class="tycoon-btn tycoon-btn-green btn-next-activity" data-next="7">
+                            LÊN MÁY BAY ✈️ ➡️
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==========================================================================
+                 CHẶNG 5 — HOẠT ĐỘNG 7: CÀI DÂY AN TOÀN (TRẮC NGHIỆM HÌNH ẢNH)
+                 ========================================================================== -->
+            <section id="act-7" class="activity-container" data-act="7" data-stage="5">
+                <div class="activity-intro-view" id="intro-act-7">
+                    <span class="intro-header-badge">CHẶNG 5 — HOẠT ĐỘNG 7</span>
+                    <h2 class="intro-activity-title">CÀI DÂY AN TOÀN TRÊN GHẾ</h2>
+                    <div class="intro-art-frame">
+                        <img src="assets/images/act7_cabin_family_exact_1787803601954.jpg" alt="Dãy 3 ghế máy bay cùng Bố Mẹ">
+                    </div>
+                    <p class="intro-prompt-quote">Mẹ: “Bin ngồi vào ghế 12A rồi. Con chọn hành động đúng để bảo vệ an toàn nhé!”</p>
+                    <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="7" style="font-size: 17px; padding: 8px 28px;">
+                        BẮT ĐẦU HOẠT ĐỘNG 🚀
+                    </button>
+                </div>
+
+                <div class="activity-gameplay-view hidden" id="gameplay-act-7">
+                    <div class="unified-scene-stage">
+                        <img id="scene-img-act-7" class="unified-scene-img" src="assets/images/act7_cabin_family_exact_1787803601954.jpg" alt="Cài dây an toàn 3 ghế">
+                        
+                        <div class="scene-interactive-hud" id="hud-quiz-act-7">
+                            <div class="visual-quiz-container">
+                                <button class="visual-quiz-card" data-choice="wrong" data-act="7">
+                                    <img src="assets/images/choice_act7_unbuckled_1787806276793.jpg" alt="Đứng nhảy">
+                                    <span class="quiz-label">Đứng nhảy trên ghế</span>
+                                </button>
+                                <button class="visual-quiz-card" data-choice="correct" data-act="7">
+                                    <img src="assets/images/choice_act7_buckled_1787806309848.jpg" alt="Cài dây">
+                                    <span class="quiz-label">Cài dây an toàn (CẠCH!)</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="activity-feedback-overlay hidden" id="feedback-act-7">
+                        <span class="feedback-text">Mẹ: “CẠCH! Dây an toàn chắc chắn rồi! Máy bay chuẩn bị cất cánh!”</span>
+                        <button class="tycoon-btn tycoon-btn-green btn-next-activity" data-next="8">
+                            GIÚP TAI DỄ CHỊU 🥤 ➡️
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==========================================================================
+                 CHẶNG 5 — HOẠT ĐỘNG 8: GIÚP TAI DỄ CHỊU (TRẮC NGHIỆM HÌNH ẢNH)
+                 ========================================================================== -->
+            <section id="act-8" class="activity-container" data-act="8" data-stage="5">
+                <div class="activity-intro-view" id="intro-act-8">
+                    <span class="intro-header-badge">CHẶNG 5 — HOẠT ĐỘNG 8</span>
+                    <h2 class="intro-activity-title">GIÚP TAI DỄ CHỊU KHI CẤT CÁNH</h2>
+                    <div class="intro-art-frame">
+                        <img src="assets/images/act8_cabin_drink_exact_1787803876001.jpg" alt="Bin uống nước trên ghế máy bay">
+                    </div>
+                    <p class="intro-prompt-quote">Mẹ: “Khi máy bay bay lên cao làm tai khó chịu, con chọn cách nào giúp Bin nhé!”</p>
+                    <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="8" style="font-size: 17px; padding: 8px 28px;">
+                        BẮT ĐẦU HOẠT ĐỘNG 🚀
+                    </button>
+                </div>
+
+                <div class="activity-gameplay-view hidden" id="gameplay-act-8">
+                    <div class="unified-scene-stage">
+                        <img id="scene-img-act-8" class="unified-scene-img" src="assets/images/act8_cabin_drink_exact_1787803876001.jpg" alt="Bin uống nước trên ghế">
+                        
+                        <div class="scene-interactive-hud" id="hud-quiz-act-8">
+                            <div class="visual-quiz-container">
+                                <button class="visual-quiz-card" data-choice="wrong" data-act="8">
+                                    <img src="assets/images/choice_act8_cry_1787806342582.jpg" alt="Bịt tai khóc">
+                                    <span class="quiz-label">Bịt tai, khóc nhè</span>
+                                </button>
+                                <button class="visual-quiz-card" data-choice="correct" data-act="8">
+                                    <img src="assets/images/choice_act8_drink_1787806384301.jpg" alt="Uống nước">
+                                    <span class="quiz-label">Uống từng ngụm nước nhỏ</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="activity-feedback-overlay hidden" id="feedback-act-8">
+                        <span class="feedback-text">Bin: “Nuốt nước ực một cái, tai Bin hết khó chịu rồi!”</span>
+                        <button class="tycoon-btn tycoon-btn-green btn-next-activity" data-next="9">
+                            NGẮM MÂY ☁️ ➡️
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==========================================================================
+                 CHẶNG 6 — HOẠT ĐỘNG 9: NGẮM MÂY VÀ TƯỞNG TƯỢNG (JPG ARTWORK TỪ ARTIFACTS)
+                 ========================================================================== -->
+            <section id="act-9" class="activity-container" data-act="9" data-stage="6">
+                <div class="activity-intro-view" id="intro-act-9">
+                    <span class="intro-header-badge">CHẶNG 6 — HOẠT ĐỘNG 9</span>
+                    <h2 class="intro-activity-title">NGẮM MÂY VÀ TƯỞNG TƯỢNG</h2>
+                    <div class="intro-art-frame">
+                        <img src="assets/images/scene_act9_window_1787730327041.jpg" alt="Ngắm mây">
+                    </div>
+                    <p class="intro-prompt-quote">Bin: “Bin thấy đám mây giống hình gì nhỉ? Con nhìn cùng Bin nhé!”</p>
+                    <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="9" style="font-size: 17px; padding: 8px 28px;">
+                        BẮT ĐẦU HOẠT ĐỘNG 🚀
+                    </button>
+                </div>
+
+                <div class="activity-gameplay-view hidden" id="gameplay-act-9">
+                    <div class="unified-scene-stage">
+                        <img id="scene-img-act-9" class="unified-scene-img" src="assets/images/scene_act9_window_1787730327041.jpg" alt="Scene Ngắm mây qua cửa sổ">
+
+                        <div class="scene-interactive-hud">
+                            <span style="font-weight: 900; font-size: 14px; color: #0277BD;">Chạm đám mây:</span>
+                            <button class="tycoon-btn morph-cloud-btn" data-name="Chú thỏ 🐰">🐰 Thỏ</button>
+                            <button class="tycoon-btn morph-cloud-btn" data-name="Con rồng bay 🐉">🐉 Rồng</button>
+                            <button class="tycoon-btn morph-cloud-btn" data-name="Thuyền buồm ⛵">⛵ Thuyền</button>
+                        </div>
+                    </div>
+
+                    <div class="activity-feedback-overlay hidden" id="feedback-act-9">
+                        <span class="feedback-text">Bin: “Những đám mây thật kỳ diệu!”</span>
+                        <button class="tycoon-btn tycoon-btn-green btn-next-activity" data-next="10">
+                            HỌC NÓI NHỎ 🤫 ➡️
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==========================================================================
+                 CHẶNG 7 — HOẠT ĐỘNG 10: NÓI NHỎ VỪA ĐỦ NGHE (TRẮC NGHIỆM HÌNH ẢNH)
+                 ========================================================================== -->
+            <section id="act-10" class="activity-container" data-act="10" data-stage="7">
+                <div class="activity-intro-view" id="intro-act-10">
+                    <span class="intro-header-badge">CHẶNG 7 — HOẠT ĐỘNG 10</span>
+                    <h2 class="intro-activity-title">NÓI NHỎ VỪA ĐỦ NGHE</h2>
+                    <div class="intro-art-frame">
+                        <img src="assets/images/act10_cabin_whisper_exact_1787803921672.jpg" alt="Nói nhỏ trên ghế máy bay">
+                    </div>
+                    <p class="intro-prompt-quote">Mẹ: “Trên máy bay đông người, con chọn cách nói chuyện lịch sự nhé!”</p>
+                    <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="10" style="font-size: 17px; padding: 8px 28px;">
+                        BẮT ĐẦU HOẠT ĐỘNG 🚀
+                    </button>
+                </div>
+
+                <div class="activity-gameplay-view hidden" id="gameplay-act-10">
+                    <div class="unified-scene-stage">
+                        <img id="scene-img-act-10" class="unified-scene-img" src="assets/images/act10_cabin_whisper_exact_1787803921672.jpg" alt="Nói nhỏ dãy 3 ghế">
+
+                        <div class="scene-interactive-hud" id="hud-quiz-act-10">
+                            <div class="visual-quiz-container">
+                                <button class="visual-quiz-card" data-choice="wrong" data-act="10">
+                                    <img src="assets/images/choice_act10_loud_1787806150946.jpg" alt="Nói to">
+                                    <span class="quiz-label">Nói to, la hét 📢</span>
+                                </button>
+                                <button class="visual-quiz-card" data-choice="correct" data-act="10">
+                                    <img src="assets/images/choice_act10_whisper_1787806183105.jpg" alt="Nói nhỏ">
+                                    <span class="quiz-label">Nói nhỏ vừa đủ nghe 🤫</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="activity-feedback-overlay hidden" id="feedback-act-10">
+                        <span class="feedback-text">Bin: “Đúng rồi! Mình nói nhỏ vừa đủ nghe để không làm phiền mọi người!”</span>
+                        <button class="tycoon-btn tycoon-btn-green btn-next-activity" data-next="11">
+                            NGỒI GỌN GÀNG 👟 ➡️
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==========================================================================
+                 CHẶNG 7 — HOẠT ĐỘNG 11: NGỒI GỌN — KHÔNG ĐẠP GHẾ TRƯỚC (TRẮC NGHIỆM HÌNH ẢNH)
+                 ========================================================================== -->
+            <section id="act-11" class="activity-container" data-act="11" data-stage="7">
+                <div class="activity-intro-view" id="intro-act-11">
+                    <span class="intro-header-badge">CHẶNG 7 — HOẠT ĐỘNG 11</span>
+                    <h2 class="intro-activity-title">NGỒI GỌN — KHÔNG ĐẠP GHẾ TRƯỚC</h2>
+                    <div class="intro-art-frame">
+                        <img src="assets/images/act11_cabin_tuckfeet_exact_1787803962458.jpg" alt="Ngồi thu chân gọn gàng">
+                    </div>
+                    <p class="intro-prompt-quote">Bố: “Con chọn tư thế ngồi ngoan giúp Bin không làm phiền người phía trước nhé!”</p>
+                    <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="11" style="font-size: 17px; padding: 8px 28px;">
+                        BẮT ĐẦU HOẠT ĐỘNG 🚀
+                    </button>
+                </div>
+
+                <div class="activity-gameplay-view hidden" id="gameplay-act-11">
+                    <div class="unified-scene-stage">
+                        <img id="scene-img-act-11" class="unified-scene-img" src="assets/images/act11_cabin_tuckfeet_exact_1787803962458.jpg" alt="Ngồi thu chân gọn">
+
+                        <div class="scene-interactive-hud" id="hud-quiz-act-11">
+                            <div class="visual-quiz-container">
+                                <button class="visual-quiz-card" data-choice="wrong" data-act="11">
+                                    <img src="assets/images/choice_act11_kick_1787806213307.jpg" alt="Đạp ghế">
+                                    <span class="quiz-label">Duỗi chân đạp ghế trước 👟</span>
+                                </button>
+                                <button class="visual-quiz-card" data-choice="correct" data-act="11">
+                                    <img src="assets/images/choice_act11_tuck_1787806246494.jpg" alt="Thu chân">
+                                    <span class="quiz-label">Thu chân gọn gàng ✨</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="activity-feedback-overlay hidden" id="feedback-act-11">
+                        <span class="feedback-text">Bố: “Giỏi lắm! Bin ngồi rất ngoan, không đạp vào ghế phía trước!”</span>
+                        <button class="tycoon-btn tycoon-btn-green btn-next-activity" data-next="12">
+                            MÁY BAY HẠ CÁNH 🛬 ➡️
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==========================================================================
+                 CHẶNG 8 — HOẠT ĐỘNG 12: CHỜ DỪNG HẲN RỒI MỚI MỞ DÂY (TRẮC NGHIỆM HÌNH ẢNH)
+                 ========================================================================== -->
+            <section id="act-12" class="activity-container" data-act="12" data-stage="8">
+                <div class="activity-intro-view" id="intro-act-12">
+                    <span class="intro-header-badge">CHẶNG 8 — HOẠT ĐỘNG 12</span>
+                    <h2 class="intro-activity-title">CHỜ MÁY BAY DỪNG HẲN RỒI MỚI MỞ DÂY</h2>
+                    <div class="intro-art-frame">
+                        <img src="assets/images/act7_cabin_family_exact_1787803601954.jpg" alt="Chờ máy bay dừng">
+                    </div>
+                    <p class="intro-prompt-quote">Bố: “Máy bay vừa đáp xuống. Con chọn hành động an toàn giúp Bin nhé!”</p>
+                    <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="12" style="font-size: 17px; padding: 8px 28px;">
+                        BẮT ĐẦU HOẠT ĐỘNG 🚀
+                    </button>
+                </div>
+
+                <div class="activity-gameplay-view hidden" id="gameplay-act-12">
+                    <div class="unified-scene-stage">
+                        <img id="scene-img-act-12" class="unified-scene-img" src="assets/images/act7_cabin_family_exact_1787803601954.jpg" alt="Scene Chờ máy bay dừng">
+
+                        <div class="scene-interactive-hud" id="hud-quiz-act-12">
+                            <div class="visual-quiz-container">
+                                <button class="visual-quiz-card" data-choice="wrong" data-act="12">
+                                    <img src="assets/images/choice_act12_stand_1787806424639.jpg" alt="Đứng dậy sớm">
+                                    <span class="quiz-label">Đứng dậy lấy đồ khi đèn còn đỏ</span>
+                                </button>
+                                <button class="visual-quiz-card" data-choice="correct" data-act="12">
+                                    <img src="assets/images/choice_act12_sit_1787806461834.jpg" alt="Ngồi yên">
+                                    <span class="quiz-label">Ngồi yên thắt dây chờ dừng hẳn</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="activity-feedback-overlay hidden" id="feedback-act-12">
+                        <span class="feedback-text">Mẹ: “Máy bay dừng hẳn rồi. Bây giờ mình mới mở dây nhé!”</span>
+                        <button class="tycoon-btn tycoon-btn-green btn-next-activity" data-next="13">
+                            TÌM VALI CỦA BIN 🧳 ➡️
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==========================================================================
+                 CHẶNG 8 — HOẠT ĐỘNG 13: TÌM ĐÚNG VALI CỦA BIN (5 VALI THỰC TẾ TRONG ARTIFACTS)
+                 ========================================================================== -->
+            <section id="act-13" class="activity-container" data-act="13" data-stage="8" style="background-image: url('assets/backgrounds/bg_baggage.svg');">
+                <div class="activity-intro-view" id="intro-act-13">
+                    <span class="intro-header-badge">CHẶNG 8 — HOẠT ĐỘNG 13</span>
+                    <h2 class="intro-activity-title">TÌM ĐÚNG VALI CỦA BIN</h2>
+                    <div class="intro-art-frame">
+                        <img src="assets/images/act13_carousel_bin_exact_1787804082739.jpg" alt="Bé Bin chờ nhận vali tại băng chuyền">
+                    </div>
+                    <p class="intro-prompt-quote">Bố: “Con tìm chiếc vali đỏ có hình gấu của Bin nhé!”</p>
+                    <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="13" style="font-size: 17px; padding: 8px 28px;">
+                        BẮT ĐẦU HOẠT ĐỘNG 🚀
+                    </button>
+                </div>
+
+                <div class="activity-gameplay-view hidden" id="gameplay-act-13">
+                    <div class="real-carousel-track">
+                        <div class="real-suitcases-orbit">
+                            <!-- 1. Vali đỏ hình gấu của Bin -->
+                            <button class="real-suitcase-card" data-is-bin="true">
+                                <img src="assets/images/suitcase_red_bear_1787731110032.jpg" alt="Vali đỏ hình gấu">
+                            </button>
+                            <!-- 2. Vali xanh tên lửa -->
+                            <button class="real-suitcase-card" data-is-bin="false">
+                                <img src="assets/images/suitcase_blue_rocket_1787731213059.jpg" alt="Vali xanh tên lửa">
+                            </button>
+                            <!-- 3. Vali vàng quả cherry -->
+                            <button class="real-suitcase-card" data-is-bin="false">
+                                <img src="assets/images/suitcase_yellow_cherry_1787731243683.jpg" alt="Vali vàng cherry">
+                            </button>
+                            <!-- 4. Vali xanh lá quả bóng -->
+                            <button class="real-suitcase-card" data-is-bin="false">
+                                <img src="assets/images/suitcase_green_ball_1787731424638.jpg" alt="Vali xanh bóng">
+                            </button>
+                            <!-- 5. Vali tím ngôi sao -->
+                            <button class="real-suitcase-card" data-is-bin="false">
+                                <img src="assets/images/suitcase_purple_star_1787731513646.jpg" alt="Vali tím sao">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MÀN THƯỞNG CUỐI CÙNG -->
+                <div id="golden-medal-modal" class="golden-medal-modal">
+                    <div style="display: flex; justify-content: center; margin-bottom: 6px;">
+                        <img src="assets/images/bin_avatar_exact_1787804218103.jpg" style="width: 160px; height: 160px; object-fit: cover; border-radius: 50%; border: 4px solid #FFD54F; box-shadow: 0 6px 18px rgba(255, 193, 7, 0.4);" alt="Bin nhận huy hiệu">
+                    </div>
+                    <h2 style="font-size: 22px; font-weight: 900; color: #E65100; margin: 4px 0;">HÀNH KHÁCH NHÍ XUẤT SẮC</h2>
+                    <p style="font-size: 14px; font-weight: 800; color: #37474F; margin: 4px 0;">Bé Bin đã hoàn thành chuyến bay đầu tiên!</p>
+                    <div style="background: #E1F5FE; color: #0288D1; padding: 4px 14px; border-radius: 999px; font-weight: 900; font-size: 13px; display: inline-block; margin: 6px 0;">
+                        ✈️ Đã nhận Mô hình Máy Bay vào bộ sưu tập của Bin!
+                    </div>
+
+                    <button id="btn-replay-adventure" class="tycoon-btn tycoon-btn-primary" style="font-size: 17px; padding: 8px 24px; margin-top: 10px;">
+                        🔄 CHƠI LẠI CÙNG BIN
+                    </button>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- CỔNG BA MẸ (P0.1: FIXED OVERLAY, DISPLAY: NONE MẶC ĐỊNH) -->
+        <div id="parent-modal" class="parent-modal-overlay">
+            <div class="parent-control-card">
+                <h2 style="color: #D84315; font-size: 20px; margin-bottom: 8px;">🛡️ Cổng Dành Cho Ba Mẹ</h2>
+                
+                <div class="parent-tip-box">
+                    <strong>💡 Giúp tai bé dễ chịu khi máy bay lên/xuống:</strong> Khi cất cánh hoặc hạ cánh, cho bé ngồi thẳng và uống từng ngụm nước nhỏ để khuyến khích động tác nuốt, giúp tai dễ chịu hơn.
+                </div>
+
+                <div style="margin: 8px 0;">
+                    <strong style="font-size: 13px; color: #37474F;">Chọn nhanh hoạt động:</strong>
+                    <div class="level-jump-grid">
+                        <button class="jump-btn" data-act="1">1. Mặc đồ</button>
+                        <button class="jump-btn" data-act="2">2. Xếp vali</button>
+                        <button class="jump-btn" data-act="3">3. Kiểm tra vé</button>
+                        <button class="jump-btn" data-act="4">4. Soi hành lý</button>
+                        <button class="jump-btn" data-act="5">5. Cổng an ninh</button>
+                        <button class="jump-btn" data-act="6">6. Cổng 03</button>
+                        <button class="jump-btn" data-act="7">7. Cài đai</button>
+                        <button class="jump-btn" data-act="8">8. Uống nước</button>
+                        <button class="jump-btn" data-act="9">9. Ngắm mây</button>
+                        <button class="jump-btn" data-act="10">10. Nói nhỏ</button>
+                        <button class="jump-btn" data-act="11">11. Ngồi gọn</button>
+                        <button class="jump-btn" data-act="12">12. Mở đai</button>
+                        <button class="jump-btn" data-act="13">13. Nhận vali</button>
+                    </div>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin: 6px 0; font-weight: 800; font-size: 13px;">
+                    <span>Âm lượng hiệu ứng:</span>
+                    <input id="setting-volume" type="range" min="0" max="1" step="0.1" value="0.85" style="width: 120px; height: 22px;">
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin: 6px 0; font-weight: 800; font-size: 13px;">
+                    <span>Giảm hiệu ứng chuyển động:</span>
+                    <input id="setting-reduced-motion" type="checkbox" style="width: 20px; height: 20px;">
+                </div>
+
+                <div style="display: flex; gap: 8px; margin-top: 10px;">
+                    <button id="btn-reset-app" class="tycoon-btn" style="flex: 1; font-size: 14px;">
+                        🔄 Chơi lại từ đầu
+                    </button>
+                    <button id="btn-close-parent" class="tycoon-btn tycoon-btn-primary" style="flex: 1; font-size: 14px;">
+                        Đóng Bảng Cài Đặt ✓
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Scripts: character-renderer -> runtime-hotfix-js -->
+    <script src="js/character-renderer.js"></script>
+
+<script id="runtime-controller-js">
+(() => {
+  'use strict';
+
+  const ACTIVITY_META = {
+    1:{stage:1,label:'Chọn trang phục',speaker:'Mẹ',prompt:'Bin sắp đi máy bay rồi. Con chọn bộ đồ nào giúp Bin dễ vận động nhé!'},
+    2:{stage:2,label:'Xếp hành lý',speaker:'Bố',prompt:'Bin mang gì đi máy bay nhỉ? Con xếp vali giúp Bin nhé!'},
+    3:{stage:3,label:'Kiểm tra vé',speaker:'Mẹ',prompt:'Đến quầy kiểm tra rồi. Con giúp Bin đưa vé nhé!'},
+    4:{stage:3,label:'Soi hành lý',speaker:'Bố',prompt:'Bây giờ vali của Bin sẽ đi qua máy soi. Con xem bên trong có gì nhé!'},
+    5:{stage:3,label:'Cổng an ninh',speaker:'Mẹ',prompt:'Đến cổng an ninh rồi. Con giúp Bin đi qua nhé!'},
+    6:{stage:4,label:'Tìm Cổng 03',speaker:'Bố',prompt:'Vé của Bin ghi số 03. Con tìm cổng số 03 nhé!'},
+    7:{stage:5,label:'Cài dây an toàn',speaker:'Mẹ',prompt:'Bin ngồi vào ghế rồi. Con giúp Bin cài dây an toàn nhé!'},
+    8:{stage:5,label:'Giúp tai dễ chịu',speaker:'Mẹ',prompt:'Tai Bin hơi khó chịu. Bin uống một ngụm nước nhé.'},
+    9:{stage:6,label:'Ngắm mây',speaker:'Bin',prompt:'Bin thấy đám mây giống hình gì nhỉ? Con nhìn cùng Bin nhé!'},
+    10:{stage:7,label:'Nói nhỏ',speaker:'Mẹ',prompt:'Trên máy bay mình nói nhỏ vừa đủ nghe nhé.'},
+    11:{stage:7,label:'Ngồi gọn',speaker:'Bố',prompt:'Bin thu chân gọn lại để không chạm ghế phía trước nhé!'},
+    12:{stage:8,label:'Mở dây sau khi dừng',speaker:'Bố',prompt:'Máy bay đang chạy vào chỗ đỗ. Bin vẫn ngồi yên và giữ dây an toàn nhé!'},
+    13:{stage:8,label:'Nhận vali',speaker:'Bố',prompt:'Con tìm chiếc vali đỏ có hình gấu của Bin nhé!'}
+  };
+
+  const SPEAKER_ICON = { 'Mẹ':'👩', 'Bố':'👨', 'Bin':'🧒', 'Tiếp viên':'👩‍✈️' };
+
+  const state = {
+    currentAct: 1,
+    completedActs: new Set(),
+    unlockedStages: new Set([1]),
+    initialized: false,
+    activity12Timer: null,
+    outfit: {shirt:false, pants:false, shoes:false},
+    packed: new Set(),
+    xrayChecked: new Set(),
+    clouds: new Set(),
+    reducedMotion: false
+  };
+
+  function el(id) { return document.getElementById(id); }
+
+  // ---- Pure Web Audio API Synth Engine ----
+  let audioCtx = null;
+  let volume = 0.85;
+
+  function tone(freq, duration=0.12, type='sine') {
+    try {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) return;
+      audioCtx ||= new AudioCtx();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      const o = audioCtx.createOscillator();
+      const g = audioCtx.createGain();
+      const now = audioCtx.currentTime;
+      o.type = type;
+      o.frequency.setValueAtTime(freq, now);
+      g.gain.setValueAtTime(0.18 * volume, now);
+      g.gain.exponentialRampToValueAtTime(0.001, now + duration);
+      o.connect(g);
+      g.connect(audioCtx.destination);
+      o.start(now);
+      o.stop(now + duration + 0.02);
+    } catch(e) {}
+  }
+
+  const sfx = {
+    good() { tone(1046, 0.15); setTimeout(() => tone(1318, 0.22), 90); },
+    bad() { tone(220, 0.12, 'triangle'); },
+    clack() { tone(260, 0.08, 'square'); },
+    stamp() { tone(520, 0.07, 'square'); },
+    pop() { tone(620, 0.08); }
+  };
+
+  const SPEAKER_AVATAR = {
+    'Mẹ': 'assets/images/mom_avatar_exact_1787804124981.jpg',
+    'Bố': 'assets/images/dad_avatar_exact_1787804167793.jpg',
+    'Bin': 'assets/images/bin_avatar_exact_1787804218103.jpg',
+    'Tiếp viên': 'assets/images/attendant_character_sheet_1787725525796.jpg'
+  };
+
+  function showPrompt(speaker, text) {
+    const p = el('parent-prompt-text');
+    const a = el('parent-prompt-avatar');
+    if (p) p.textContent = `“${text}”`;
+    if (a) {
+      const avatarSrc = SPEAKER_AVATAR[speaker];
+      if (avatarSrc) {
+        a.innerHTML = `<img src="${avatarSrc}" alt="${speaker}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;
+      } else {
+        a.textContent = SPEAKER_ICON[speaker] || '🌟';
+      }
+    }
+  }
+
+  function showFeedback(act) {
+    const f = el(`feedback-act-${act}`);
+    if (f) f.classList.remove('hidden');
+  }
+
+  function completeActivity(act) {
+    state.completedActs.add(act);
+    const meta = ACTIVITY_META[act];
+    if (meta) {
+      const nextAct = act + 1;
+      if (ACTIVITY_META[nextAct]) {
+        const nextStage = ACTIVITY_META[nextAct].stage;
+        state.unlockedStages.add(nextStage);
+        document.querySelectorAll('.stage-dot').forEach(dot => {
+          if (Number(dot.dataset.stage) <= nextStage) dot.classList.remove('locked');
+        });
+      }
+    }
+  }
+
+  function updateProgress(act) {
+    const meta = ACTIVITY_META[act];
+    const sub = el('sub-progress-text');
+    if (sub && meta) {
+      sub.textContent = `Chặng ${meta.stage} — Hoạt động ${act}: ${meta.label}`;
+    }
+    if (meta) {
+      document.querySelectorAll('.stage-dot').forEach(dot => {
+        const s = Number(dot.dataset.stage);
+        dot.classList.remove('active');
+        if (s === meta.stage) dot.classList.add('active');
+        if (s < meta.stage || state.completedActs.has(act)) dot.classList.add('completed');
+      });
+    }
+  }
+
+  function showActivity(act) {
+    if (!ACTIVITY_META[act]) return;
+    document.querySelectorAll('.activity-container').forEach(s => s.classList.remove('active'));
+    
+    const actContainer = el(`act-${act}`);
+    if (actContainer) {
+      actContainer.classList.add('active');
+      // Show intro view by default
+      const intro = el(`intro-act-${act}`);
+      const gameplay = el(`gameplay-act-${act}`);
+      const feedback = el(`feedback-act-${act}`);
+      if (intro) intro.classList.remove('hidden');
+      if (gameplay) gameplay.classList.add('hidden');
+      if (feedback) feedback.classList.add('hidden');
+    }
+
+    state.currentAct = act;
+    updateProgress(act);
+    showPrompt(ACTIVITY_META[act].speaker, ACTIVITY_META[act].prompt);
+
+    if (window.binRenderer) {
+      window.binRenderer.mountAll();
+    }
+  }
+
+  function startActivity(act) {
+    const intro = el(`intro-act-${act}`);
+    const gameplay = el(`gameplay-act-${act}`);
+    if (intro) intro.classList.add('hidden');
+    if (gameplay) gameplay.classList.remove('hidden');
+
+    if (act === 12) {
+      armLandingWait();
+    }
+
+    if (window.binRenderer) {
+      window.binRenderer.mountAll();
+    }
+  }
+
+  function nextActivity(nextAct) {
+    showActivity(nextAct);
+  }
+
+  function bindActivity1() {
+    document.querySelectorAll('#act-1 [data-clothing-item="true"]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const fit = btn.dataset.fit;
+        const typeRaw = btn.dataset.type;
+        if (fit !== 'soft') {
+          sfx.bad();
+          showPrompt('Mẹ', 'Món này hơi bất tiện. Con thử món khác nhé!');
+          return;
+        }
+        const type = typeRaw === 'shirt' ? 'shirt' : typeRaw === 'pants' ? 'pants' : typeRaw === 'shoes' ? 'shoes' : null;
+        if (!type) return;
+
+        if (window.binRenderer) {
+          if (type === 'shirt') window.binRenderer.setShirt('yellow');
+          if (type === 'pants') window.binRenderer.setPants('blue');
+          if (type === 'shoes') window.binRenderer.setShoes('velcro');
+        }
+
+        state.outfit[type] = true;
+        btn.classList.add('runtime-selected');
+        sfx.good();
+        showPrompt('Mẹ', 'Đúng rồi! Món này mềm và dễ vận động.');
+
+        if (state.outfit.shirt && state.outfit.pants && state.outfit.shoes) {
+          completeActivity(1);
+          showFeedback(1);
+        }
+      });
+    });
+  }
+
+  function bindActivity2() {
+    document.querySelectorAll('#act-2 [data-luggage-item="true"]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const cat = btn.dataset.category;
+        const name = btn.dataset.name || 'Món đồ';
+        const imgUrl = btn.dataset.img || '';
+
+        if (cat === 'PACK') {
+          btn.classList.add('runtime-packed');
+          state.packed.add(name);
+
+          // Thêm hình ảnh/badge đồ vật trực tiếp vào trong vali mở
+          const targetSuitcase = el('suitcase-packed-items');
+          if (targetSuitcase) {
+            const badge = document.createElement('div');
+            badge.className = 'packed-item-mini';
+            badge.innerHTML = `
+              <img src="${imgUrl}" alt="${name}">
+              <span>${name} ✓</span>
+            `;
+            targetSuitcase.appendChild(badge);
+          }
+
+          sfx.good();
+          showPrompt('Bố', `Đúng rồi! ${name} cần thiết mang theo!`);
+          if (state.packed.size >= 4) {
+            completeActivity(2);
+            showFeedback(2);
+          }
+        } else {
+          btn.classList.remove('wobble-shake');
+          void btn.offsetWidth; // Trigger reflow for animation restart
+          btn.classList.add('wobble-shake');
+          sfx.bad();
+
+          if (name.includes('Kéo')) {
+            showPrompt('Bố', 'Kéo nhọn kim loại nguy hiểm, không được mang lên máy bay con nhé!');
+          } else if (name.includes('Ô tô')) {
+            showPrompt('Bố', 'Ô tô to quá cồng kềnh chiếm hết vali, mình để ở nhà về chơi sau nhé!');
+          } else {
+            showPrompt('Bố', 'Bình nước lớn hơn 100ml không qua được cổng an ninh, mình để ở nhà nhé!');
+          }
+        }
+      });
+    });
+  }
+
+  function bindSimpleActivities() {
+    // Act 3: Kiểm tra vé & Khoanh tròn Đỏ Số Ghế 12A & Đóng dấu Boarding Pass
+    const onTicketCheck = () => {
+      const redCircle = el('seat-red-circle');
+      if (redCircle) redCircle.style.display = 'block';
+      const stamp = el('pass-stamp-overlay');
+      if (stamp) stamp.style.display = 'block';
+
+      sfx.good();
+      setTimeout(() => sfx.stamp(), 200);
+
+      showPrompt('Mẹ', 'Giỏi lắm! Ghế 12A là ghế cạnh cửa sổ của Bin đấy!');
+      completeActivity(3);
+      showFeedback(3);
+    };
+
+    el('seat-selection-btn')?.addEventListener('click', onTicketCheck);
+    el('btn-show-ticket-3')?.addEventListener('click', onTicketCheck);
+    el('boarding-pass-card')?.addEventListener('click', onTicketCheck);
+
+    // Act 4: Soi hành lý
+    document.querySelectorAll('#act-4 .xray-item-tile').forEach((tile, i) => {
+      tile.addEventListener('click', () => {
+        state.xrayChecked.add(i);
+        tile.classList.add('runtime-checked');
+        sfx.good();
+        if (state.xrayChecked.size >= 3) {
+          completeActivity(4);
+          showFeedback(4);
+        }
+      });
+    });
+
+    // Act 5: Cổng an ninh
+    el('btn-walk-gate-5')?.addEventListener('click', () => {
+      sfx.good();
+      showPrompt('Mẹ', 'Bíp boong! Bin qua cửa an toàn rồi!');
+      completeActivity(5);
+      showFeedback(5);
+    });
+
+    // Act 6: Tìm Cổng 03
+    document.querySelectorAll('#act-6 .gate-hud-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (btn.dataset.gate === '03') {
+          btn.classList.add('runtime-correct');
+          sfx.good();
+          showPrompt('Bố', 'Đúng rồi! Cổng 03 đây rồi!');
+          completeActivity(6);
+          showFeedback(6);
+        } else {
+          sfx.bad();
+          showPrompt('Bố', 'Con nhìn lại số trên vé nhé!');
+        }
+      });
+    });
+
+    // XỬ LÝ TRẮC NGHIỆM HÌNH ẢNH (ACTS 7, 8, 10, 11, 12)
+    document.querySelectorAll('.visual-quiz-card').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const actNum = parseInt(btn.dataset.act, 10);
+        const isCorrect = btn.dataset.choice === 'correct';
+
+        if (isCorrect) {
+          btn.classList.add('correct');
+          sfx.good();
+
+          if (actNum === 7) {
+            if (window.binRenderer) window.binRenderer.setSeatbelt('fastened');
+            showPrompt('Mẹ', 'CẠCH! Dây an toàn chắc chắn rồi! Máy bay chuẩn bị cất cánh!');
+          } else if (actNum === 8) {
+            showPrompt('Bin', 'Nuốt nước ực một cái, tai Bin hết khó chịu rồi!');
+          } else if (actNum === 10) {
+            showPrompt('Bin', 'Đúng rồi! Mình nói nhỏ vừa đủ nghe để giữ yên tĩnh cho mọi người!');
+          } else if (actNum === 11) {
+            showPrompt('Bố', 'Giỏi lắm! Bin ngồi rất ngoan, thu chân gọn gàng không chạm ghế phía trước!');
+          } else if (actNum === 12) {
+            showPrompt('Mẹ', 'Máy bay dừng hẳn rồi. Bây giờ mình mới mở dây nhé!');
+          }
+
+          completeActivity(actNum);
+          showFeedback(actNum);
+        } else {
+          btn.classList.remove('incorrect');
+          void btn.offsetWidth; // Trigger reflow for animation restart
+          btn.classList.add('incorrect');
+          sfx.bad();
+
+          if (actNum === 7) {
+            showPrompt('Mẹ', 'Đứng trên ghế rất nguy hiểm khi máy bay di chuyển con nhé. Bin cài dây an toàn lại nào!');
+          } else if (actNum === 8) {
+            showPrompt('Mẹ', 'Bịt tai khóc sẽ không làm hết khó chịu. Bin thử uống từng ngụm nước nhỏ nhé!');
+          } else if (actNum === 10) {
+            showPrompt('Mẹ', 'Nói to sẽ làm ồn mọi người xung quanh đấy. Bin nói nhỏ thì thầm nhé!');
+          } else if (actNum === 11) {
+            showPrompt('Bố', 'Đạp vào lưng ghế trước làm rung và phiền người ngồi trước con nhé. Mình thu chân gọn lại nào!');
+          } else if (actNum === 12) {
+            showPrompt('Bố', 'Đèn báo hiệu còn sáng, máy bay đang di chuyển, mình chưa được đứng dậy lấy đồ con nhé!');
+          }
+        }
+      });
+    });
+
+    // Act 9: Ngắm mây
+    document.querySelectorAll('#act-9 .morph-cloud-btn').forEach((btn, i) => {
+      btn.addEventListener('click', () => {
+        state.clouds.add(i);
+        btn.classList.add('runtime-selected');
+        sfx.good();
+        showPrompt('Bin', `Bin thấy giống ${btn.dataset.name || 'một hình thật vui'}! Còn con thấy giống gì?`);
+        if (state.clouds.size >= 3) {
+          completeActivity(9);
+          showFeedback(9);
+        }
+      });
+    });
+
+    // Act 13: Tìm vali
+    document.querySelectorAll('#act-13 .real-suitcase-card').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (btn.dataset.isBin === 'true') {
+          sfx.good();
+          completeActivity(13);
+          el('golden-medal-modal')?.classList.add('show');
+        } else {
+          btn.classList.remove('runtime-wrong');
+          void btn.offsetWidth;
+          btn.classList.add('runtime-wrong');
+          sfx.bad();
+          showPrompt('Bố', 'Vali này của bạn khác rồi. Con tìm lại nhé!');
+        }
+      });
+    });
+
+    // Replay
+    el('btn-replay-adventure')?.addEventListener('click', () => {
+      el('golden-medal-modal')?.classList.remove('show');
+      state.completedActs.clear();
+      state.outfit = {shirt:false, pants:false, shoes:false};
+      state.packed.clear();
+      state.xrayChecked.clear();
+      state.clouds.clear();
+      document.querySelectorAll('#act-1 [data-clothing-item="true"]').forEach(b => b.classList.remove('runtime-selected'));
+      const packedContainer = el('suitcase-packed-items');
+      if (packedContainer) packedContainer.innerHTML = '';
+      document.querySelectorAll('#act-2 [data-luggage-item="true"]').forEach(b => {
+        b.classList.remove('runtime-packed', 'wobble-shake');
+      });
+      document.querySelectorAll('.visual-quiz-card').forEach(b => {
+        b.classList.remove('correct', 'incorrect');
+      });
+      const redCircle = el('seat-red-circle');
+      if (redCircle) redCircle.style.display = 'none';
+      const stamp = el('pass-stamp-overlay');
+      if (stamp) stamp.style.display = 'none';
+      document.querySelectorAll('#act-4 .xray-item-tile').forEach(t => t.classList.remove('runtime-checked'));
+      if (window.binRenderer) window.binRenderer.reset();
+      showActivity(1);
+    });
+  }
+
+  function armLandingWait() {
+    const btn = el('unbuckle-latch-btn');
+    if (!btn) return;
+    btn.disabled = true;
+    btn.style.opacity = '0.6';
+    btn.innerHTML = '<span>⏳ Máy bay đang chạy vào bãi đỗ...</span>';
+    showPrompt('Bố', 'Máy bay đang chạy vào chỗ đỗ. Bin vẫn ngồi yên và giữ dây an toàn nhé!');
+
+    if (state.activity12Timer) clearTimeout(state.activity12Timer);
+    state.activity12Timer = setTimeout(() => {
+      btn.disabled = false;
+      btn.style.opacity = '1';
+      btn.classList.add('tycoon-btn-primary');
+      btn.innerHTML = '<span>🔓 Máy bay đã dừng hẳn — Mở dây an toàn (CẠCH!)</span>';
+      showPrompt('Mẹ', 'Máy bay dừng hẳn rồi. Bây giờ mình mới mở dây nhé!');
+    }, state.reducedMotion ? 700 : 2500);
+
+    btn.onclick = () => {
+      if (btn.disabled) return;
+      if (window.binRenderer) window.binRenderer.setSeatbelt('none');
+      sfx.clack();
+      completeActivity(12);
+      showFeedback(12);
+    };
+  }
+
+  function bindNavigation() {
+    document.querySelectorAll('.btn-start-activity').forEach(btn => {
+      btn.addEventListener('click', () => startActivity(Number(btn.dataset.act)));
+    });
+    document.querySelectorAll('.btn-next-activity').forEach(btn => {
+      btn.addEventListener('click', () => nextActivity(Number(btn.dataset.next)));
+    });
+
+    document.querySelectorAll('.stage-dot').forEach(dot => {
+      dot.addEventListener('click', () => {
+        if (dot.classList.contains('locked')) return;
+        const stage = Number(dot.dataset.stage);
+        const first = Object.entries(ACTIVITY_META).find(([,m]) => m.stage === stage);
+        if (first) showActivity(Number(first[0]));
+      });
+    });
+  }
+
+  function bindParentGate() {
+    const gate = el('btn-parent-gate');
+    const modal = el('parent-modal');
+    const circle = el('parent-ring-circle');
+    let started = 0, raf = null;
+
+    function reset() {
+      if (raf) cancelAnimationFrame(raf);
+      raf = null;
+      started = 0;
+      if (circle) circle.style.strokeDashoffset = '175';
+    }
+
+    function tick() {
+      const elapsed = performance.now() - started;
+      const progress = Math.min(1, elapsed / 3000);
+      if (circle) circle.style.strokeDashoffset = String(175 - 175 * progress);
+      if (progress >= 1) {
+        modal?.classList.add('open');
+        reset();
+        return;
+      }
+      raf = requestAnimationFrame(tick);
+    }
+
+    gate?.addEventListener('pointerdown', e => {
+      e.preventDefault();
+      started = performance.now();
+      raf = requestAnimationFrame(tick);
+    });
+
+    ['pointerup', 'pointerleave', 'pointercancel'].forEach(ev => gate?.addEventListener(ev, reset));
+    el('btn-close-parent')?.addEventListener('click', () => modal?.classList.remove('open'));
+
+    document.querySelectorAll('.jump-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        modal?.classList.remove('open');
+        showActivity(Number(btn.dataset.act));
+      });
+    });
+
+    el('btn-reset-app')?.addEventListener('click', () => location.reload());
+
+    el('setting-volume')?.addEventListener('input', e => volume = Number(e.target.value));
+    el('setting-reduced-motion')?.addEventListener('change', e => {
+      state.reducedMotion = e.target.checked;
+      document.documentElement.classList.toggle('reduced-motion', state.reducedMotion);
+    });
+  }
+
+  function init() {
+    if (state.initialized) return;
+    state.initialized = true;
+    bindNavigation();
+    bindParentGate();
+    bindActivity1();
+    bindActivity2();
+    bindSimpleActivities();
+    showActivity(1);
+    console.log('[APP READY] 13-activity controller loaded successfully');
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+
+</body>
+</html>

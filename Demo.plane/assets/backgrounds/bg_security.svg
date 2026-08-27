@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <linearGradient id="secWall" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ECEFF1"/>
+      <stop offset="100%" stop-color="#CFD8DC"/>
+    </linearGradient>
+    <linearGradient id="secFloor" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#90A4AE"/>
+      <stop offset="100%" stop-color="#607D8B"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1920" height="720" fill="url(#secWall)"/>
+  <rect y="720" width="1920" height="360" fill="url(#secFloor)"/>
+
+  <!-- Biển báo nhà ga sân bay -->
+  <rect x="760" y="80" width="400" height="90" rx="16" fill="#01579B" stroke="#FFFFFF" stroke-width="4"/>
+  <text x="960" y="135" font-size="28" font-weight="900" fill="#FFFFFF" text-anchor="middle">KIỂM TRA AN NINH / SECURITY</text>
+</svg>

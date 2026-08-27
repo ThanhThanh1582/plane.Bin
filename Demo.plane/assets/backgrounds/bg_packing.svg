@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <linearGradient id="wallGrad2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFF9C4"/>
+      <stop offset="60%" stop-color="#FFE082"/>
+      <stop offset="100%" stop-color="#FFD54F"/>
+    </linearGradient>
+    <linearGradient id="floorGrad2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#CFD8DC"/>
+      <stop offset="100%" stop-color="#90A4AE"/>
+    </linearGradient>
+    <filter id="softShadow2" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="12" stdDeviation="10" flood-color="#000" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <rect width="1920" height="740" fill="url(#wallGrad2)"/>
+  <rect y="740" width="1920" height="340" fill="url(#floorGrad2)"/>
+  
+  <!-- Giường ngủ ấm áp phía sau -->
+  <rect x="200" y="480" width="600" height="280" rx="30" fill="#81D4FA" stroke="#0288D1" stroke-width="8"/>
+  <rect x="240" y="420" width="220" height="100" rx="24" fill="#FFFFFF"/>
+  <rect x="520" y="420" width="220" height="100" rx="24" fill="#FFFFFF"/>
+</svg>
