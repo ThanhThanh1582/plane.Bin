@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 600" width="100%" height="100%">
+  <defs>
+    <!-- Bảng màu chuẩn BIN_SOFT_STORYBOOK_2D_V1 -->
+    <linearGradient id="skinGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFE7D6"/>
+      <stop offset="100%" stop-color="#FCD5BE"/>
+    </linearGradient>
+    <filter id="softShading" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#514B48" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <g id="bin-base-body" filter="url(#softShading)">
+    <!-- Đôi chân (Cẳng chân và bàn chân mộc) -->
+    <rect x="138" y="420" width="34" height="110" rx="17" fill="url(#skinGradient)" stroke="#514B48" stroke-width="3.5"/>
+    <rect x="228" y="420" width="34" height="110" rx="17" fill="url(#skinGradient)" stroke="#514B48" stroke-width="3.5"/>
+    
+    <!-- Bàn chân mộc có tất trắng cổ thấp -->
+    <ellipse cx="150" cy="535" rx="26" ry="16" fill="#FFFFFF" stroke="#514B48" stroke-width="3"/>
+    <ellipse cx="250" cy="535" rx="26" ry="16" fill="#FFFFFF" stroke="#514B48" stroke-width="3"/>
+
+    <!-- Thân mình cơ bản (Áo lót / Neutral Base) -->
+    <rect x="125" y="240" width="150" height="180" rx="28" fill="#FFFDE7" stroke="#514B48" stroke-width="3.5"/>
+
+    <!-- Cánh tay trái và phải -->
+    <rect x="85" y="250" width="34" height="120" rx="17" transform="rotate(12 85 250)" fill="url(#skinGradient)" stroke="#514B48" stroke-width="3.5"/>
+    <rect x="280" y="250" width="34" height="120" rx="17" transform="rotate(-12 280 250)" fill="url(#skinGradient)" stroke="#514B48" stroke-width="3.5"/>
+    <circle cx="95" cy="385" r="16" fill="url(#skinGradient)" stroke="#514B48" stroke-width="3"/>
+    <circle cx="305" cy="385" r="16" fill="url(#skinGradient)" stroke="#514B48" stroke-width="3"/>
+
+    <!-- Đầu tròn Bé Bin (Tỉ lệ 3.8 - 4 đầu) -->
+    <circle cx="200" cy="140" r="82" fill="url(#skinGradient)" stroke="#514B48" stroke-width="4"/>
+    <circle cx="118" cy="145" r="16" fill="url(#skinGradient)" stroke="#514B48" stroke-width="3"/>
+    <circle cx="282" cy="145" r="16" fill="url(#skinGradient)" stroke="#514B48" stroke-width="3"/>
+
+    <!-- Tóc đen nâu ngắn, bồng bềnh và có chỏm tóc cong nhẹ trên đỉnh đầu -->
+    <path d="M 118 120 C 118 55, 282 55, 282 120 C 270 95, 230 85, 200 100 C 170 85, 130 95, 118 120 Z" fill="#42332B" stroke="#514B48" stroke-width="3.5"/>
+    <!-- Chỏm tóc cong nhẹ chuẩn Character Bible -->
+    <path d="M 196 60 Q 212 30 226 44 Q 216 60 206 66 Z" fill="#42332B" stroke="#514B48" stroke-width="3"/>
+
+    <!-- Mắt nâu đậm, tròn vừa phải, thân thiện -->
+    <ellipse cx="166" cy="138" rx="8.5" ry="10" fill="#3E2723"/>
+    <circle cx="163" cy="134" r="3" fill="#FFFFFF"/>
+    <ellipse cx="234" cy="138" rx="8.5" ry="10" fill="#3E2723"/>
+    <circle cx="231" cy="134" r="3" fill="#FFFFFF"/>
+
+    <!-- Lông mày ngắn mềm mại -->
+    <path d="M 154 120 Q 166 114 178 120" stroke="#42332B" stroke-width="3" stroke-linecap="round" fill="none"/>
+    <path d="M 222 120 Q 234 114 246 120" stroke="#42332B" stroke-width="3" stroke-linecap="round" fill="none"/>
+
+    <!-- Mũi nhỏ -->
+    <circle cx="200" cy="148" r="3.5" fill="#E5A687"/>
+
+    <!-- Má hồng hào đáng yêu -->
+    <circle cx="146" cy="155" r="13" fill="#FF8A80" opacity="0.55"/>
+    <circle cx="254" cy="155" r="13" fill="#FF8A80" opacity="0.55"/>
+
+    <!-- Nụ cười tươi vui vẻ -->
+    <path d="M 182 158 Q 200 178 218 158" stroke="#514B48" stroke-width="3.5" stroke-linecap="round" fill="#E57373"/>
+  </g>
+</svg>

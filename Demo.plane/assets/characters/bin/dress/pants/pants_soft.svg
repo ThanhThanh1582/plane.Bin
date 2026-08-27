@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 600" width="100%" height="100%">
+  <!-- Layer Quần Short Cam Ấm (Trong Suốt) -->
+  <g id="layer-pants-soft">
+    <!-- Quần short cam ấm #F5A45D -->
+    <path d="M 122 360 L 278 360 L 270 440 L 212 440 L 200 395 L 188 440 L 130 440 Z" fill="#F5A45D" stroke="#514B48" stroke-width="3.5"/>
+    
+    <!-- Túi và nếp gấp mềm mại -->
+    <path d="M 140 375 Q 155 385 150 405" stroke="#E67E22" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <path d="M 260 375 Q 245 385 250 405" stroke="#E67E22" stroke-width="2" fill="none" stroke-linecap="round"/>
+  </g>
+</svg>

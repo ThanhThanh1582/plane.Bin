@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="redCase" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FF5252"/>
+      <stop offset="100%" stop-color="#D32F2F"/>
+    </linearGradient>
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+  <g filter="url(#softShadow)">
+    <rect x="115" y="15" width="70" height="50" rx="10" fill="none" stroke="#78909C" stroke-width="10"/>
+    <rect x="105" y="15" width="90" height="14" rx="7" fill="#37474F"/>
+    <rect x="40" y="55" width="220" height="300" rx="36" fill="url(#redCase)" stroke="#B71C1C" stroke-width="6"/>
+    <!-- Sticker gấu nâu của Bé Bin -->
+    <circle cx="150" cy="200" r="55" fill="#FFFFFF" stroke="#FFD54F" stroke-width="4"/>
+    <!-- Mặt gấu -->
+    <circle cx="150" cy="200" r="42" fill="#8D6E63"/>
+    <circle cx="120" cy="170" r="16" fill="#8D6E63"/>
+    <circle cx="120" cy="170" r="8" fill="#D7CCC8"/>
+    <circle cx="180" cy="170" r="16" fill="#8D6E63"/>
+    <circle cx="180" cy="170" r="8" fill="#D7CCC8"/>
+    <ellipse cx="150" cy="210" rx="20" ry="14" fill="#EFEBE9"/>
+    <ellipse cx="150" cy="206" rx="6" ry="4" fill="#3E2723"/>
+    <circle cx="138" cy="195" r="4" fill="#212121"/>
+    <circle cx="162" cy="195" r="4" fill="#212121"/>
+    <!-- Bánh xe -->
+    <circle cx="70" cy="358" r="16" fill="#37474F" stroke="#212121" stroke-width="3"/>
+    <circle cx="230" cy="358" r="16" fill="#37474F" stroke="#212121" stroke-width="3"/>
+  </g>
+</svg>

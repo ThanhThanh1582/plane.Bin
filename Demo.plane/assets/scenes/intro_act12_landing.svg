@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="landingSunset" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFB74D"/>
+      <stop offset="60%" stop-color="#FF8A80"/>
+      <stop offset="100%" stop-color="#B3E5FC"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="450" fill="url(#landingSunset)"/>
+
+  <!-- Cửa sổ máy bay nhìn ra hoàng hôn sân bay -->
+  <rect x="580" y="80" width="140" height="220" rx="70" fill="#FFCC80" stroke="#FFFFFF" stroke-width="12"/>
+  <ellipse cx="640" cy="180" rx="30" ry="14" fill="#FFE082"/>
+
+  <!-- Đèn báo cài dây an toàn ĐỎ BẬT SÁNG trên trần -->
+  <rect x="340" y="25" width="120" height="40" rx="10" fill="#212121" stroke="#FF5252" stroke-width="3"/>
+  <circle cx="370" cy="45" r="10" fill="#FF1744"/>
+  <text x="415" y="52" font-size="14" font-weight="900" fill="#FF1744" text-anchor="middle">FASTEN</text>
+
+  <!-- Ghế máy bay & Bé Bin vẫn ngồi yên thắt đai an toàn -->
+  <rect x="220" y="100" width="360" height="320" rx="40" fill="#0288D1" stroke="#013A6B" stroke-width="6"/>
+
+  <g transform="translate(290, 100) scale(0.55)">
+    <circle cx="200" cy="130" r="85" fill="#FFE0B2" stroke="#FFA726" stroke-width="4"/>
+    <path d="M 115 110 C 115 40, 285 40, 285 110 C 275 85, 230 75, 200 90 C 170 75, 125 85, 115 110 Z" fill="#212121"/>
+    <circle cx="165" cy="125" r="10" fill="#212121"/>
+    <circle cx="235" cy="125" r="10" fill="#212121"/>
+    <path d="M 180 145 Q 200 170 220 145" stroke="#BF360C" stroke-width="5" stroke-linecap="round" fill="#D32F2F"/>
+    
+    <path d="M 110 220 L 290 220 L 295 375 L 105 375 Z" fill="#FDD835" stroke="#F57F17" stroke-width="5" rx="20"/>
+    <path d="M 120 360 L 280 360 L 270 450 L 210 450 L 200 400 L 190 450 L 130 450 Z" fill="#42A5F5" stroke="#1976D2" stroke-width="4"/>
+    
+    <!-- Dây an toàn vẫn khóa chặt -->
+    <rect x="100" y="355" width="200" height="24" rx="8" fill="#263238"/>
+    <rect x="180" y="348" width="40" height="38" rx="8" fill="#CFD8DC" stroke="#78909C" stroke-width="3"/>
+  </g>
+</svg>

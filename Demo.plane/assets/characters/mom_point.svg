@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" width="100%" height="100%">
+  <defs>
+    <linearGradient id="momSkin" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFE0B2"/>
+      <stop offset="100%" stop-color="#FFCC80"/>
+    </linearGradient>
+    <linearGradient id="momSweater" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F8BBD0"/>
+      <stop offset="100%" stop-color="#EC407A"/>
+    </linearGradient>
+    <filter id="avatarShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="4" flood-color="#000" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#avatarShadow)">
+    <!-- Áo cardigan len hồng pastel -->
+    <path d="M 60 300 C 60 210, 240 210, 240 300 Z" fill="url(#momSweater)"/>
+    <path d="M 120 220 L 150 260 L 180 220" fill="#FFFFFF"/>
+    <!-- Cúc áo -->
+    <circle cx="150" cy="275" r="4" fill="#FFFFFF"/>
+    <circle cx="150" cy="290" r="4" fill="#FFFFFF"/>
+
+    <!-- Cổ -->
+    <rect x="135" y="170" width="30" height="45" rx="10" fill="url(#momSkin)"/>
+
+    <!-- Khuôn mặt dịu dàng -->
+    <ellipse cx="150" cy="130" rx="55" ry="60" fill="url(#momSkin)"/>
+
+    <!-- Búi tóc nâu & Mái tóc -->
+    <circle cx="150" cy="45" r="35" fill="#4E342E"/>
+    <path d="M 95 120 C 95 60, 205 60, 205 120 C 190 90, 160 85, 150 90 C 140 85, 110 90, 95 120 Z" fill="#4E342E"/>
+    <!-- Lọn tóc mai -->
+    <path d="M 95 110 Q 85 140 95 160" stroke="#4E342E" stroke-width="8" stroke-linecap="round" fill="none"/>
+    <path d="M 205 110 Q 215 140 205 160" stroke="#4E342E" stroke-width="8" stroke-linecap="round" fill="none"/>
+
+    <!-- Mắt & Lông mày -->
+    <path d="M 120 110 Q 130 105 140 110" stroke="#3E2723" stroke-width="3" stroke-linecap="round" fill="none"/>
+    <path d="M 160 110 Q 170 105 180 110" stroke="#3E2723" stroke-width="3" stroke-linecap="round" fill="none"/>
+    <circle cx="130" cy="125" r="6" fill="#3E2723"/>
+    <circle cx="170" cy="125" r="6" fill="#3E2723"/>
+    <circle cx="128" cy="123" r="2" fill="#FFFFFF"/>
+    <circle cx="168" cy="123" r="2" fill="#FFFFFF"/>
+
+    <!-- Má hồng nhẹ -->
+    <circle cx="118" cy="140" r="10" fill="#FF8A80" opacity="0.5"/>
+    <circle cx="182" cy="140" r="10" fill="#FF8A80" opacity="0.5"/>
+
+    <!-- Nụ cười dịu dàng -->
+    <path d="M 138 148 Q 150 162 162 148" stroke="#C2185B" stroke-width="4" stroke-linecap="round" fill="none"/>
+  </g>
+</svg>

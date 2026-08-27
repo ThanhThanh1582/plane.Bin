@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 600" width="100%" height="100%">
+  <!-- Layer Áo Thun Mềm Xanh Da Trời Máy Bay Giấy (Trong Suốt) -->
+  <g id="layer-shirt-soft">
+    <!-- Thân áo thun xanh da trời nhạt #73C7E8 -->
+    <path d="M 120 236 L 280 236 Q 290 350 280 370 L 120 370 Q 110 350 120 236 Z" fill="#73C7E8" stroke="#514B48" stroke-width="3.5"/>
+    
+    <!-- Cổ áo bo tròn mềm mại -->
+    <path d="M 170 236 Q 200 256 230 236 Z" fill="#FFE7D6" stroke="#514B48" stroke-width="3.5"/>
+
+    <!-- Tay áo ngắn hai bên -->
+    <path d="M 120 236 L 80 290 L 105 310 L 124 270 Z" fill="#73C7E8" stroke="#514B48" stroke-width="3.5"/>
+    <path d="M 280 236 L 320 290 L 295 310 L 276 270 Z" fill="#73C7E8" stroke="#514B48" stroke-width="3.5"/>
+
+    <!-- Biểu tượng máy bay giấy nhỏ màu trắng trên ngực (chuẩn Character Bible) -->
+    <g transform="translate(185, 280) scale(0.9)">
+      <polygon points="0,20 35,0 15,35" fill="#FFFFFF" stroke="#514B48" stroke-width="2"/>
+      <polygon points="35,0 15,35 15,20" fill="#E1F5FE" stroke="#514B48" stroke-width="1.5"/>
+      <line x1="35" y1="0" x2="5" y2="28" stroke="#514B48" stroke-width="2"/>
+    </g>
+  </g>
+</svg>

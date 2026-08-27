@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="skinD" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFE0B2"/>
+      <stop offset="100%" stop-color="#FFCC80"/>
+    </linearGradient>
+    <linearGradient id="cupGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#80D8FF"/>
+      <stop offset="100%" stop-color="#0091EA"/>
+    </linearGradient>
+  </defs>
+
+  <g id="pose-drinking-water">
+    <!-- Đùi ngồi -->
+    <rect x="120" y="380" width="60" height="90" rx="20" fill="var(--bin-pants-color, #1E88E5)"/>
+    <rect x="220" y="380" width="60" height="90" rx="20" fill="var(--bin-pants-color, #1E88E5)"/>
+    <rect x="132" y="440" width="36" height="70" rx="18" fill="url(#skinD)"/>
+    <rect x="232" y="440" width="36" height="70" rx="18" fill="url(#skinD)"/>
+    <ellipse cx="150" cy="515" rx="30" ry="18" fill="var(--bin-shoes-color, #1976D2)"/>
+    <ellipse cx="250" cy="515" rx="30" ry="18" fill="var(--bin-shoes-color, #1976D2)"/>
+
+    <!-- Thân áo ngồi -->
+    <rect x="110" y="230" width="180" height="170" rx="36" fill="var(--bin-shirt-color, #FDD835)" stroke="#F57F17" stroke-width="4"/>
+
+    <!-- Đầu & Mặt Bé Bin (hơi ngước nhẹ) -->
+    <circle cx="200" cy="135" r="85" fill="url(#skinD)" stroke="#FFA726" stroke-width="4"/>
+    <circle cx="115" cy="140" r="18" fill="url(#skinD)"/>
+    <circle cx="285" cy="140" r="18" fill="url(#skinD)"/>
+    
+    <!-- Tóc nâu đen -->
+    <path d="M 115 115 C 115 45, 285 45, 285 115 C 275 90, 230 80, 200 95 C 170 80, 125 90, 115 115 Z" fill="#3E2723"/>
+    <path d="M 195 55 Q 210 25 225 40 Q 215 55 205 60 Z" fill="#3E2723"/>
+    
+    <!-- Mắt nhắm tít vui sướng khi uống nước -->
+    <path d="M 155 130 Q 165 120 175 130" stroke="#212121" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <path d="M 225 130 Q 235 120 245 130" stroke="#212121" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <circle cx="145" cy="150" r="14" fill="#FF8A80" opacity="0.6"/>
+    <circle cx="255" cy="150" r="14" fill="#FF8A80" opacity="0.6"/>
+
+    <!-- 2 Tay nâng chiếc cốc nước màu xanh ngọc -->
+    <rect x="95" y="220" width="38" height="90" rx="19" transform="rotate(35 95 220)" fill="var(--bin-shirt-color, #FDD835)" stroke="#F57F17" stroke-width="3"/>
+    <rect x="270" y="220" width="38" height="90" rx="19" transform="rotate(-35 270 220)" fill="var(--bin-shirt-color, #FDD835)" stroke="#F57F17" stroke-width="3"/>
+
+    <!-- Cốc nước và ống hút -->
+    <polygon points="175,185 225,185 220,240 180,240" fill="url(#cupGrad)" stroke="#0277BD" stroke-width="3"/>
+    <!-- Ống hút sọc đỏ trắng -->
+    <path d="M 195 145 L 205 170 L 200 220" stroke="#FF5252" stroke-width="5" stroke-linecap="round" fill="none"/>
+    <circle cx="168" cy="210" r="16" fill="url(#skinD)"/>
+    <circle cx="232" cy="210" r="16" fill="url(#skinD)"/>
+  </g>
+</svg>

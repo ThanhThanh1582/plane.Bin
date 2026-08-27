@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" width="100%" height="100%">
+  <defs>
+    <linearGradient id="denimGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1E88E5"/>
+      <stop offset="100%" stop-color="#0D47A1"/>
+    </linearGradient>
+    <filter id="jeansShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="5" flood-color="#000" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+  <g filter="url(#jeansShadow)">
+    <!-- Quần bò cứng cáp -->
+    <path d="M 60 50 L 240 50 L 230 250 L 165 250 L 150 140 L 135 250 L 70 250 Z" fill="url(#denimGrad)" stroke="#002171" stroke-width="6" stroke-linejoin="round"/>
+    
+    <!-- Thắt lưng da cứng & Khóa kim loại to -->
+    <rect x="58" y="46" width="184" height="26" rx="4" fill="#795548" stroke="#4E342E" stroke-width="3"/>
+    <rect x="130" y="42" width="40" height="34" rx="6" fill="#CFD8DC" stroke="#455A64" stroke-width="4"/>
+    <rect x="140" y="48" width="20" height="22" rx="3" fill="#795548"/>
+
+    <!-- Túi quần có đinh tán kim loại -->
+    <path d="M 75 85 Q 100 135 125 85" stroke="#FFD54F" stroke-width="3" fill="none" stroke-dasharray="4 3"/>
+    <path d="M 175 85 Q 200 135 225 85" stroke="#FFD54F" stroke-width="3" fill="none" stroke-dasharray="4 3"/>
+    <circle cx="75" cy="85" r="4" fill="#FFD54F"/>
+    <circle cx="225" cy="85" r="4" fill="#FFD54F"/>
+
+    <!-- Đường may chỉ vàng nổi bật -->
+    <line x1="150" y1="72" x2="150" y2="135" stroke="#FFD54F" stroke-width="3" stroke-dasharray="4 3"/>
+  </g>
+</svg>

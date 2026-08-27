@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="skyGradW" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4FC3F7"/>
+      <stop offset="100%" stop-color="#E1F5FE"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="450" fill="#B3E5FC"/>
+
+  <!-- Cửa sổ máy bay lớn nhìn ra mây thỏ & rồng -->
+  <rect x="350" y="40" width="380" height="360" rx="120" fill="url(#skyGradW)" stroke="#FFFFFF" stroke-width="16"/>
+
+  <!-- Đám mây hình chú thỏ trắng ngộ nghĩnh -->
+  <g transform="translate(420, 100)">
+    <ellipse cx="80" cy="90" rx="55" ry="40" fill="#FFFFFF"/>
+    <!-- Tai thỏ -->
+    <ellipse cx="60" cy="35" rx="14" ry="35" fill="#FFFFFF"/>
+    <ellipse cx="60" cy="35" rx="7" ry="24" fill="#FFCDD2"/>
+    <ellipse cx="95" cy="35" rx="14" ry="35" fill="#FFFFFF"/>
+    <ellipse cx="95" cy="35" rx="7" ry="24" fill="#FFCDD2"/>
+    <!-- Đuôi thỏ tròn -->
+    <circle cx="140" cy="95" r="16" fill="#FFFFFF"/>
+  </g>
+
+  <!-- Ghế máy bay & Bé Bin nghiêng người nhìn ra cửa sổ -->
+  <rect x="80" y="100" width="320" height="320" rx="40" fill="#0288D1" stroke="#013A6B" stroke-width="6"/>
+
+  <g transform="translate(140, 120) scale(0.52)">
+    <circle cx="200" cy="130" r="85" fill="#FFE0B2" stroke="#FFA726" stroke-width="4"/>
+    <path d="M 115 110 C 115 40, 285 40, 285 110 C 275 85, 230 75, 200 90 C 170 75, 125 85, 115 110 Z" fill="#212121"/>
+    <circle cx="195" cy="125" r="10" fill="#212121"/>
+    <circle cx="245" cy="125" r="10" fill="#212121"/>
+    <path d="M 210 145 Q 230 170 250 145" stroke="#BF360C" stroke-width="5" stroke-linecap="round" fill="#D32F2F"/>
+    
+    <path d="M 110 220 L 290 220 L 295 375 L 105 375 Z" fill="#FDD835" stroke="#F57F17" stroke-width="5" rx="20"/>
+    <path d="M 120 360 L 280 360 L 270 450 L 210 450 L 200 400 L 190 450 L 130 450 Z" fill="#42A5F5" stroke="#1976D2" stroke-width="4"/>
+    <!-- Tay Bin chỉ ra cửa sổ -->
+    <rect x="250" y="240" width="120" height="35" rx="16" transform="rotate(-20 250 240)" fill="#FFE0B2" stroke="#FFA726" stroke-width="4"/>
+  </g>
+</svg>

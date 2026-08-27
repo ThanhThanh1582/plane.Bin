@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="cabinWall11" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#E1F5FE"/>
+      <stop offset="100%" stop-color="#B3E5FC"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="450" fill="url(#cabinWall11)"/>
+
+  <!-- Ghế phía trước (không bị đạp vào) -->
+  <rect x="580" y="60" width="200" height="380" rx="30" fill="#01579B"/>
+  <rect x="620" y="140" width="120" height="180" rx="16" fill="#0288D1"/>
+
+  <!-- Ghế máy bay của Bin -->
+  <rect x="160" y="100" width="360" height="320" rx="40" fill="#0288D1" stroke="#013A6B" stroke-width="6"/>
+
+  <!-- Bé Bin ngồi thẳng lưng, hai chân thu gọn gàng -->
+  <g transform="translate(230, 100) scale(0.55)">
+    <circle cx="200" cy="130" r="85" fill="#FFE0B2" stroke="#FFA726" stroke-width="4"/>
+    <path d="M 115 110 C 115 40, 285 40, 285 110 C 275 85, 230 75, 200 90 C 170 75, 125 85, 115 110 Z" fill="#212121"/>
+    <circle cx="165" cy="125" r="10" fill="#212121"/>
+    <circle cx="235" cy="125" r="10" fill="#212121"/>
+    <circle cx="145" cy="145" r="14" fill="#FF8A80" opacity="0.6"/>
+    <circle cx="255" cy="145" r="14" fill="#FF8A80" opacity="0.6"/>
+    <path d="M 180 145 Q 200 170 220 145" stroke="#BF360C" stroke-width="5" stroke-linecap="round" fill="#D32F2F"/>
+    
+    <path d="M 110 220 L 290 220 L 295 375 L 105 375 Z" fill="#FDD835" stroke="#F57F17" stroke-width="5" rx="20"/>
+    <path d="M 120 360 L 280 360 L 270 450 L 210 450 L 200 400 L 190 450 L 130 450 Z" fill="#42A5F5" stroke="#1976D2" stroke-width="4"/>
+    
+    <!-- Đôi chân thu gọn vuông góc thẳng thắn -->
+    <rect x="145" y="440" width="35" height="80" rx="16" fill="#FFE0B2"/>
+    <rect x="220" y="440" width="35" height="80" rx="16" fill="#FFE0B2"/>
+    <ellipse cx="155" cy="520" rx="30" ry="16" fill="#0288D1"/>
+    <ellipse cx="230" cy="520" rx="30" ry="16" fill="#0288D1"/>
+  </g>
+</svg>
