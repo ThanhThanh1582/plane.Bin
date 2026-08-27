@@ -1787,6 +1787,7 @@ window.addEventListener('error', function(e) {
   }
 
   function bindActivity1() {
+    const sceneImg = el('act1-room-scene-img');
     document.querySelectorAll('#act-1 [data-clothing-item="true"]').forEach(btn => {
       btn.addEventListener('click', () => {
         const fit = btn.dataset.fit;
@@ -1806,11 +1807,26 @@ window.addEventListener('error', function(e) {
         btn.classList.add('runtime-selected');
         sfx.good();
 
-        if (type === 'shirt') showPrompt('Mẹ', 'Đúng rồi! Áo thun mềm in máy bay vừa đẹp vừa mát!');
-        else if (type === 'pants') showPrompt('Mẹ', 'Chuẩn rồi! Quần thun co giãn giúp Bin ngồi lâu không bị chật!');
+        // Cập nhật trang phục của Bé Bin trực tiếp trên tranh phòng ngủ
+        if (sceneImg) {
+          sceneImg.classList.remove('pop-in-soft');
+          void sceneImg.offsetWidth;
+          if (state.outfit.shirt && (state.outfit.pants || state.outfit.shoes)) {
+            sceneImg.src = 'act1_bedroom_full_bin_1787803632562.jpg';
+          } else if (state.outfit.shirt) {
+            sceneImg.src = 'act1_bedroom_shirt_bin_1787803700813.jpg';
+          } else if (state.outfit.pants || state.outfit.shoes) {
+            sceneImg.src = 'act1_bedroom_shirt_bin_1787803700813.jpg';
+          }
+          sceneImg.classList.add('pop-in-soft');
+        }
+
+        if (type === 'shirt') showPrompt('Mẹ', 'Đúng rồi! Bé Bin đã mặc áo thun in máy bay vừa đẹp vừa mát!');
+        else if (type === 'pants') showPrompt('Mẹ', 'Chuẩn rồi! Quần short co giãn giúp Bin dễ vận động!');
         else if (type === 'shoes') showPrompt('Mẹ', 'Tuyệt vời! Giày dán xé êm chân và dễ cởi khi qua an ninh!');
 
         if (state.outfit.shirt && state.outfit.pants && state.outfit.shoes) {
+          if (sceneImg) sceneImg.src = 'act1_bedroom_full_bin_1787803632562.jpg';
           completeActivity(1);
           showFeedback(1);
         }
@@ -1994,6 +2010,8 @@ window.addEventListener('error', function(e) {
       state.packed.clear();
       state.xrayChecked.clear();
       state.clouds.clear();
+      const sceneImg1 = el('act1-room-scene-img');
+      if (sceneImg1) sceneImg1.src = 'act1_bedroom_initial_bin_1787803669361.jpg';
       document.querySelectorAll('#act-1 [data-clothing-item="true"]').forEach(b => b.classList.remove('runtime-selected'));
       const packedContainer = el('suitcase-packed-items');
       if (packedContainer) packedContainer.innerHTML = '';
