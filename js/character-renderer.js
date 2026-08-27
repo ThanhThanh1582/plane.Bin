@@ -11,7 +11,7 @@ class BinCharacterRenderer {
             shoes: false,
             seatbelt: null
         };
-        this.singleScene = 'image/act1_bedroom_full_bin_1787803632562.jpg';
+        this.singleScene = 'act1_bedroom_initial_bin_1787803669361.jpg';
     }
 
     mountAll() {
