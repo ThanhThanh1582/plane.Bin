@@ -9,7 +9,33 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 
+<script>
+// Tự động tìm nạp ảnh từ bất kỳ thư mục nào trên GitHub (image/, root, assets/images/, Demo.plane/image/)
+window.addEventListener('error', function(e) {
+  if (e.target && e.target.tagName === 'IMG') {
+    const img = e.target;
+    const src = img.getAttribute('src') || '';
+    if (!src || src.startsWith('data:')) return;
 
+    if (img.dataset.tryCount === undefined) img.dataset.tryCount = '0';
+    let count = parseInt(img.dataset.tryCount);
+    if (count >= 4) return;
+    img.dataset.tryCount = (count + 1).toString();
+
+    const filename = src.split('/').pop().split('?')[0];
+    if (!filename) return;
+
+    const candidatePaths = [
+      filename,
+      'image/' + filename,
+      'assets/images/' + filename,
+      'Demo.plane/image/' + filename
+    ];
+
+    img.src = candidatePaths[count % candidatePaths.length];
+  }
+}, true);
+</script>
 <style id="runtime-hotfix-css">
 /* ===== HOTFIX SHELL ===== */
 .hidden { display: none !important; }
@@ -235,7 +261,7 @@
                     <span class="intro-header-badge">CHẶNG 1 — HOẠT ĐỘNG 1</span>
                     <h2 class="intro-activity-title">CHỌN TRANG PHỤC THOẢI MÁI</h2>
                     <div class="intro-art-frame">
-                        <img src="image/act1_bedroom_full_bin_1787803632562.jpg" alt="Phòng ngủ Bé Bin">
+                        <img src="act1_bedroom_initial_bin_1787803669361.jpg" alt="Phòng ngủ Bé Bin">
                     </div>
                     <p class="intro-prompt-quote">Mẹ: “Bin sắp đi máy bay rồi. Con chọn bộ đồ nào giúp Bin dễ vận động nhé!”</p>
                     <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="1" style="font-size: 17px; padding: 8px 28px;">
@@ -246,7 +272,7 @@
                 <div class="activity-gameplay-view hidden" id="gameplay-act-1">
                     <div class="level1-room-scene" style="position: relative; width: 100%; max-width: 860px; height: 88%; border-radius: 24px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.18), 0 0 0 4px #FFFFFF; margin: auto 0; padding: 0;">
                         <!-- Bối cảnh 16:9 của Bé Bin trong phòng ngủ -->
-                        <img id="act1-room-scene-img" src="image/act1_bedroom_full_bin_1787803632562.jpg" alt="Phòng ngủ Bé Bin" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;">
+                        <img id="act1-room-scene-img" src="act1_bedroom_initial_bin_1787803669361.jpg" alt="Phòng ngủ Bé Bin" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;">
 
                         <!-- Tủ quần áo bên trái căn phòng -->
                         <div class="room-wardrobe-grid" style="position: absolute; left: 24px; top: 50%; transform: translateY(-50%); z-index: 10; background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(8px); border: 3px solid #FFE082; border-radius: 20px; padding: 8px; box-shadow: 0 8px 20px rgba(0,0,0,0.14); display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;">
@@ -294,7 +320,7 @@
                     <span class="intro-header-badge">CHẶNG 2 — HOẠT ĐỘNG 2</span>
                     <h2 class="intro-activity-title">XẾP ĐỒ VÀO VALI</h2>
                     <div class="intro-art-frame">
-                        <img src="image/act2_packing_dad_bin_exact_1787803736224.jpg" alt="Bé Bin và Bố xếp đồ vào vali">
+                        <img src="act2_packing_dad_bin_exact_1787803736224.jpg" alt="Bé Bin và Bố xếp đồ vào vali">
                     </div>
                     <p class="intro-prompt-quote">Bố: “Bin mang gì đi máy bay nhỉ? Con xếp vali giúp Bin nhé!”</p>
                     <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="2" style="font-size: 17px; padding: 8px 28px;">
@@ -305,26 +331,26 @@
                 <div class="activity-gameplay-view hidden" id="gameplay-act-2">
                     <div class="level1-room-scene" style="position: relative; width: 100%; max-width: 860px; height: 88%; border-radius: 24px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.18), 0 0 0 4px #FFFFFF; margin: auto 0; padding: 0;">
                         <!-- Ảnh nền Vali Mở Rộng 16:9 cùng Bố và Bé Bin -->
-                        <img src="image/act2_packing_dad_bin_exact_1787803736224.jpg" alt="Vali mở xếp đồ" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;">
+                        <img src="act2_packing_dad_bin_exact_1787803736224.jpg" alt="Vali mở xếp đồ" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;">
 
 
 
                         <!-- Cột đồ bên trái -->
                         <div style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); z-index: 20; display: flex; flex-direction: column; gap: 8px;">
                             <button class="luggage-item-card" data-luggage-item="true" data-category="PACK" data-name="Bỉm em bé">
-                                <img src="image/item_diaper_bin_1787805919326.jpg" alt="Bỉm em bé" style="width: 44px; height: 44px; object-fit: cover; border-radius: 10px;">
+                                <img src="item_diaper_bin_1787805919326.jpg" alt="Bỉm em bé" style="width: 44px; height: 44px; object-fit: cover; border-radius: 10px;">
                                 <span class="luggage-item-title">Bỉm em bé</span>
                             </button>
                             <button class="luggage-item-card" data-luggage-item="true" data-category="PACK" data-name="Gấu bông nhỏ">
-                                <img src="image/item_teddy_bin_1787805945593.jpg" alt="Gấu bông nhỏ" style="width: 44px; height: 44px; object-fit: cover; border-radius: 10px;">
+                                <img src="item_teddy_bin_1787805945593.jpg" alt="Gấu bông nhỏ" style="width: 44px; height: 44px; object-fit: cover; border-radius: 10px;">
                                 <span class="luggage-item-title">Gấu bông nhỏ</span>
                             </button>
                             <button class="luggage-item-card" data-luggage-item="true" data-category="PACK" data-name="Quần áo mềm">
-                                <img src="image/item_clothes_bin_1787805969758.jpg" alt="Quần áo mềm" style="width: 44px; height: 44px; object-fit: cover; border-radius: 10px;">
+                                <img src="item_clothes_bin_1787805969758.jpg" alt="Quần áo mềm" style="width: 44px; height: 44px; object-fit: cover; border-radius: 10px;">
                                 <span class="luggage-item-title">Quần áo mềm</span>
                             </button>
                             <button class="luggage-item-card" data-luggage-item="true" data-category="LEAVE_HOME" data-name="Kéo nhọn">
-                                <img src="image/item_sharp_scissors_1787806087872.jpg" alt="Kéo nhọn" style="width: 44px; height: 44px; object-fit: cover; border-radius: 10px;">
+                                <img src="item_sharp_scissors_1787806087872.jpg" alt="Kéo nhọn" style="width: 44px; height: 44px; object-fit: cover; border-radius: 10px;">
                                 <span class="luggage-item-title">Kéo nhọn</span>
                             </button>
                         </div>
@@ -332,19 +358,19 @@
                         <!-- Cột đồ bên phải -->
                         <div style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); z-index: 20; display: flex; flex-direction: column; gap: 8px;">
                             <button class="luggage-item-card" data-luggage-item="true" data-category="PACK" data-name="Bàn chải">
-                                <img src="image/item_toothbrush_bin_1787805999817.jpg" alt="Bàn chải" style="width: 44px; height: 44px; object-fit: cover; border-radius: 10px;">
+                                <img src="item_toothbrush_bin_1787805999817.jpg" alt="Bàn chải" style="width: 44px; height: 44px; object-fit: cover; border-radius: 10px;">
                                 <span class="luggage-item-title">Bàn chải</span>
                             </button>
                             <button class="luggage-item-card" data-luggage-item="true" data-category="PACK" data-name="Mũ che nắng">
-                                <img src="image/item_sunhat_bin_1787806030489.jpg" alt="Mũ che nắng" style="width: 44px; height: 44px; object-fit: cover; border-radius: 10px;">
+                                <img src="item_sunhat_bin_1787806030489.jpg" alt="Mũ che nắng" style="width: 44px; height: 44px; object-fit: cover; border-radius: 10px;">
                                 <span class="luggage-item-title">Mũ che nắng</span>
                             </button>
                             <button class="luggage-item-card" data-luggage-item="true" data-category="LEAVE_HOME" data-name="Ô tô to">
-                                <img src="image/item_big_car_toy_1787806058422.jpg" alt="Ô tô to" style="width: 44px; height: 44px; object-fit: cover; border-radius: 10px;">
+                                <img src="item_big_car_toy_1787806058422.jpg" alt="Ô tô to" style="width: 44px; height: 44px; object-fit: cover; border-radius: 10px;">
                                 <span class="luggage-item-title">Ô tô to</span>
                             </button>
                             <button class="luggage-item-card" data-luggage-item="true" data-category="LEAVE_HOME" data-name="Bình nước lớn">
-                                <img src="image/item_large_bottle_1787806116315.jpg" alt="Bình nước lớn" style="width: 44px; height: 44px; object-fit: cover; border-radius: 10px;">
+                                <img src="item_large_bottle_1787806116315.jpg" alt="Bình nước lớn" style="width: 44px; height: 44px; object-fit: cover; border-radius: 10px;">
                                 <span class="luggage-item-title">Bình nước lớn</span>
                             </button>
                         </div>
@@ -367,7 +393,7 @@
                     <span class="intro-header-badge">CHẶNG 3 — HOẠT ĐỘNG 3</span>
                     <h2 class="intro-activity-title">KIỂM TRA VÉ & CHỌN SỐ GHẾ</h2>
                     <div class="intro-art-frame">
-                        <img src="image/act3_checkin_mom_bin_exact_1787803769855.jpg" alt="Quầy làm thủ tục sân bay">
+                        <img src="act3_checkin_mom_bin_exact_1787803769855.jpg" alt="Quầy làm thủ tục sân bay">
                     </div>
                     <p class="intro-prompt-quote">Mẹ: “Đến quầy kiểm tra rồi. Con tìm và chọn số ghế của Bin trên vé nhé!”</p>
                     <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="3" style="font-size: 17px; padding: 8px 28px;">
@@ -459,7 +485,7 @@
                     <span class="intro-header-badge">CHẶNG 3 — HOẠT ĐỘNG 4</span>
                     <h2 class="intro-activity-title">SOI HÀNH LÝ QUA MÁY QUÉT</h2>
                     <div class="intro-art-frame">
-                        <img src="image/act4_xray_dad_bin_exact_1787803835711.jpg" alt="Bin và Bố quan sát vali qua máy soi">
+                        <img src="act4_xray_dad_bin_exact_1787803835711.jpg" alt="Bin và Bố quan sát vali qua máy soi">
                     </div>
                     <p class="intro-prompt-quote">Bố: “Bây giờ vali của Bin sẽ đi qua máy soi. Con xem bên trong có gì nhé!”</p>
                     <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="4" style="font-size: 17px; padding: 8px 28px;">
@@ -469,7 +495,7 @@
 
                 <div class="activity-gameplay-view hidden" id="gameplay-act-4">
                     <div class="unified-scene-stage">
-                        <img class="unified-scene-img" src="image/act4_xray_dad_bin_exact_1787803835711.jpg" alt="Màn hình soi X-Ray">
+                        <img class="unified-scene-img" src="act4_xray_dad_bin_exact_1787803835711.jpg" alt="Màn hình soi X-Ray">
 
                         <div class="scene-interactive-hud" style="position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); z-index: 20; background: rgba(255,255,255,0.95); padding: 8px 18px; border-radius: 18px; display: flex; gap: 10px; align-items: center; box-shadow: 0 6px 16px rgba(0,0,0,0.15);">
                             <span style="font-size: 13px; font-weight: 900; color: #004D40;">Chạm 3 vật an toàn trong vali:</span>
@@ -497,7 +523,7 @@
                     <span class="intro-header-badge">CHẶNG 3 — HOẠT ĐỘNG 5</span>
                     <h2 class="intro-activity-title">ĐI QUA CỔNG AN NINH</h2>
                     <div class="intro-art-frame">
-                        <img src="image/act5_gate_bin_exact_1787803993294.jpg" alt="Bin đi qua cổng an ninh">
+                        <img src="act5_gate_bin_exact_1787803993294.jpg" alt="Bin đi qua cổng an ninh">
                     </div>
                     <p class="intro-prompt-quote">Mẹ: “Đến cổng an ninh rồi. Con giúp Bin đi qua nhé!”</p>
                     <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="5" style="font-size: 17px; padding: 8px 28px;">
@@ -507,7 +533,7 @@
 
                 <div class="activity-gameplay-view hidden" id="gameplay-act-5">
                     <div class="unified-scene-stage">
-                        <img id="scene-img-act-5" class="unified-scene-img" src="image/act5_gate_bin_exact_1787803993294.jpg" alt="Scene Cổng an ninh">
+                        <img id="scene-img-act-5" class="unified-scene-img" src="act5_gate_bin_exact_1787803993294.jpg" alt="Scene Cổng an ninh">
 
                         <div class="scene-interactive-hud">
                             <button id="btn-walk-gate-5" class="tycoon-btn tycoon-btn-primary" style="font-size: 17px; padding: 8px 24px;">
@@ -533,7 +559,7 @@
                     <span class="intro-header-badge">CHẶNG 4 — HOẠT ĐỘNG 6</span>
                     <h2 class="intro-activity-title">TÌM ĐÚNG CỔNG 03</h2>
                     <div class="intro-art-frame">
-                        <img src="image/act6_gate03_dad_bin_exact_1787804038291.jpg" alt="Tìm Cổng 03">
+                        <img src="act6_gate03_dad_bin_exact_1787804038291.jpg" alt="Tìm Cổng 03">
                     </div>
                     <p class="intro-prompt-quote">Bố: “Vé của Bin ghi số 03. Con tìm cổng số 03 nhé!”</p>
                     <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="6" style="font-size: 17px; padding: 8px 28px;">
@@ -543,7 +569,7 @@
 
                 <div class="activity-gameplay-view hidden" id="gameplay-act-6">
                     <div class="unified-scene-stage">
-                        <img class="unified-scene-img" src="image/act6_gate03_dad_bin_exact_1787804038291.jpg" alt="Sảnh chờ Cổng 03">
+                        <img class="unified-scene-img" src="act6_gate03_dad_bin_exact_1787804038291.jpg" alt="Sảnh chờ Cổng 03">
 
                         <div class="scene-interactive-hud">
                             <span style="font-weight: 900; font-size: 13px; color: #37474F;">Vé ghi Cổng 03. Con chọn:</span>
@@ -571,7 +597,7 @@
                     <span class="intro-header-badge">CHẶNG 5 — HOẠT ĐỘNG 7</span>
                     <h2 class="intro-activity-title">CÀI DÂY AN TOÀN TRÊN GHẾ</h2>
                     <div class="intro-art-frame">
-                        <img src="image/act7_cabin_family_exact_1787803601954.jpg" alt="Dãy 3 ghế máy bay cùng Bố Mẹ">
+                        <img src="act7_cabin_family_exact_1787803601954.jpg" alt="Dãy 3 ghế máy bay cùng Bố Mẹ">
                     </div>
                     <p class="intro-prompt-quote">Mẹ: “Bin ngồi vào ghế 12A rồi. Con chọn hành động đúng để bảo vệ an toàn nhé!”</p>
                     <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="7" style="font-size: 17px; padding: 8px 28px;">
@@ -581,16 +607,16 @@
 
                 <div class="activity-gameplay-view hidden" id="gameplay-act-7">
                     <div class="unified-scene-stage">
-                        <img id="scene-img-act-7" class="unified-scene-img" src="image/act7_cabin_family_exact_1787803601954.jpg" alt="Cài dây an toàn 3 ghế">
+                        <img id="scene-img-act-7" class="unified-scene-img" src="act7_cabin_family_exact_1787803601954.jpg" alt="Cài dây an toàn 3 ghế">
                         
                         <div class="scene-interactive-hud" id="hud-quiz-act-7">
                             <div class="visual-quiz-container">
                                 <button class="visual-quiz-card" data-choice="wrong" data-act="7">
-                                    <img src="image/choice_act7_unbuckled_1787806276793.jpg" class="choice-thumb" alt="Đứng nhảy trên ghế" style="width: 72px; height: 72px; object-fit: cover; border-radius: 12px; margin-bottom: 4px;">
+                                    <img src="choice_act7_unbuckled_1787806276793.jpg" class="choice-thumb" alt="Đứng nhảy trên ghế" style="width: 72px; height: 72px; object-fit: cover; border-radius: 12px; margin-bottom: 4px;">
                                     <span class="quiz-label">Đứng nhảy trên ghế</span>
                                 </button>
                                 <button class="visual-quiz-card" data-choice="correct" data-act="7">
-                                    <img src="image/choice_act7_buckled_1787806309848.jpg" class="choice-thumb" alt="Cài dây an toàn" style="width: 72px; height: 72px; object-fit: cover; border-radius: 12px; margin-bottom: 4px;">
+                                    <img src="choice_act7_buckled_1787806309848.jpg" class="choice-thumb" alt="Cài dây an toàn" style="width: 72px; height: 72px; object-fit: cover; border-radius: 12px; margin-bottom: 4px;">
                                     <span class="quiz-label">Cài dây an toàn (CẠCH!)</span>
                                 </button>
                             </div>
@@ -614,7 +640,7 @@
                     <span class="intro-header-badge">CHẶNG 5 — HOẠT ĐỘNG 8</span>
                     <h2 class="intro-activity-title">GIÚP TAI DỄ CHỊU KHI CẤT CÁNH</h2>
                     <div class="intro-art-frame">
-                        <img src="image/act8_cabin_drink_exact_1787803876001.jpg" alt="Bin uống nước trên ghế máy bay">
+                        <img src="act8_cabin_drink_exact_1787803876001.jpg" alt="Bin uống nước trên ghế máy bay">
                     </div>
                     <p class="intro-prompt-quote">Mẹ: “Khi máy bay bay lên cao làm tai khó chịu, con chọn cách nào giúp Bin nhé!”</p>
                     <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="8" style="font-size: 17px; padding: 8px 28px;">
@@ -624,16 +650,16 @@
 
                 <div class="activity-gameplay-view hidden" id="gameplay-act-8">
                     <div class="unified-scene-stage">
-                        <img id="scene-img-act-8" class="unified-scene-img" src="image/act8_cabin_drink_exact_1787803876001.jpg" alt="Bin uống nước trên ghế">
+                        <img id="scene-img-act-8" class="unified-scene-img" src="act8_cabin_drink_exact_1787803876001.jpg" alt="Bin uống nước trên ghế">
                         
                         <div class="scene-interactive-hud" id="hud-quiz-act-8">
                             <div class="visual-quiz-container">
                                 <button class="visual-quiz-card" data-choice="wrong" data-act="8">
-                                    <img src="image/choice_act8_cry_1787806342582.jpg" class="choice-thumb" alt="Bịt tai, khóc nhè" style="width: 72px; height: 72px; object-fit: cover; border-radius: 12px; margin-bottom: 4px;">
+                                    <img src="choice_act8_cry_1787806342582.jpg" class="choice-thumb" alt="Bịt tai, khóc nhè" style="width: 72px; height: 72px; object-fit: cover; border-radius: 12px; margin-bottom: 4px;">
                                     <span class="quiz-label">Bịt tai, khóc nhè</span>
                                 </button>
                                 <button class="visual-quiz-card" data-choice="correct" data-act="8">
-                                    <img src="image/choice_act8_drink_1787806384301.jpg" class="choice-thumb" alt="Uống từng ngụm nước" style="width: 72px; height: 72px; object-fit: cover; border-radius: 12px; margin-bottom: 4px;">
+                                    <img src="choice_act8_drink_1787806384301.jpg" class="choice-thumb" alt="Uống từng ngụm nước" style="width: 72px; height: 72px; object-fit: cover; border-radius: 12px; margin-bottom: 4px;">
                                     <span class="quiz-label">Uống từng ngụm nước nhỏ</span>
                                 </button>
                             </div>
@@ -657,7 +683,7 @@
                     <span class="intro-header-badge">CHẶNG 6 — HOẠT ĐỘNG 9</span>
                     <h2 class="intro-activity-title">NGẮM MÂY VÀ TƯỞNG TƯỢNG</h2>
                     <div class="intro-art-frame">
-                        <img src="image/scene_act9_window_1787730327041.jpg" alt="Ngắm mây">
+                        <img src="scene_act9_window_1787730327041.jpg" alt="Ngắm mây">
                     </div>
                     <p class="intro-prompt-quote">Bin: “Bin thấy đám mây giống hình gì nhỉ? Con nhìn cùng Bin nhé!”</p>
                     <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="9" style="font-size: 17px; padding: 8px 28px;">
@@ -667,7 +693,7 @@
 
                 <div class="activity-gameplay-view hidden" id="gameplay-act-9">
                     <div class="unified-scene-stage">
-                        <img id="scene-img-act-9" class="unified-scene-img" src="image/scene_act9_window_1787730327041.jpg" alt="Scene Ngắm mây qua cửa sổ">
+                        <img id="scene-img-act-9" class="unified-scene-img" src="scene_act9_window_1787730327041.jpg" alt="Scene Ngắm mây qua cửa sổ">
 
                         <div class="scene-interactive-hud">
                             <span style="font-weight: 900; font-size: 14px; color: #0277BD;">Chạm đám mây:</span>
@@ -694,7 +720,7 @@
                     <span class="intro-header-badge">CHẶNG 7 — HOẠT ĐỘNG 10</span>
                     <h2 class="intro-activity-title">NÓI NHỎ VỪA ĐỦ NGHE</h2>
                     <div class="intro-art-frame">
-                        <img src="image/act10_cabin_whisper_exact_1787803921672.jpg" alt="Nói nhỏ trên ghế máy bay">
+                        <img src="act10_cabin_whisper_exact_1787803921672.jpg" alt="Nói nhỏ trên ghế máy bay">
                     </div>
                     <p class="intro-prompt-quote">Mẹ: “Trên máy bay đông người, con chọn cách nói chuyện lịch sự nhé!”</p>
                     <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="10" style="font-size: 17px; padding: 8px 28px;">
@@ -704,16 +730,16 @@
 
                 <div class="activity-gameplay-view hidden" id="gameplay-act-10">
                     <div class="unified-scene-stage">
-                        <img id="scene-img-act-10" class="unified-scene-img" src="image/act10_cabin_whisper_exact_1787803921672.jpg" alt="Nói nhỏ dãy 3 ghế">
+                        <img id="scene-img-act-10" class="unified-scene-img" src="act10_cabin_whisper_exact_1787803921672.jpg" alt="Nói nhỏ dãy 3 ghế">
 
                         <div class="scene-interactive-hud" id="hud-quiz-act-10">
                             <div class="visual-quiz-container">
                                 <button class="visual-quiz-card" data-choice="wrong" data-act="10">
-                                    <img src="image/choice_act10_loud_1787806150946.jpg" class="choice-thumb" alt="Nói to, la hét" style="width: 72px; height: 72px; object-fit: cover; border-radius: 12px; margin-bottom: 4px;">
+                                    <img src="choice_act10_loud_1787806150946.jpg" class="choice-thumb" alt="Nói to, la hét" style="width: 72px; height: 72px; object-fit: cover; border-radius: 12px; margin-bottom: 4px;">
                                     <span class="quiz-label">Nói to, la hét</span>
                                 </button>
                                 <button class="visual-quiz-card" data-choice="correct" data-act="10">
-                                    <img src="image/choice_act10_whisper_1787806183105.jpg" class="choice-thumb" alt="Nói nhỏ vừa đủ nghe" style="width: 72px; height: 72px; object-fit: cover; border-radius: 12px; margin-bottom: 4px;">
+                                    <img src="choice_act10_whisper_1787806183105.jpg" class="choice-thumb" alt="Nói nhỏ vừa đủ nghe" style="width: 72px; height: 72px; object-fit: cover; border-radius: 12px; margin-bottom: 4px;">
                                     <span class="quiz-label">Nói nhỏ vừa đủ nghe</span>
                                 </button>
                             </div>
@@ -737,7 +763,7 @@
                     <span class="intro-header-badge">CHẶNG 7 — HOẠT ĐỘNG 11</span>
                     <h2 class="intro-activity-title">NGỒI GỌN — KHÔNG ĐẠP GHẾ TRƯỚC</h2>
                     <div class="intro-art-frame">
-                        <img src="image/act11_cabin_tuckfeet_exact_1787803962458.jpg" alt="Ngồi thu chân gọn gàng">
+                        <img src="act11_cabin_tuckfeet_exact_1787803962458.jpg" alt="Ngồi thu chân gọn gàng">
                     </div>
                     <p class="intro-prompt-quote">Bố: “Con chọn tư thế ngồi ngoan giúp Bin không làm phiền người phía trước nhé!”</p>
                     <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="11" style="font-size: 17px; padding: 8px 28px;">
@@ -747,16 +773,16 @@
 
                 <div class="activity-gameplay-view hidden" id="gameplay-act-11">
                     <div class="unified-scene-stage">
-                        <img id="scene-img-act-11" class="unified-scene-img" src="image/act11_cabin_tuckfeet_exact_1787803962458.jpg" alt="Ngồi thu chân gọn">
+                        <img id="scene-img-act-11" class="unified-scene-img" src="act11_cabin_tuckfeet_exact_1787803962458.jpg" alt="Ngồi thu chân gọn">
 
                         <div class="scene-interactive-hud" id="hud-quiz-act-11">
                             <div class="visual-quiz-container">
                                 <button class="visual-quiz-card" data-choice="wrong" data-act="11">
-                                    <img src="image/choice_act11_kick_1787806213307.jpg" class="choice-thumb" alt="Duỗi chân đạp ghế trước" style="width: 72px; height: 72px; object-fit: cover; border-radius: 12px; margin-bottom: 4px;">
+                                    <img src="choice_act11_kick_1787806213307.jpg" class="choice-thumb" alt="Duỗi chân đạp ghế trước" style="width: 72px; height: 72px; object-fit: cover; border-radius: 12px; margin-bottom: 4px;">
                                     <span class="quiz-label">Duỗi chân đạp ghế trước</span>
                                 </button>
                                 <button class="visual-quiz-card" data-choice="correct" data-act="11">
-                                    <img src="image/choice_act11_tuck_1787806246494.jpg" class="choice-thumb" alt="Thu chân gọn gàng" style="width: 72px; height: 72px; object-fit: cover; border-radius: 12px; margin-bottom: 4px;">
+                                    <img src="choice_act11_tuck_1787806246494.jpg" class="choice-thumb" alt="Thu chân gọn gàng" style="width: 72px; height: 72px; object-fit: cover; border-radius: 12px; margin-bottom: 4px;">
                                     <span class="quiz-label">Thu chân gọn gàng</span>
                                 </button>
                             </div>
@@ -780,7 +806,7 @@
                     <span class="intro-header-badge">CHẶNG 8 — HOẠT ĐỘNG 12</span>
                     <h2 class="intro-activity-title">CHỜ MÁY BAY DỪNG HẲN RỒI MỚI MỞ DÂY</h2>
                     <div class="intro-art-frame">
-                        <img src="image/act7_cabin_family_exact_1787803601954.jpg" alt="Chờ máy bay dừng">
+                        <img src="act7_cabin_family_exact_1787803601954.jpg" alt="Chờ máy bay dừng">
                     </div>
                     <p class="intro-prompt-quote">Bố: “Máy bay vừa đáp xuống. Con chọn hành động an toàn giúp Bin nhé!”</p>
                     <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="12" style="font-size: 17px; padding: 8px 28px;">
@@ -790,16 +816,16 @@
 
                 <div class="activity-gameplay-view hidden" id="gameplay-act-12">
                     <div class="unified-scene-stage">
-                        <img id="scene-img-act-12" class="unified-scene-img" src="image/act7_cabin_family_exact_1787803601954.jpg" alt="Scene Chờ máy bay dừng">
+                        <img id="scene-img-act-12" class="unified-scene-img" src="act7_cabin_family_exact_1787803601954.jpg" alt="Scene Chờ máy bay dừng">
 
                         <div class="scene-interactive-hud" id="hud-quiz-act-12">
                             <div class="visual-quiz-container">
                                 <button class="visual-quiz-card" data-choice="wrong" data-act="12">
-                                    <img src="image/choice_act12_stand_1787806424639.jpg" class="choice-thumb" alt="Đứng dậy lấy đồ sớm" style="width: 72px; height: 72px; object-fit: cover; border-radius: 12px; margin-bottom: 4px;">
+                                    <img src="choice_act12_stand_1787806424639.jpg" class="choice-thumb" alt="Đứng dậy lấy đồ sớm" style="width: 72px; height: 72px; object-fit: cover; border-radius: 12px; margin-bottom: 4px;">
                                     <span class="quiz-label">Đứng dậy lấy đồ sớm</span>
                                 </button>
                                 <button class="visual-quiz-card" data-choice="correct" data-act="12">
-                                    <img src="image/choice_act12_sit_1787806461834.jpg" class="choice-thumb" alt="Ngồi yên thắt dây chờ" style="width: 72px; height: 72px; object-fit: cover; border-radius: 12px; margin-bottom: 4px;">
+                                    <img src="choice_act12_sit_1787806461834.jpg" class="choice-thumb" alt="Ngồi yên thắt dây chờ" style="width: 72px; height: 72px; object-fit: cover; border-radius: 12px; margin-bottom: 4px;">
                                     <span class="quiz-label">Ngồi yên thắt dây chờ</span>
                                 </button>
                             </div>
@@ -823,7 +849,7 @@
                     <span class="intro-header-badge">CHẶNG 8 — HOẠT ĐỘNG 13</span>
                     <h2 class="intro-activity-title">TÌM ĐÚNG VALI CỦA BIN</h2>
                     <div class="intro-art-frame">
-                        <img src="image/act13_carousel_bin_exact_1787804082739.jpg" alt="Bé Bin chờ nhận vali tại băng chuyền">
+                        <img src="act13_carousel_bin_exact_1787804082739.jpg" alt="Bé Bin chờ nhận vali tại băng chuyền">
                     </div>
                     <p class="intro-prompt-quote">Bố: “Con tìm chiếc vali đỏ có hình gấu của Bin nhé!”</p>
                     <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="13" style="font-size: 17px; padding: 8px 28px;">
@@ -836,23 +862,23 @@
                         <div class="real-suitcases-orbit">
                             <!-- 1. Vali đỏ hình gấu của Bin -->
                             <button class="real-suitcase-card" data-is-bin="true">
-                                <img src="image/suitcase_red_bear_1787731110032.jpg" alt="Vali đỏ hình gấu">
+                                <img src="suitcase_red_bear_1787731110032.jpg" alt="Vali đỏ hình gấu">
                             </button>
                             <!-- 2. Vali xanh tên lửa -->
                             <button class="real-suitcase-card" data-is-bin="false">
-                                <img src="image/suitcase_blue_rocket_1787731213059.jpg" alt="Vali xanh tên lửa">
+                                <img src="suitcase_blue_rocket_1787731213059.jpg" alt="Vali xanh tên lửa">
                             </button>
                             <!-- 3. Vali vàng quả cherry -->
                             <button class="real-suitcase-card" data-is-bin="false">
-                                <img src="image/suitcase_yellow_cherry_1787731243683.jpg" alt="Vali vàng cherry">
+                                <img src="suitcase_yellow_cherry_1787731243683.jpg" alt="Vali vàng cherry">
                             </button>
                             <!-- 4. Vali xanh lá quả bóng -->
                             <button class="real-suitcase-card" data-is-bin="false">
-                                <img src="image/suitcase_green_ball_1787731424638.jpg" alt="Vali xanh bóng">
+                                <img src="suitcase_green_ball_1787731424638.jpg" alt="Vali xanh bóng">
                             </button>
                             <!-- 5. Vali tím ngôi sao -->
                             <button class="real-suitcase-card" data-is-bin="false">
-                                <img src="image/suitcase_purple_star_1787731513646.jpg" alt="Vali tím sao">
+                                <img src="suitcase_purple_star_1787731513646.jpg" alt="Vali tím sao">
                             </button>
                         </div>
                     </div>
@@ -861,7 +887,7 @@
                 <!-- MÀN THƯỞNG CUỐI CÙNG -->
                 <div id="golden-medal-modal" class="golden-medal-modal">
                     <div style="display: flex; justify-content: center; margin-bottom: 6px;">
-                        <img src="image/bin_avatar_exact_1787804218103.jpg" style="width: 160px; height: 160px; object-fit: contain; border-radius: 50%; border: 4px solid #FFD54F; box-shadow: 0 6px 18px rgba(255, 193, 7, 0.4); background: #FFF9C4;" alt="Bin nhận huy hiệu">
+                        <img src="bin_avatar_exact_1787804218103.jpg" style="width: 160px; height: 160px; object-fit: contain; border-radius: 50%; border: 4px solid #FFD54F; box-shadow: 0 6px 18px rgba(255, 193, 7, 0.4); background: #FFF9C4;" alt="Bin nhận huy hiệu">
                     </div>
                     <h2 style="font-size: 22px; font-weight: 900; color: #E65100; margin: 4px 0;">HÀNH KHÁCH NHÍ XUẤT SẮC</h2>
                     <p style="font-size: 14px; font-weight: 800; color: #37474F; margin: 4px 0;">Bé Bin đã hoàn thành chuyến bay đầu tiên!</p>
