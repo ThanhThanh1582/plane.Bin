@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 600" width="100%" height="100%">
+  <!-- Giày Dán Xé Xanh Tiện Lợi (Layer Trong Suốt) -->
+  <g id="layer-shoes-blue-velcro">
+    <!-- Chiếc giày trái -->
+    <ellipse cx="145" cy="535" rx="34" ry="20" fill="#1976D2" stroke="#0D47A1" stroke-width="3"/>
+    <rect x="122" y="520" width="44" height="12" rx="4" fill="#FFFFFF" stroke="#90CAF9" stroke-width="2"/>
+    <!-- Chiếc giày phải -->
+    <ellipse cx="255" cy="535" rx="34" ry="20" fill="#1976D2" stroke="#0D47A1" stroke-width="3"/>
+    <rect x="232" y="520" width="44" height="12" rx="4" fill="#FFFFFF" stroke="#90CAF9" stroke-width="2"/>
+  </g>
+</svg>

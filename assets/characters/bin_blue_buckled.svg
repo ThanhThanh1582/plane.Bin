@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="skinBB" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFE0B2"/>
+      <stop offset="100%" stop-color="#FFCC80"/>
+    </linearGradient>
+    <linearGradient id="blueShirtBB" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4FC3F7"/>
+      <stop offset="100%" stop-color="#0288D1"/>
+    </linearGradient>
+    <linearGradient id="orangeShortsBB" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFA726"/>
+      <stop offset="100%" stop-color="#F57C00"/>
+    </linearGradient>
+    <linearGradient id="beltGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#455A64"/>
+      <stop offset="100%" stop-color="#263238"/>
+    </linearGradient>
+    <linearGradient id="buckleChrome" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ECEFF1"/>
+      <stop offset="50%" stop-color="#B0BEC5"/>
+      <stop offset="100%" stop-color="#78909C"/>
+    </linearGradient>
+    <filter id="shadowBB" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="10" stdDeviation="6" flood-color="#000" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#shadowBB)">
+    <!-- Đôi chân & Giày dán xé thể thao -->
+    <rect x="135" y="440" width="38" height="90" rx="19" fill="url(#skinBB)"/>
+    <rect x="227" y="440" width="38" height="90" rx="19" fill="url(#skinBB)"/>
+    <ellipse cx="145" cy="535" rx="34" ry="20" fill="#1976D2"/>
+    <rect x="125" y="520" width="40" height="12" rx="4" fill="#FFFFFF"/>
+    <ellipse cx="255" cy="535" rx="34" ry="20" fill="#1976D2"/>
+    <rect x="235" y="520" width="40" height="12" rx="4" fill="#FFFFFF"/>
+
+    <!-- Quần short cam -->
+    <path d="M 120 360 L 280 360 L 270 450 L 210 450 L 200 400 L 190 450 L 130 450 Z" fill="url(#orangeShortsBB)" stroke="#E65100" stroke-width="4"/>
+
+    <!-- ÁO THUN XANH DƯƠNG -->
+    <rect x="110" y="220" width="180" height="155" rx="36" fill="url(#blueShirtBB)" stroke="#01579B" stroke-width="5"/>
+    <path d="M 155 220 Q 200 245 245 220" stroke="#01579B" stroke-width="5" fill="none" stroke-linecap="round"/>
+    
+    <!-- Hình in máy bay giấy trắng -->
+    <g transform="translate(165, 255) scale(1.3)">
+      <polygon points="0,20 40,5 20,35 15,22" fill="#FFFFFF"/>
+      <polygon points="15,22 40,5 20,35" fill="#E1F5FE"/>
+      <line x1="0" y1="20" x2="40" y2="5" stroke="#0288D1" stroke-width="2"/>
+    </g>
+
+    <!-- DÂY AN TOÀN ĐÃ CÀI CHẮC CHẮN QUA BỤNG (SEATBELT FASTENED) -->
+    <rect x="75" y="340" width="250" height="42" rx="10" fill="url(#beltGrad)" stroke="#1A237E" stroke-width="4"/>
+    <line x1="85" y1="350" x2="315" y2="350" stroke="#78909C" stroke-width="2" stroke-dasharray="8 4"/>
+    <line x1="85" y1="372" x2="315" y2="372" stroke="#78909C" stroke-width="2" stroke-dasharray="8 4"/>
+    
+    <!-- Khóa kim loại trung tâm sáng bóng -->
+    <rect x="165" y="330" width="70" height="62" rx="12" fill="url(#buckleChrome)" stroke="#37474F" stroke-width="4"/>
+    <circle cx="200" cy="361" r="16" fill="#00E676" stroke="#00897B" stroke-width="3"/>
+    <!-- Dấu tích an toàn -->
+    <path d="M 193 361 L 198 366 L 208 355" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" fill="none"/>
+
+    <!-- Cánh tay ôm lấy khóa an toàn -->
+    <rect x="70" y="240" width="44" height="110" rx="22" transform="rotate(25 70 240)" fill="url(#blueShirtBB)" stroke="#01579B" stroke-width="4"/>
+    <circle cx="95" cy="365" r="20" fill="url(#skinBB)"/>
+    
+    <rect x="285" y="240" width="44" height="110" rx="22" transform="rotate(-25 285 240)" fill="url(#blueShirtBB)" stroke="#01579B" stroke-width="4"/>
+    <circle cx="305" cy="365" r="20" fill="url(#skinBB)"/>
+
+    <!-- Khuôn mặt tròn Bé Bin -->
+    <circle cx="200" cy="130" r="85" fill="url(#skinBB)" stroke="#FFA726" stroke-width="4"/>
+    <circle cx="115" cy="135" r="18" fill="url(#skinBB)"/>
+    <circle cx="285" cy="135" r="18" fill="url(#skinBB)"/>
+    
+    <!-- Mái tóc nâu đen -->
+    <path d="M 115 110 C 115 40, 285 40, 285 110 C 275 85, 230 75, 200 90 C 170 75, 125 85, 115 110 Z" fill="#3E2723"/>
+    <path d="M 195 50 Q 210 20 225 35 Q 215 50 205 55 Z" fill="#3E2723"/>
+    
+    <!-- Đôi mắt tròn -->
+    <circle cx="165" cy="125" r="10" fill="#212121"/>
+    <circle cx="162" cy="122" r="3" fill="#FFFFFF"/>
+    <circle cx="235" cy="125" r="10" fill="#212121"/>
+    <circle cx="232" cy="122" r="3" fill="#FFFFFF"/>
+
+    <!-- Má hồng -->
+    <circle cx="145" cy="145" r="14" fill="#FF8A80" opacity="0.6"/>
+    <circle cx="255" cy="145" r="14" fill="#FF8A80" opacity="0.6"/>
+
+    <!-- Nụ cười tự tin -->
+    <path d="M 180 145 Q 200 170 220 145" stroke="#BF360C" stroke-width="5" stroke-linecap="round" fill="#D32F2F"/>
+  </g>
+</svg>

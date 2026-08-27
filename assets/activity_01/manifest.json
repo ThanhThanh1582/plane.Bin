@@ -1,0 +1,62 @@
+{
+  "activity": 1,
+  "title": "Chọn Trang Phục Thoải Mái",
+  "version": "2.0.0-golden-sample",
+  "realArtOnly": true,
+  "scenes": {
+    "intro": "assets/scenes/intro_act1_wardrobe.svg"
+  },
+  "backgrounds": {
+    "bedroom": "assets/backgrounds/bg_home.svg"
+  },
+  "characterStates": {
+    "baseNeutral": "assets/characters/bin/bin_base_neutral.svg",
+    "shirtOnly": "assets/characters/bin/bin_yellow_shirt_only.svg",
+    "shirtPants": "assets/characters/bin/bin_yellow_shirt_blue_pants.svg",
+    "fullOutfit": "assets/characters/bin/bin_yellow_shirt_blue_pants_shoes.svg"
+  },
+  "wardrobeObjects": {
+    "shirtSoft": {
+      "id": "shirt_soft",
+      "type": "shirt",
+      "fit": "soft",
+      "name": "Áo thun mềm",
+      "src": "assets/objects/shirt_soft.svg"
+    },
+    "jeansStiff": {
+      "id": "jeans_stiff",
+      "type": "jeans",
+      "fit": "stiff",
+      "name": "Quần bò cứng",
+      "src": "assets/objects/jeans_stiff.svg"
+    },
+    "pantsSoft": {
+      "id": "pants_soft",
+      "type": "pants",
+      "fit": "soft",
+      "name": "Quần thun mềm",
+      "src": "assets/objects/pants_soft.svg"
+    },
+    "outfitOnepiece": {
+      "id": "outfit_onepiece",
+      "type": "dress",
+      "fit": "stiff",
+      "name": "Bộ yếm rườm rà",
+      "src": "assets/objects/outfit_onepiece.svg"
+    },
+    "shoesVelcro": {
+      "id": "shoes_velcro",
+      "type": "shoes",
+      "fit": "soft",
+      "name": "Giày dán xé",
+      "src": "assets/objects/shoes_velcro.svg"
+    },
+    "bootsLaces": {
+      "id": "boots_laces",
+      "type": "boots",
+      "fit": "stiff",
+      "name": "Bốt cao cổ",
+      "src": "assets/objects/boots_laces.svg"
+    }
+  }
+}

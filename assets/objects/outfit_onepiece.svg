@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" width="100%" height="100%">
+  <defs>
+    <linearGradient id="fancyGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F8BBD0"/>
+      <stop offset="100%" stop-color="#EC407A"/>
+    </linearGradient>
+    <filter id="fancyShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="5" flood-color="#000" flood-opacity="0.16"/>
+    </filter>
+  </defs>
+  <g filter="url(#fancyShadow)">
+    <!-- Bộ liền rườm rà nhiều khuy bấm & quai yếm -->
+    <path d="M 80 80 L 220 80 L 210 240 L 160 240 L 150 170 L 140 240 L 90 240 Z" fill="url(#fancyGrad)" stroke="#AD1457" stroke-width="6" stroke-linejoin="round"/>
+    
+    <!-- Quai đeo yếm bắt chéo -->
+    <rect x="95" y="45" width="26" height="85" rx="6" fill="#F48FB1" stroke="#C2185B" stroke-width="4"/>
+    <rect x="179" y="45" width="26" height="85" rx="6" fill="#F48FB1" stroke="#C2185B" stroke-width="4"/>
+    
+    <!-- Các cúc bấm to cứng -->
+    <circle cx="108" cy="115" r="8" fill="#FFFFFF" stroke="#C2185B" stroke-width="3"/>
+    <circle cx="192" cy="115" r="8" fill="#FFFFFF" stroke="#C2185B" stroke-width="3"/>
+    <circle cx="150" cy="145" r="6" fill="#FFFFFF" stroke="#C2185B" stroke-width="2"/>
+    <circle cx="150" cy="175" r="6" fill="#FFFFFF" stroke="#C2185B" stroke-width="2"/>
+
+    <!-- Viền bèo nhún rườm rà ở cổ và gấu -->
+    <path d="M 95 45 Q 150 70 205 45" stroke="#FFFFFF" stroke-width="6" fill="none"/>
+    <circle cx="105" cy="240" r="8" fill="#F8BBD0"/>
+    <circle cx="125" cy="240" r="8" fill="#F8BBD0"/>
+    <circle cx="175" cy="240" r="8" fill="#F8BBD0"/>
+    <circle cx="195" cy="240" r="8" fill="#F8BBD0"/>
+  </g>
+</svg>

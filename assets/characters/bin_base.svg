@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="skinGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFE0B2"/>
+      <stop offset="100%" stop-color="#FFCC80"/>
+    </linearGradient>
+    <linearGradient id="hoodieGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFF59D"/>
+      <stop offset="100%" stop-color="#FDD835"/>
+    </linearGradient>
+    <linearGradient id="shortsGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#90CAF9"/>
+      <stop offset="100%" stop-color="#42A5F5"/>
+    </linearGradient>
+    <filter id="toyShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="10" stdDeviation="6" flood-color="#000" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#toyShadow)">
+    <!-- Đôi chân & Giày thể thao -->
+    <rect x="135" y="440" width="40" height="90" rx="20" fill="url(#skinGrad)"/>
+    <rect x="225" y="440" width="40" height="90" rx="20" fill="url(#skinGrad)"/>
+    <!-- Giày slip-on -->
+    <ellipse cx="145" cy="535" rx="35" ry="20" fill="#1E88E5"/>
+    <ellipse cx="145" cy="542" rx="35" ry="10" fill="#FFFFFF"/>
+    <ellipse cx="255" cy="535" rx="35" ry="20" fill="#1E88E5"/>
+    <ellipse cx="255" cy="542" rx="35" ry="10" fill="#FFFFFF"/>
+
+    <!-- Quần short thun mềm xanh -->
+    <path d="M 120 360 L 280 360 L 270 450 L 210 450 L 200 400 L 190 450 L 130 450 Z" fill="url(#shortsGrad)" stroke="#1976D2" stroke-width="4"/>
+
+    <!-- Thân mình / Áo hoodie vàng mềm -->
+    <rect x="110" y="220" width="180" height="160" rx="40" fill="url(#hoodieGrad)" stroke="#F57F17" stroke-width="5"/>
+    <!-- Túi kangaroo trước bụng -->
+    <path d="M 140 310 Q 200 330 260 310 L 250 360 L 150 360 Z" fill="#FFF9C4" stroke="#FBC02D" stroke-width="3"/>
+    <!-- Dây rút mũ hoodie -->
+    <path d="M 175 225 Q 170 260 175 275" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" fill="none"/>
+    <path d="M 225 225 Q 230 260 225 275" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" fill="none"/>
+
+    <!-- Cánh tay thân thiện mở rộng -->
+    <rect x="70" y="240" width="45" height="110" rx="22" transform="rotate(15 70 240)" fill="url(#hoodieGrad)" stroke="#F57F17" stroke-width="4"/>
+    <circle cx="65" cy="355" r="20" fill="url(#skinGrad)"/>
+    
+    <rect x="285" y="240" width="45" height="110" rx="22" transform="rotate(-15 285 240)" fill="url(#hoodieGrad)" stroke="#F57F17" stroke-width="4"/>
+    <circle cx="335" cy="355" r="20" fill="url(#skinGrad)"/>
+
+    <!-- Khuôn mặt tròn Bé Bin -->
+    <circle cx="200" cy="130" r="85" fill="url(#skinGrad)" stroke="#FFA726" stroke-width="4"/>
+    <!-- Đôi tai -->
+    <circle cx="115" cy="135" r="18" fill="url(#skinGrad)"/>
+    <circle cx="285" cy="135" r="18" fill="url(#skinGrad)"/>
+    
+    <!-- Mái tóc đen tròn ngộ nghĩnh -->
+    <path d="M 115 110 C 115 40, 285 40, 285 110 C 275 85, 230 75, 200 90 C 170 75, 125 85, 115 110 Z" fill="#212121"/>
+    
+    <!-- Đôi mắt to tròn long lanh -->
+    <circle cx="165" cy="125" r="10" fill="#212121"/>
+    <circle cx="162" cy="122" r="3" fill="#FFFFFF"/>
+    <circle cx="235" cy="125" r="10" fill="#212121"/>
+    <circle cx="232" cy="122" r="3" fill="#FFFFFF"/>
+
+    <!-- Má hồng chúm chím -->
+    <circle cx="145" cy="145" r="14" fill="#FF8A80" opacity="0.6"/>
+    <circle cx="255" cy="145" r="14" fill="#FF8A80" opacity="0.6"/>
+
+    <!-- Nụ cười rạng rỡ -->
+    <path d="M 180 145 Q 200 170 220 145" stroke="#BF360C" stroke-width="5" stroke-linecap="round" fill="#D32F2F"/>
+  </g>
+</svg>

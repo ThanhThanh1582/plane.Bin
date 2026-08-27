@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 700" width="100%" height="100%">
+  <defs>
+    <!-- Skin Gradient -->
+    <linearGradient id="skin" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFE4D2"/>
+      <stop offset="100%" stop-color="#FCD0B4"/>
+    </linearGradient>
+    <!-- Hair Gradient -->
+    <linearGradient id="hair" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4E342E"/>
+      <stop offset="100%" stop-color="#2D1B18"/>
+    </linearGradient>
+    <!-- Yellow Shirt Gradient -->
+    <linearGradient id="shirtY" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFF59D"/>
+      <stop offset="100%" stop-color="#FDD835"/>
+    </linearGradient>
+    <!-- Blue Shorts Gradient -->
+    <linearGradient id="shortsB" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#81D4FA"/>
+      <stop offset="100%" stop-color="#4FC3F7"/>
+    </linearGradient>
+    <!-- Shoe Blue Gradient -->
+    <linearGradient id="shoeB" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4FC3F7"/>
+      <stop offset="100%" stop-color="#0288D1"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#shadow)">
+    <!-- 1. ĐÔI CHÂN & ĐẦU GỐI HỒNG HÀO -->
+    <path d="M 205 490 L 205 575 Q 205 585 215 585 L 225 585 Q 235 585 235 575 L 235 490 Z" fill="url(#skin)"/>
+    <path d="M 265 490 L 265 575 Q 265 585 275 585 L 285 585 Q 295 585 295 575 L 295 490 Z" fill="url(#skin)"/>
+    <!-- Vết ửng hồng đầu gối -->
+    <circle cx="220" cy="520" r="10" fill="#FF8A80" opacity="0.4"/>
+    <circle cx="280" cy="520" r="10" fill="#FF8A80" opacity="0.4"/>
+
+    <!-- 2. TẤT TRẮNG CỔ CAO -->
+    <rect x="202" y="565" width="36" height="30" rx="4" fill="#FFFFFF" stroke="#CFD8DC" stroke-width="2"/>
+    <line x1="202" y1="572" x2="238" y2="572" stroke="#B0BEC5" stroke-width="2"/>
+    <rect x="262" y="565" width="36" height="30" rx="4" fill="#FFFFFF" stroke="#CFD8DC" stroke-width="2"/>
+    <line x1="262" y1="572" x2="298" y2="572" stroke="#B0BEC5" stroke-width="2"/>
+
+    <!-- 3. GIÀY DÁN XÉ MÀU XANH DƯƠNG THỂ THAO -->
+    <!-- Giày trái -->
+    <g transform="translate(180, 580)">
+      <path d="M 10 20 Q 15 5 35 5 Q 55 5 58 20 L 60 42 Q 60 52 45 52 L 15 52 Q 0 52 5 38 Z" fill="url(#shoeB)" stroke="#01579B" stroke-width="3"/>
+      <!-- Mũi giày cao su trắng -->
+      <path d="M 5 35 Q 12 25 25 25 L 25 50 Q 10 50 5 35 Z" fill="#FFFFFF" stroke="#CFD8DC" stroke-width="2"/>
+      <!-- Đế giày trắng -->
+      <rect x="2" y="44" width="58" height="10" rx="4" fill="#FFFFFF" stroke="#CFD8DC" stroke-width="2"/>
+      <!-- 2 Quai dán xé Velcro trắng -->
+      <rect x="24" y="16" width="32" height="7" rx="3" fill="#FFFFFF" stroke="#01579B" stroke-width="2"/>
+      <rect x="26" y="27" width="30" height="7" rx="3" fill="#FFFFFF" stroke="#01579B" stroke-width="2"/>
+    </g>
+
+    <!-- Giày phải -->
+    <g transform="translate(255, 580)">
+      <path d="M 50 20 Q 45 5 25 5 Q 5 5 2 20 L 0 42 Q 0 52 15 52 L 45 52 Q 60 52 55 38 Z" fill="url(#shoeB)" stroke="#01579B" stroke-width="3"/>
+      <path d="M 55 35 Q 48 25 35 25 L 35 50 Q 50 50 55 35 Z" fill="#FFFFFF" stroke="#CFD8DC" stroke-width="2"/>
+      <rect x="0" y="44" width="58" height="10" rx="4" fill="#FFFFFF" stroke="#CFD8DC" stroke-width="2"/>
+      <rect x="4" y="16" width="32" height="7" rx="3" fill="#FFFFFF" stroke="#01579B" stroke-width="2"/>
+      <rect x="4" y="27" width="30" height="7" rx="3" fill="#FFFFFF" stroke="#01579B" stroke-width="2"/>
+    </g>
+
+    <!-- 4. QUẦN SHORT THUN XANH DƯƠNG -->
+    <path d="M 185 390 L 315 390 L 310 495 L 260 495 L 250 435 L 240 495 L 190 495 Z" fill="url(#shortsB)" stroke="#0288D1" stroke-width="4"/>
+    <!-- Đường may túi quần cong mềm mại -->
+    <path d="M 195 405 Q 215 420 210 445" stroke="#0288D1" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path d="M 305 405 Q 285 420 290 445" stroke="#0288D1" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+    <!-- 5. ÁO THUN VÀNG VỚI HÌNH MÁY BAY GIẤY -->
+    <!-- Thân áo vàng mềm -->
+    <path d="M 170 270 Q 250 255 330 270 L 320 405 Q 250 415 180 405 Z" fill="url(#shirtY)" stroke="#F57F17" stroke-width="4"/>
+    <!-- Viền gấu áo -->
+    <path d="M 180 400 Q 250 410 320 400" stroke="#F57F17" stroke-width="3" fill="none"/>
+    <!-- Bo cổ áo tròn mềm -->
+    <path d="M 218 262 Q 250 285 282 262" stroke="#F57F17" stroke-width="4" fill="none" stroke-linecap="round"/>
+
+    <!-- Hình in máy bay giấy trên ngực trái -->
+    <g transform="translate(260, 310) rotate(-10) scale(0.65)">
+      <polygon points="10,40 55,10 70,55 35,45" fill="none" stroke="#F57F17" stroke-width="4" stroke-linejoin="round"/>
+      <line x1="55" y1="10" x2="35" y2="45" stroke="#F57F17" stroke-width="4"/>
+    </g>
+
+    <!-- Tay áo cộc tay & Cánh tay -->
+    <!-- Cánh tay trái -->
+    <g transform="translate(135, 270)">
+      <path d="M 40 5 L 10 45 L 35 55 L 55 15 Z" fill="url(#shirtY)" stroke="#F57F17" stroke-width="4"/>
+      <path d="M 16 48 Q 10 90 20 130 Q 30 145 42 135 Q 45 95 32 52 Z" fill="url(#skin)" stroke="#FFA726" stroke-width="3"/>
+      <!-- Bàn tay tròn xòe ngón -->
+      <circle cx="28" cy="140" r="14" fill="url(#skin)"/>
+      <circle cx="18" cy="135" r="5" fill="url(#skin)"/>
+    </g>
+
+    <!-- Cánh tay phải -->
+    <g transform="translate(315, 270)">
+      <path d="M 10 5 L 40 45 L 15 55 L -5 15 Z" fill="url(#shirtY)" stroke="#F57F17" stroke-width="4"/>
+      <path d="M 34 48 Q 40 90 30 130 Q 20 145 8 135 Q 5 95 18 52 Z" fill="url(#skin)" stroke="#FFA726" stroke-width="3"/>
+      <circle cx="22" cy="140" r="14" fill="url(#skin)"/>
+      <circle cx="32" cy="135" r="5" fill="url(#skin)"/>
+    </g>
+
+    <!-- 6. CỔ & ĐẦU BÉ BIN -->
+    <rect x="235" y="245" width="30" height="25" fill="url(#skin)"/>
+
+    <!-- Khuôn mặt tròn đầy bầu bĩnh đáng yêu -->
+    <ellipse cx="250" cy="180" rx="72" ry="65" fill="url(#skin)" stroke="#FFA726" stroke-width="3"/>
+
+    <!-- Đôi tai tròn -->
+    <circle cx="178" cy="185" r="16" fill="url(#skin)" stroke="#FFA726" stroke-width="3"/>
+    <circle cx="178" cy="185" r="8" fill="#F8BBD0" opacity="0.6"/>
+    <circle cx="322" cy="185" r="16" fill="url(#skin)" stroke="#FFA726" stroke-width="3"/>
+    <circle cx="322" cy="185" r="8" fill="#F8BBD0" opacity="0.6"/>
+
+    <!-- MÁI TÓC ĐEN TRÒN ĐÁNG YÊU CÓ LỌN TÓC TRÊN ĐỈNH -->
+    <path d="M 176 170 C 176 90, 324 90, 324 170 C 315 135, 290 120, 270 130 C 255 115, 235 115, 220 130 C 205 120, 185 135, 176 170 Z" fill="url(#hair)"/>
+    <!-- Lọn tóc ngộ nghĩnh cong vểnh lên đỉnh đầu (Ahoge) -->
+    <path d="M 270 100 Q 285 65 275 60 Q 260 70 262 100 Z" fill="url(#hair)"/>
+
+    <!-- Đôi lông mày thanh tú mềm mại -->
+    <path d="M 205 145 Q 220 140 230 147" stroke="#4E342E" stroke-width="4" stroke-linecap="round" fill="none"/>
+    <path d="M 295 145 Q 280 140 270 147" stroke="#4E342E" stroke-width="4" stroke-linecap="round" fill="none"/>
+
+    <!-- ĐÔI MẮT TO TRÒN LONG LANH TRONG SÁNG -->
+    <!-- Mắt trái -->
+    <ellipse cx="218" cy="170" rx="9" ry="11" fill="#212121"/>
+    <circle cx="215" cy="166" r="3.5" fill="#FFFFFF"/>
+    <circle cx="221" cy="174" r="1.5" fill="#FFFFFF"/>
+
+    <!-- Mắt phải -->
+    <ellipse cx="282" cy="170" rx="9" ry="11" fill="#212121"/>
+    <circle cx="279" cy="166" r="3.5" fill="#FFFFFF"/>
+    <circle cx="285" cy="174" r="1.5" fill="#FFFFFF"/>
+
+    <!-- Mũi tròn nhỏ xíu -->
+    <circle cx="250" cy="182" r="2.5" fill="#D84315"/>
+
+    <!-- Má hồng chúm chím -->
+    <ellipse cx="195" cy="188" rx="14" ry="9" fill="#FF8A80" opacity="0.65"/>
+    <ellipse cx="305" cy="188" rx="14" ry="9" fill="#FF8A80" opacity="0.65"/>
+
+    <!-- Nụ cười rạng rỡ hạnh phúc -->
+    <path d="M 232 195 Q 250 212 268 195" stroke="#BF360C" stroke-width="4" stroke-linecap="round" fill="none"/>
+  </g>
+</svg>
