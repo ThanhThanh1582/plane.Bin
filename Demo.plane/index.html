@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0, user-scalable=yes, viewport-fit=cover">
-    <title>Cùng Bé Bin Đi Máy Bay (13 Hoạt Động Kỹ Năng Độc Lập - Master Storybook UI)</title>
+    <title>Cùng Bé Bin Đi Máy Bay — Hành Trình Kỹ Năng & Thói Quen Đúng Cho Bé</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
     <style>
 /* ==========================================================================
-   CÙNG BÉ BIN ĐI MÁY BAY - BASE & DESKTOP STYLES
+   CÙNG BÉ BIN ĐI MÁY BAY - BASE & RESPONSIVE MOBILE STYLES (9:16 SAFE AREA)
    ========================================================================== */
 :root {
     --color-sky-blue: #73C7E8;
@@ -26,877 +26,336 @@
     --radius-story: 24px;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; user-select: none; -webkit-user-select: none; }
-body, html { width: 100%; height: 100%; overflow: hidden; font-family: "Nunito", "Arial Rounded MT Bold", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #E1F5FE; color: var(--text-dark); touch-action: manipulation; }
-#app-root { width: 100vw; height: 100vh; display: flex; flex-direction: column; position: relative; overflow: hidden; }
-#effects-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1000; }
-.top-nav { height: 46px; padding: 4px 16px; display: flex; justify-content: space-between; align-items: center; z-index: 50; flex-shrink: 0; }
-.stage-indicators { display: flex; gap: 8px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px); padding: 3px 10px; border-radius: var(--radius-round); box-shadow: var(--shadow-soft); border: 2px solid #FFF; }
-.stage-dot { width: 32px; height: 32px; border-radius: 50%; background: #ECEFF1; display: flex; align-items: center; justify-content: center; font-size: 14px; cursor: pointer; transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1); box-shadow: inset 0 -2px 0 #CFD8DC; border: none; }
-.stage-dot.active { background: linear-gradient(180deg, #F8D978 0%, #F5A45D 100%); transform: scale(1.15); box-shadow: 0 4px 10px rgba(245, 164, 93, 0.4), inset 0 -2px 0 #E67E22; }
+body, html { width: 100%; height: 100%; overflow-x: hidden; overflow-y: auto; font-family: "Nunito", "Arial Rounded MT Bold", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #E1F5FE; color: var(--text-dark); touch-action: manipulation; }
+#app-root { width: 100vw; min-height: 100dvh; display: flex; flex-direction: column; position: relative; overflow-x: hidden; padding-bottom: max(12px, env(safe-area-inset-bottom)); }
+#effects-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1000; }
+
+/* TẦNG 1: TOP BAR */
+.top-nav { height: auto; padding: 6px 12px; display: flex; justify-content: space-between; align-items: center; z-index: 50; flex-shrink: 0; gap: 8px; }
+.stage-indicators { display: flex; gap: 6px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px); padding: 4px 8px; border-radius: var(--radius-round); box-shadow: var(--shadow-soft); border: 2px solid #FFF; overflow-x: auto; scrollbar-width: none; }
+.stage-indicators::-webkit-scrollbar { display: none; }
+.stage-dot { width: 32px; height: 32px; border-radius: 50%; background: #ECEFF1; display: flex; align-items: center; justify-content: center; font-size: 14px; cursor: pointer; transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1); box-shadow: inset 0 -2px 0 #CFD8DC; border: none; flex-shrink: 0; }
+.stage-dot.active { background: linear-gradient(180deg, #F8D978 0%, #F5A45D 100%); transform: scale(1.12); box-shadow: 0 4px 10px rgba(245, 164, 93, 0.4), inset 0 -2px 0 #E67E22; }
 .stage-dot.completed { background: linear-gradient(180deg, #A5D6A7 0%, #82C99A 100%); box-shadow: inset 0 -2px 0 #66BB6A; }
-.stage-dot.locked { opacity: 0.35; cursor: not-allowed; filter: grayscale(0.8); }
-.tycoon-btn { min-width: 50px; min-height: 38px; padding: 4px 16px; border: none; border-radius: var(--radius-round); background: #FFFFFF; color: var(--text-dark); font-weight: 900; font-size: 14px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; cursor: pointer; box-shadow: 0 4px 0 #CFD8DC, 0 6px 12px rgba(0, 0, 0, 0.08); transition: all 0.12s ease; touch-action: manipulation; }
+.stage-dot.locked { opacity: 0.4; cursor: not-allowed; filter: grayscale(0.8); }
+
+.tycoon-btn { min-width: 48px; min-height: 38px; padding: 6px 16px; border: none; border-radius: var(--radius-round); background: #FFFFFF; color: var(--text-dark); font-weight: 900; font-size: 14px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; cursor: pointer; box-shadow: 0 4px 0 #CFD8DC, 0 6px 12px rgba(0, 0, 0, 0.08); transition: all 0.12s ease; touch-action: manipulation; }
 .tycoon-btn:active:not(:disabled) { transform: translateY(2px); box-shadow: 0 2px 0 #CFD8DC; }
 .tycoon-btn:disabled { cursor: not-allowed; opacity: 0.6; }
 .tycoon-btn-green { background: linear-gradient(180deg, #82C99A 0%, #66BB6A 100%); color: #1B5E20; box-shadow: 0 4px 0 #43A047, 0 6px 14px rgba(67, 160, 71, 0.3); }
 .tycoon-btn-primary { background: linear-gradient(180deg, #F8D978 0%, #F5A45D 100%); color: #5D4037; box-shadow: 0 4px 0 #E67E22, 0 6px 14px rgba(230, 126, 34, 0.3); }
-.parent-gate-btn { position: relative; overflow: hidden; }
+.parent-gate-btn { position: relative; overflow: hidden; font-size: 12px; padding: 4px 10px; flex-shrink: 0; }
 .parent-hold-ring { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; transform: rotate(-90deg); }
 .parent-hold-ring circle { fill: none; stroke: #FF7043; stroke-width: 4; stroke-dasharray: 175; stroke-dashoffset: 175; transition: stroke-dashoffset 0.1s linear; }
-.parent-prompt-container { width: 100%; max-width: 900px; margin: 0 auto 2px auto; padding: 0 16px; z-index: 40; display: flex; flex-direction: column; gap: 3px; flex-shrink: 0; }
-.sub-progress-bar { display: flex; align-items: center; justify-content: center; gap: 10px; background: rgba(255, 255, 255, 0.92); padding: 2px 14px; border-radius: var(--radius-round); font-size: 12px; font-weight: 800; color: #455A64; border: 1px solid rgba(255, 255, 255, 0.9); }
-.parent-prompt-signboard { background: rgba(255, 255, 255, 0.96); border-radius: 18px; padding: 4px 16px; border: 2px solid #FFE082; box-shadow: 0 3px 0 #FFCA28, var(--shadow-soft); display: flex; align-items: center; justify-content: center; gap: 10px; text-align: center; }
-.prompt-avatar-badge { width: 44px; height: 44px; border-radius: 50%; border: 3px solid #F5A45D; box-shadow: 0 3px 8px rgba(0,0,0,0.15); display: flex; align-items: center; justify-content: center; font-size: 20px; background: #FFF9C4; flex-shrink: 0; overflow: hidden; }
-.prompt-avatar-badge img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
-.prompt-speech-text { font-size: 16px; font-weight: 900; color: var(--text-dark); line-height: 1.3; }
-.screens-viewport { flex: 1; position: relative; width: 100%; height: calc(100vh - 100px); overflow: hidden; }
-.activity-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; visibility: hidden; transform: scale(0.98); transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.34, 1.25, 0.64, 1), visibility 0.25s; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 4px 16px 8px 16px; background-size: cover; background-position: center; background-repeat: no-repeat; overflow: hidden; }
-.activity-container.active { opacity: 1; visibility: visible; transform: scale(1); }
-.activity-intro-view { width: 100%; max-width: 860px; height: 88%; background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(8px); border-radius: var(--radius-story); border: 3px solid #FFE082; box-shadow: 0 8px 0 #FFCA28, var(--shadow-chunky); display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 14px 20px; text-align: center; margin: auto 0; z-index: 10; }
-.intro-header-badge { background: #E1F5FE; color: #0288D1; font-size: 12px; font-weight: 900; padding: 3px 14px; border-radius: var(--radius-round); border: 2px solid #B3E5FC; }
-.intro-activity-title { font-size: 20px; font-weight: 900; color: #E65100; margin: 2px 0; }
-.intro-art-frame { width: 100%; max-width: 660px; height: 240px; border-radius: 18px; overflow: hidden; box-shadow: 0 4px 14px rgba(0,0,0,0.1); border: 2px solid #FFF; display: flex; align-items: center; justify-content: center; background: #FFF; }
-.intro-art-frame img { width: 100%; height: 100%; object-fit: cover; }
-.intro-prompt-quote { font-size: 15px; font-weight: 800; color: #37474F; line-height: 1.3; padding: 0 10px; }
-.activity-gameplay-view { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; }
 
-.level1-room-scene {
-    position: relative;
-    width: 100%;
-    max-width: 860px;
-    height: 88%;
-    border-radius: 24px;
-    overflow: hidden;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.18), 0 0 0 4px #FFFFFF;
-    margin: auto 0;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
+/* TẦNG 2: TIẾN TRÌNH & THOẠI HƯỚNG DẪN */
+.parent-prompt-container { width: 100%; max-width: 600px; margin: 0 auto 4px auto; padding: 0 10px; z-index: 40; display: flex; flex-direction: column; gap: 3px; flex-shrink: 0; }
+.sub-progress-bar { display: flex; align-items: center; justify-content: center; gap: 8px; background: rgba(255, 255, 255, 0.92); padding: 3px 12px; border-radius: var(--radius-round); font-size: 12px; font-weight: 800; color: #455A64; border: 1px solid rgba(255, 255, 255, 0.9); }
+.parent-prompt-signboard { background: rgba(255, 255, 255, 0.96); border-radius: 18px; padding: 6px 12px; border: 2.5px solid #FFE082; box-shadow: 0 3px 0 #FFCA28, var(--shadow-soft); display: flex; align-items: center; justify-content: center; gap: 8px; text-align: center; }
+.prompt-avatar-badge { width: 38px; height: 38px; border-radius: 50%; border: 2.5px solid #F5A45D; box-shadow: 0 3px 8px rgba(0,0,0,0.15); display: flex; align-items: center; justify-content: center; font-size: 18px; background: #FFF9C4; flex-shrink: 0; overflow: hidden; }
+.prompt-avatar-badge img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+.prompt-speech-text { font-size: 13.5px; font-weight: 900; color: var(--text-dark); line-height: 1.3; }
+
+/* TẦNG 3: VIEWPORT CÁC HOẠT ĐỘNG (MOBILE DỌC 3 TẦNG) */
+.screens-viewport { flex: 1; position: relative; width: 100%; min-height: calc(100dvh - 120px); display: flex; flex-direction: column; overflow: visible; padding: 0 8px; }
+.activity-container { position: relative; width: 100%; display: none; flex-direction: column; align-items: center; justify-content: flex-start; padding: 4px 0 20px 0; }
+.activity-container.active { display: flex !important; }
+
+/* INTRO VIEW TRÊN MOBILE DỌC */
+.activity-intro-view { width: 98%; max-width: 480px; background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(8px); border-radius: 24px; border: 3px solid #FFE082; box-shadow: 0 8px 0 #FFCA28, var(--shadow-chunky); display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 14px 16px; text-align: center; margin: 4px auto; gap: 10px; }
+.intro-header-badge { background: #E1F5FE; color: #0288D1; font-size: 12px; font-weight: 900; padding: 4px 16px; border-radius: var(--radius-round); border: 2px solid #B3E5FC; }
+.intro-activity-title { font-size: 18px; font-weight: 900; color: #E65100; margin: 2px 0; }
+.intro-art-frame { width: 100%; max-width: 440px; height: 260px; max-height: 42vh; aspect-ratio: 3/4; border-radius: 20px; overflow: hidden; box-shadow: 0 6px 18px rgba(0,0,0,0.12); border: 3px solid #FFF; display: flex; align-items: center; justify-content: center; background: #FFF; }
+.intro-art-frame img { width: 100%; height: 100%; object-fit: cover; }
+.intro-prompt-quote { font-size: 14px; font-weight: 800; color: #37474F; line-height: 1.35; }
+.btn-start-activity { font-size: 16px !important; padding: 10px 24px !important; border-radius: 999px !important; }
+
+/* GAMEPLAY VIEW TRÊN MOBILE DỌC */
+.activity-gameplay-view { width: 100%; max-width: 480px; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; margin: 0 auto; gap: 8px; }
+
+/* UNIFIED SCENE STAGE (CHUẨN PORTRAIT DỌC 3:4 CHO MOBILE) */
+.unified-scene-stage {
+    width: 100% !important;
+    max-width: 440px !important;
+    height: auto !important;
+    max-height: 44vh !important;
+    aspect-ratio: 3/4 !important;
+    border-radius: 24px !important;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15), 0 0 0 3px #FFFFFF !important;
+    background: #FFFFFF !important;
+    margin: 2px auto 6px auto !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: hidden !important;
+    position: relative !important;
 }
-#act1-room-scene-img, .act2-scene-img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.unified-scene-img {
+    object-fit: cover !important;
+    object-position: center !important;
+    width: 100% !important;
+    height: 100% !important;
+    transition: opacity 0.25s ease;
+}
+
+/* SCENE INTERACTIVE HUD */
+.scene-interactive-hud {
+    position: relative !important;
+    width: 100% !important;
+    max-width: 480px !important;
+    margin: 4px auto 0 auto !important;
+    padding: 6px 8px !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 8px !important;
+    flex-wrap: wrap !important;
+    z-index: 20;
+}
+
+/* HĐ 1: CHỌN TRANG PHỤC */
+.level1-room-scene {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: 440px !important;
+    border-radius: 24px !important;
+    margin: 2px auto !important;
+    overflow: hidden !important;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15), 0 0 0 3px #FFFFFF !important;
+    background: #FFFFFF !important;
+}
+#act1-room-scene-img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 42vh !important;
+    aspect-ratio: 3/4 !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    border-radius: 24px 24px 0 0 !important;
 }
 .room-wardrobe-grid {
-    position: absolute;
-    left: 24px;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 10;
-    background: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(8px);
-    border: 3px solid #FFE082;
-    border-radius: 20px;
-    padding: 8px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.14);
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
+    width: 96% !important;
+    margin: 6px auto 10px auto !important;
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 8px !important;
+    padding: 8px !important;
+    border-radius: 18px !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1) !important;
 }
-.clothes-tile-item { min-height: 78px; min-width: 105px; background: #FFFFFF; border-radius: 16px; border: 2px solid #CFD8DC; box-shadow: 0 3px 0 #B0BEC5, 0 4px 8px rgba(0,0,0,0.06); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 3px; cursor: pointer; transition: transform 0.16s cubic-bezier(0.34, 1.56, 0.64, 1); }
-.clothes-tile-item:hover { transform: translateY(-2px) scale(1.04); }
-.clothes-tile-item:active { transform: scale(1.12); }
-.clothes-tile-item.shake-wobble { animation: springShake 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97) both; border-color: #E75B52 !important; }
-.clothes-tile-item img { width: 52px; height: 52px; object-fit: contain; pointer-events: none; }
-.clothes-tile-item span { font-size: 11px; font-weight: 800; color: var(--text-dark); margin-top: 2px; text-align: center; }
-
-.packing-items-grid {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 20;
+.clothes-tile-item {
+    min-height: 70px !important;
+    min-width: 0 !important;
+    padding: 6px 4px !important;
+    border-radius: 14px !important;
+    gap: 3px !important;
+    background: #FFFFFF;
+    border: 2px solid #CFD8DC;
+    box-shadow: 0 3px 0 #B0BEC5;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
 }
-.packing-left { left: 16px; }
-.packing-right { right: 16px; }
+.clothes-tile-item span:first-child { font-size: 24px !important; }
+.clothes-tile-item span:last-child { font-size: 11px !important; font-weight: 900 !important; line-height: 1.15 !important; }
+.clothes-tile-item.runtime-selected { border-color: #4CAF50 !important; background: #E8F5E9 !important; box-shadow: 0 3px 0 #2E7D32 !important; }
 
-.room-bin-character-mount { width: 260px; height: 380px; display: flex; align-items: center; justify-content: center; position: relative; background: transparent !important; border: none !important; box-shadow: none !important; z-index: 10; margin-right: 30px; margin-top: 15px; }
-.bin-sprite-img { width: 100%; height: 100%; object-fit: contain; pointer-events: none; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.16)); }
-.unified-scene-stage { width: 100%; max-width: 860px; height: 380px; max-height: 52vh; position: relative; border-radius: 24px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.18), 0 0 0 4px #FFFFFF; background: #FFFFFF; display: flex; align-items: center; justify-content: center; margin: 4px auto; }
-.unified-scene-img { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.3s ease; }
-.scene-interactive-hud { position: relative; margin: 8px auto 0 auto; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px); border-radius: var(--radius-round); padding: 6px 18px; border: 2px solid #FFE082; box-shadow: 0 4px 0 #FFCA28, var(--shadow-soft); display: flex; align-items: center; justify-content: center; gap: 12px; z-index: 20; }
-.activity-feedback-overlay { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); background: rgba(255, 255, 255, 0.98); border-radius: 28px; padding: 6px 20px; border: 3px solid #82C99A; box-shadow: 0 6px 0 #43A047, var(--shadow-chunky); display: flex; align-items: center; gap: 14px; z-index: 60; animation: popBounce 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); white-space: nowrap; }
-.activity-feedback-overlay.hidden { display: none !important; }
-.feedback-text { font-size: 16px; font-weight: 900; color: #1B5E20; }
-.real-boarding-pass { width: 100%; max-width: 520px; background: #FFFFFF; border-radius: 24px; border: 3px solid #F5A45D; box-shadow: 0 8px 0 #E67E22, var(--shadow-chunky); overflow: hidden; position: relative; cursor: pointer; transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1); }
-.real-boarding-pass:hover { transform: scale(1.02); }
-.pass-header-strip { background: linear-gradient(90deg, #0288D1 0%, #29B6F6 100%); color: #FFFFFF; padding: 6px 16px; display: flex; justify-content: space-between; align-items: center; font-weight: 900; font-size: 13px; }
-.pass-body-grid { padding: 12px 18px; display: grid; grid-template-columns: 1.4fr 1fr; gap: 12px; background: #FFFDE7; }
+/* HĐ 2: XẾP VALI */
+.packing-items-grid {
+    width: 100% !important;
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 6px !important;
+    margin: 6px auto !important;
+}
+.luggage-item-card {
+    min-width: 0 !important;
+    min-height: 68px !important;
+    padding: 6px 2px !important;
+    border-radius: 14px !important;
+    background: #FFFFFF;
+    border: 2.5px solid #B3E5FC;
+    box-shadow: 0 3px 0 #81D4FA;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    cursor: pointer;
+}
+.luggage-item-thumb { width: 36px !important; height: 36px !important; object-fit: contain; }
+.luggage-item-title { font-size: 10.5px !important; font-weight: 800 !important; text-align: center; }
+.luggage-item-card.runtime-packed { background: #E8F5E9 !important; border-color: #4CAF50 !important; opacity: 0.8; pointer-events: none; }
+
+/* HĐ 3: BOARDING PASS */
+.real-boarding-pass {
+    width: 100% !important;
+    max-width: 440px !important;
+    margin: 4px auto !important;
+    border-radius: 20px !important;
+    background: #FFFFFF;
+    border: 3.5px solid #0288D1;
+    box-shadow: 0 8px 24px rgba(2, 136, 209, 0.2);
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+}
+.pass-header-strip { background: linear-gradient(90deg, #0288D1, #01579B); color: white; padding: 10px 16px; display: flex; justify-content: space-between; align-items: center; font-weight: 900; font-size: 13px; }
+.pass-body-grid { padding: 14px 16px; display: grid; grid-template-columns: 1.4fr 1fr; gap: 10px; background: #FFFDF9; align-items: center; }
 .pass-field-label { font-size: 10px; font-weight: 900; color: #78909C; text-transform: uppercase; }
-.pass-field-value { font-size: 16px; font-weight: 900; color: #37474F; }
-.pass-gate-highlight { background: #FFF3E0; border: 2px solid #FF9800; border-radius: 14px; padding: 6px 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-.pass-gate-num { font-size: 30px; font-weight: 900; color: #E65100; line-height: 1; }
-.pass-stamp-overlay { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-15deg) scale(0); border: 4px solid #2E7D32; color: #1B5E20; background: rgba(232, 245, 233, 0.95); font-weight: 900; font-size: 22px; padding: 6px 20px; border-radius: 14px; opacity: 0; pointer-events: none; box-shadow: 0 4px 14px rgba(46, 125, 50, 0.35); transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
-.pass-stamp-overlay.stamped { opacity: 1; transform: translate(-50%, -50%) rotate(-15deg) scale(1.08); animation: stampSlam 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
-.xray-focused-arena { width: 100%; max-width: 780px; display: flex; flex-direction: column; align-items: center; gap: 12px; margin: auto 0; }
-.xray-scanner-chunky { width: 100%; max-width: 560px; background: rgba(255, 255, 255, 0.95); border-radius: 30px; border: 3px solid #00E676; box-shadow: 0 6px 0 #00BFA5, var(--shadow-chunky); padding: 14px; display: flex; flex-direction: column; align-items: center; gap: 8px; }
-.xray-screen-art-grid { width: 100%; height: 120px; background: #00251A; border-radius: 20px; border: 3px solid #00E676; box-shadow: inset 0 0 16px rgba(0, 230, 118, 0.5); display: flex; align-items: center; justify-content: space-around; padding: 6px; }
-.xray-item-tile { width: 72px; height: 72px; background: #004D40; border: 2px solid #00E676; border-radius: 16px; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 0 12px rgba(0, 230, 118, 0.35); transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1); padding: 4px; }
-.xray-item-tile:hover { transform: scale(1.1); }
-.xray-item-tile img { width: 100%; height: 100%; object-fit: contain; filter: brightness(0.2) invert(1) drop-shadow(0 0 4px #00E676); }
-.xray-item-tile.revealed { background: #FFFDE7; border-color: #F8D978; box-shadow: 0 0 16px #FFD54F; animation: popBounce 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); }
-.xray-item-tile.revealed img { filter: none; }
-.real-carousel-track { width: 100%; max-width: 720px; margin: 0 auto; background: #263238; border-radius: 24px; padding: 16px; box-shadow: inset 0 4px 12px rgba(0,0,0,0.5), 0 8px 24px rgba(0,0,0,0.15); overflow: hidden; }
-.real-suitcases-orbit { display: flex; gap: 16px; justify-content: center; align-items: center; flex-wrap: wrap; }
-.real-suitcase-card { background: #FFFFFF; border: 3px solid #E2E8F0; border-radius: 20px; padding: 6px; width: 120px; height: 140px; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 14px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s; overflow: hidden; }
-.real-suitcase-card:hover { transform: scale(1.08); box-shadow: 0 10px 24px rgba(0,0,0,0.2); border-color: #0288D1; }
+.pass-field-value { font-size: 16px; font-weight: 900; color: #01579B; }
+.pass-gate-num { font-size: 26px; font-weight: 900; color: #E65100; }
+.circle-highlight-seat { position: relative; cursor: pointer; }
+.seat-red-circle { display: none; position: absolute; inset: -6px -10px; border: 4px solid #E53935; border-radius: 20px; transform: rotate(-6deg); animation: drawCircle 0.35s forwards; pointer-events: none; }
+
+/* TRẮC NGHIỆM HÌNH ẢNH TRÊN MOBILE */
+.visual-quiz-container {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+    align-items: stretch !important;
+    gap: 12px !important;
+    width: 100% !important;
+    max-width: 460px !important;
+    margin: 6px auto !important;
+}
+.visual-quiz-card {
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+    min-height: 165px !important;
+    padding: 14px 10px !important;
+    border-radius: 22px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    background: #FFFFFF !important;
+    border: 3.5px solid #FFE082 !important;
+    box-shadow: 0 5px 0 #FFB300, 0 8px 20px rgba(0,0,0,0.1) !important;
+    cursor: pointer !important;
+}
+.visual-quiz-card:active { transform: translateY(3px); box-shadow: 0 2px 0 #FFB300 !important; }
+.visual-quiz-card img { width: 88px !important; height: 88px !important; object-fit: contain !important; border-radius: 16px !important; }
+.visual-quiz-card .quiz-label { font-size: 14px !important; font-weight: 900 !important; color: #263238 !important; text-align: center; line-height: 1.25; }
+.visual-quiz-card.correct { border-color: #4CAF50 !important; box-shadow: 0 5px 0 #2E7D32 !important; background: #E8F5E9 !important; }
+.visual-quiz-card.incorrect { animation: springShake 0.4s both; border-color: #E53935 !important; background: #FFEBEE !important; }
+
+/* HĐ 13: BĂNG CHUYỀN VALI */
+.real-carousel-track { width: 100%; max-width: 440px; min-height: 280px; padding: 14px 8px; border-radius: 24px; background: #263238; box-shadow: inset 0 4px 14px rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; margin: 4px auto; }
+.real-suitcases-orbit { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; justify-items: center; width: 100%; }
+.real-suitcase-card { width: 130px; height: 140px; background: #FFF; border-radius: 20px; padding: 6px; border: 3px solid #E2E8F0; box-shadow: 0 6px 14px rgba(0,0,0,0.2); cursor: pointer; }
 .real-suitcase-card img { width: 100%; height: 100%; object-fit: cover; border-radius: 14px; }
-.real-suitcase-card.bin-picked { transform: scale(1.3) translateY(-12px); filter: drop-shadow(0 0 14px #FFD54F); }
+.real-suitcase-card.bin-picked { transform: scale(1.15); border-color: #FFD54F; box-shadow: 0 0 16px #FFD54F; }
+
+/* ==========================================================================
+   POPUP THẺ ⭐ BIN GHI NHỚ ⭐ (MODAL NỔI TÍCH CỰC & TRỰC QUAN)
+   ========================================================================== */
+.bin-memorize-overlay {
+    position: fixed !important;
+    top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
+    width: 100vw !important; height: 100vh !important;
+    background: rgba(0, 0, 0, 0.72) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    z-index: 100000 !important;
+    display: none !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 16px !important;
+    box-sizing: border-box !important;
+}
+.bin-memorize-overlay.show { display: flex !important; }
+.bin-memorize-card {
+    width: 92%;
+    max-width: 420px;
+    background: linear-gradient(135deg, #FFFDE7 0%, #FFF9C4 100%);
+    border-radius: 28px;
+    border: 4px solid #FFCA28;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+    padding: 24px 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    animation: popBounce 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.bin-memorize-avatar {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    border: 4px solid #FFD54F;
+    box-shadow: 0 6px 18px rgba(255, 193, 7, 0.4);
+    background: #FFF9C4;
+    object-fit: cover;
+}
+.bin-memorize-badge {
+    background: #FFF3E0;
+    color: #E65100;
+    font-size: 14px;
+    font-weight: 900;
+    padding: 6px 20px;
+    border-radius: 999px;
+    border: 2px solid #FFE082;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    letter-spacing: 0.5px;
+}
+.bin-memorize-quote {
+    font-size: 18px;
+    font-weight: 900;
+    color: #263238;
+    line-height: 1.35;
+    margin: 4px 0;
+}
+.bin-memorize-btn {
+    font-size: 16px !important;
+    font-weight: 900 !important;
+    padding: 12px 28px !important;
+    border-radius: 999px !important;
+    width: 92% !important;
+    margin-top: 6px !important;
+}
+
+/* FEEDBACK OVERLAY NHỎ TRÊN HUD */
+.activity-feedback-overlay { position: fixed !important; bottom: 16px !important; left: 50% !important; transform: translateX(-50%) !important; background: rgba(255, 255, 255, 0.98) !important; border-radius: 28px !important; padding: 8px 18px !important; border: 3px solid #82C99A !important; box-shadow: 0 6px 0 #43A047, var(--shadow-chunky) !important; display: flex !important; align-items: center !important; gap: 10px !important; z-index: 9999 !important; white-space: nowrap !important; }
+.activity-feedback-overlay.hidden { display: none !important; }
+.feedback-text { font-size: 14px; font-weight: 900; color: #1B5E20; }
+
+/* MODALS */
+.golden-medal-modal { position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important; width: 100vw !important; height: 100vh !important; background: rgba(0, 0, 0, 0.72) !important; backdrop-filter: blur(8px) !important; z-index: 99999 !important; display: none !important; align-items: center !important; justify-content: center !important; padding: 16px !important; }
+.golden-medal-modal.show { display: flex !important; }
+.golden-medal-card { width: 92%; max-width: 440px; background: linear-gradient(135deg, #FFFDE7 0%, #FFF9C4 100%); border-radius: 28px; border: 4px solid #FFCA28; box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35); padding: 24px 18px; text-align: center; animation: popBounce 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); display: flex; flex-direction: column; align-items: center; }
+
 .parent-modal-overlay { position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important; width: 100vw !important; height: 100vh !important; background: rgba(0, 0, 0, 0.72) !important; backdrop-filter: blur(8px); z-index: 99999 !important; display: none !important; align-items: center; justify-content: center; }
 .parent-modal-overlay.open { display: flex !important; }
 .parent-control-card { width: 90%; max-width: 500px; max-height: 85vh; overflow-y: auto; background: #FFFFFF; border-radius: 28px; padding: 18px; box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3); border: 3px solid #F5A45D; }
 .parent-tip-box { background: #FFF3E0; border-left: 4px solid #F5A45D; padding: 6px 10px; border-radius: 8px; margin-bottom: 6px; font-size: 12px; line-height: 1.35; color: #4E342E; }
 .level-jump-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin: 6px 0; }
-.golden-medal-modal { position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important; width: 100vw !important; height: 100vh !important; background: rgba(0, 0, 0, 0.72) !important; backdrop-filter: blur(8px) !important; -webkit-backdrop-filter: blur(8px) !important; z-index: 99999 !important; display: none !important; align-items: center !important; justify-content: center !important; padding: 16px !important; box-sizing: border-box !important; }
-.golden-medal-modal.show { display: flex !important; }
-.golden-medal-card { width: 92%; max-width: 440px; background: linear-gradient(135deg, #FFFDE7 0%, #FFF9C4 100%); border-radius: 28px; border: 4px solid #FFCA28; box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35); padding: 24px 18px; text-align: center; animation: popBounce 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); display: flex; flex-direction: column; align-items: center; }
-@keyframes springShake { 10%, 90% { transform: translate3d(-3px, 0, 0) rotate(-3deg); } 20%, 80% { transform: translate3d(4px, 0, 0) rotate(3deg); } 30%, 50%, 70% { transform: translate3d(-5px, 0, 0) rotate(-2deg); } 40%, 60% { transform: translate3d(5px, 0, 0) rotate(2deg); } }
-@keyframes stampSlam { 0% { transform: translate(-50%, -50%) scale(2.2) rotate(-35deg); opacity: 0; } 50% { transform: translate(-50%, -50%) scale(0.95) rotate(-10deg); opacity: 1; } 100% { transform: translate(-50%, -50%) scale(1.08) rotate(-15deg); opacity: 1; } }
-@keyframes popBounce { 0% { transform: scale(0.8); } 60% { transform: scale(1.15); } 100% { transform: scale(1); } }
-@keyframes carousel-orbit { 0% { transform: translateX(0); } 100% { transform: translateX(-460px); } }
-.circle-highlight-seat { position: relative; cursor: pointer; transition: transform 0.15s ease; }
-.circle-highlight-seat:hover { transform: scale(1.08); }
-.seat-red-circle { display: none; position: absolute; inset: -6px -10px; border: 4px solid #E53935; border-radius: 24px; transform: rotate(-6deg); animation: drawCircle 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; pointer-events: none; box-shadow: 0 0 10px rgba(229, 57, 53, 0.4); }
-@keyframes drawCircle { 0% { transform: scale(0.5) rotate(-20deg); opacity: 0; } 60% { transform: scale(1.15) rotate(-4deg); opacity: 1; } 100% { transform: scale(1.05) rotate(-6deg); opacity: 1; } }
-.pop-in-soft { animation: popInSoft 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
-@keyframes popInSoft { 0% { transform: scale(0.92); opacity: 0.7; } 100% { transform: scale(1); opacity: 1; } }
+
+@keyframes springShake { 10%, 90% { transform: translate3d(-3px, 0, 0); } 20%, 80% { transform: translate3d(4px, 0, 0); } 30%, 50%, 70% { transform: translate3d(-5px, 0, 0); } 40%, 60% { transform: translate3d(5px, 0, 0); } }
+@keyframes popBounce { 0% { transform: scale(0.8); } 60% { transform: scale(1.1); } 100% { transform: scale(1); } }
+@keyframes drawCircle { 0% { transform: scale(0.5) rotate(-20deg); opacity: 0; } 100% { transform: scale(1.05) rotate(-6deg); opacity: 1; } }
+.pop-in-soft { animation: popInSoft 0.25s forwards; }
+@keyframes popInSoft { 0% { transform: scale(0.95); opacity: 0.8; } 100% { transform: scale(1); opacity: 1; } }
 .hidden { display: none !important; }
-.room-bin-character-mount, #bin-character-mount-lvl1, .bin-character-frame, .bin-character-mount { background: transparent !important; background-color: transparent !important; border: none !important; outline: none !important; box-shadow: none !important; border-radius: 0 !important; overflow: visible !important; }
-#bin-character-mount-lvl1 img, .bin-character-frame img, .bin-character-mount img, .bin-runtime-base, .bin-runtime-layer { background: transparent !important; background-color: transparent !important; border: none !important; outline: none !important; box-shadow: none !important; }
-.luggage-item-card { background: #FFFFFF; border: 3px solid #B3E5FC; border-radius: 18px; padding: 6px 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); cursor: pointer; transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, border-color 0.2s ease; min-width: 104px; min-height: 84px; outline: none; }
-.luggage-item-card:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 8px 18px rgba(2, 136, 209, 0.2); border-color: #0288D1; }
-.luggage-item-card:active { transform: scale(0.96); }
-.luggage-item-thumb { width: 48px; height: 48px; object-fit: contain; border-radius: 8px; pointer-events: none; }
-.luggage-item-title { font-size: 12px; font-weight: 900; color: #37474F; text-align: center; line-height: 1.1; pointer-events: none; }
-.luggage-item-card.runtime-packed { opacity: 0.45; pointer-events: none; border-color: #81C784 !important; background: #F1F8E9 !important; }
-.luggage-item-card.wobble-shake { animation: springShake 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97) both; border-color: #E53935 !important; background: #FFEBEE !important; }
-.packed-item-mini { background: rgba(255, 255, 255, 0.96); border: 2px solid #0288D1; border-radius: 12px; padding: 3px 8px; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.16); animation: popBounce 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); }
-.packed-item-mini img { width: 26px; height: 26px; object-fit: contain; }
-.packed-item-mini span { font-size: 11px; font-weight: 900; color: #01579B; }
-.visual-quiz-container { display: flex; gap: 16px; align-items: center; justify-content: center; width: 100%; }
-.visual-quiz-card { background: #FFFFFF; border: 3px solid #FFE082; box-shadow: 0 6px 0 #FFCA28, 0 8px 20px rgba(0, 0, 0, 0.12); border-radius: 20px; padding: 10px 14px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; cursor: pointer; transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, border-color 0.2s ease; min-width: 150px; max-width: 180px; outline: none; user-select: none; }
-.visual-quiz-card:hover { transform: translateY(-4px) scale(1.05); box-shadow: 0 10px 0 #FFB300, 0 12px 24px rgba(0, 0, 0, 0.16); border-color: #FFA000; }
-.visual-quiz-card:active { transform: scale(0.96); }
-.visual-quiz-card img { width: 80px; height: 80px; object-fit: contain; border-radius: 14px; pointer-events: none; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); }
-.visual-quiz-card .quiz-label { font-size: 13px; font-weight: 900; color: #263238; text-align: center; line-height: 1.2; }
-.visual-quiz-card.correct { border-color: #4CAF50 !important; box-shadow: 0 6px 0 #2E7D32, 0 8px 22px rgba(76, 175, 80, 0.35) !important; background: #E8F5E9 !important; }
-.visual-quiz-card.incorrect { animation: springShake 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97) both; border-color: #E53935 !important; box-shadow: 0 6px 0 #C62828, 0 8px 20px rgba(229, 57, 53, 0.25) !important; background: #FFEBEE !important; }
-
-/* ==========================================================================
-   MOBILE & TABLET RESPONSIVE SYSTEM (PORTRAIT & TOUCH OPTIMIZED)
-   ========================================================================== */
-@media (max-width: 768px), (max-height: 500px) {
-    body, html {
-        height: 100%;
-        overflow-x: hidden;
-        overflow-y: auto;
-    }
-    #app-root {
-        width: 100vw;
-        min-height: 100dvh;
-        height: auto;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        padding-bottom: max(12px, env(safe-area-inset-bottom));
-    }
-    .top-nav {
-        height: auto;
-        padding: 4px 8px;
-        gap: 4px;
-    }
-    .stage-indicators {
-        max-width: calc(100vw - 84px);
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        gap: 3px;
-        padding: 2px 4px;
-        scrollbar-width: none;
-    }
-    .stage-indicators::-webkit-scrollbar {
-        display: none;
-    }
-    .stage-dot {
-        width: 28px;
-        height: 28px;
-        font-size: 11px;
-        flex-shrink: 0;
-    }
-    .parent-gate-btn {
-        min-width: 42px;
-        min-height: 30px;
-        font-size: 11px;
-        padding: 2px 6px;
-        white-space: nowrap;
-        flex-shrink: 0;
-    }
-    .parent-prompt-container {
-        padding: 0 6px;
-        margin-bottom: 2px;
-        gap: 2px;
-    }
-    .sub-progress-bar {
-        font-size: 11px;
-        padding: 1px 6px;
-    }
-    .parent-prompt-signboard {
-        padding: 4px 8px;
-        gap: 6px;
-        border-radius: 12px;
-    }
-    .prompt-avatar-badge {
-        width: 32px;
-        height: 32px;
-        font-size: 15px;
-    }
-    .prompt-speech-text {
-        font-size: 12px;
-        line-height: 1.25;
-    }
-    .screens-viewport {
-        height: auto;
-        min-height: calc(100dvh - 90px);
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        overflow: visible;
-        padding: 0 6px;
-    }
-    .activity-container {
-        position: relative;
-        height: auto;
-        min-height: calc(100dvh - 100px);
-        padding: 4px 6px 30px 6px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-        overflow: visible;
-    }
-    .activity-gameplay-view {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        justify-content: flex-start !important;
-        width: 100% !important;
-        flex: 1 !important;
-        min-height: calc(100dvh - 120px) !important;
-        gap: 10px !important;
-    }
-
-    /* INTRO VIEW TRÊN MOBILE */
-    .activity-intro-view {
-        width: 98%;
-        max-width: 460px;
-        height: auto;
-        min-height: 68vh;
-        max-height: none;
-        padding: 10px;
-        border-radius: 18px;
-        gap: 6px;
-        margin: 4px auto;
-    }
-    .intro-art-frame {
-        max-width: 100%;
-        height: 160px;
-        border-radius: 12px;
-    }
-    .intro-activity-title {
-        font-size: 15px;
-        line-height: 1.2;
-    }
-    .intro-prompt-quote {
-        font-size: 12px;
-        line-height: 1.3;
-    }
-    .btn-start-activity {
-        font-size: 14px !important;
-        padding: 6px 18px !important;
-        min-height: 38px !important;
-    }
-
-    /* LEVEL 1: PHÒNG NGỦ BÉ BIN TRÊN MOBILE - TỦ ĐỒ XẾP DƯỚI BÉ BIN */
-    .level1-room-scene {
-        display: flex !important;
-        flex-direction: column !important;
-        width: 98% !important;
-        max-width: 480px !important;
-        height: auto !important;
-        min-height: auto !important;
-        border-radius: 20px !important;
-        padding: 0 0 8px 0 !important;
-        margin: 2px auto !important;
-        position: relative !important;
-        overflow: hidden !important;
-        justify-content: flex-start !important;
-    }
-    #act1-room-scene-img {
-        position: relative !important;
-        width: 100% !important;
-        height: 260px !important;
-        max-height: 40vh !important;
-        object-fit: cover !important;
-        object-position: top center !important;
-        border-radius: 20px 20px 0 0 !important;
-    }
-    .room-wardrobe-grid {
-        position: relative !important;
-        left: auto !important;
-        top: auto !important;
-        transform: none !important;
-        width: 96% !important;
-        margin: 8px auto !important;
-        grid-template-columns: repeat(3, 1fr) !important;
-        gap: 8px !important;
-        padding: 8px !important;
-        border-radius: 18px !important;
-        background: rgba(255, 255, 255, 0.95) !important;
-        box-shadow: 0 6px 18px rgba(0,0,0,0.12) !important;
-    }
-    .clothes-tile-item {
-        min-height: 72px !important;
-        min-width: 0 !important;
-        padding: 6px 4px !important;
-        border-radius: 14px !important;
-        gap: 3px !important;
-    }
-    .clothes-tile-item span:first-child {
-        font-size: 26px !important;
-    }
-    .clothes-tile-item span:last-child {
-        font-size: 12px !important;
-        font-weight: 900 !important;
-        line-height: 1.2 !important;
-        margin-top: 2px !important;
-    }
-
-    /* LEVEL 2: XẾP VALI TRÊN MOBILE */
-    .act2-packing-scene {
-        display: flex !important;
-        flex-direction: column !important;
-        width: 98% !important;
-        max-width: 480px !important;
-        height: auto !important;
-        min-height: auto !important;
-        border-radius: 20px !important;
-        padding: 0 0 8px 0 !important;
-        margin: 2px auto !important;
-        position: relative !important;
-        overflow: hidden !important;
-    }
-    .act2-scene-img {
-        position: relative !important;
-        width: 100% !important;
-        height: 230px !important;
-        max-height: 36vh !important;
-        object-fit: cover !important;
-        object-position: center !important;
-        border-radius: 20px 20px 0 0 !important;
-    }
-    .packing-items-grid {
-        position: relative !important;
-        top: auto !important;
-        transform: none !important;
-        width: 96% !important;
-        margin: 6px auto !important;
-        display: grid !important;
-        grid-template-columns: repeat(4, 1fr) !important;
-        gap: 6px !important;
-        z-index: 10 !important;
-    }
-    .packing-left { left: auto !important; }
-    .packing-right { right: auto !important; }
-    .luggage-item-card {
-        min-width: 0 !important;
-        min-height: 68px !important;
-        padding: 6px 3px !important;
-        border-radius: 14px !important;
-        gap: 3px !important;
-    }
-    .luggage-item-thumb, .luggage-item-card img {
-        width: 38px !important;
-        height: 38px !important;
-    }
-    .luggage-item-title {
-        font-size: 11px !important;
-        font-weight: 800 !important;
-        line-height: 1.15 !important;
-    }
-
-    /* UNIFIED SCENE STAGE (CÁC CHẶNG 3 -> 13) */
-    .unified-scene-stage {
-        width: 100% !important;
-        max-width: 480px !important;
-        height: auto !important;
-        min-height: auto !important;
-        max-height: 40vh !important;
-        aspect-ratio: 16/9 !important;
-        border-radius: 22px !important;
-        box-shadow: 0 8px 24px rgba(0,0,0,0.14), 0 0 0 3px #FFFFFF !important;
-        background: #FFFFFF !important;
-        margin: 4px auto 8px auto !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        overflow: hidden !important;
-    }
-    .unified-scene-img {
-        object-fit: cover !important;
-        object-position: center !important;
-        width: 100% !important;
-        height: 100% !important;
-    }
-
-    /* SCENE INTERACTIVE HUD */
-    .scene-interactive-hud {
-        position: relative !important;
-        bottom: auto !important;
-        left: auto !important;
-        transform: none !important;
-        width: 100% !important;
-        max-width: 480px !important;
-        margin: 6px auto 0 auto !important;
-        padding: 4px 6px !important;
-        background: transparent !important;
-        border: none !important;
-        box-shadow: none !important;
-        display: flex !important;
-        justify-content: center !important;
-        align-items: center !important;
-        gap: 10px !important;
-        flex-wrap: wrap !important;
-    }
-
-    /* TRẮC NGHIỆM HÌNH ẢNH TRÊN MOBILE - TO RÕ RÀNG VỪA VẶN MÀN HÌNH */
-    .visual-quiz-container {
-        display: flex !important;
-        flex-direction: row !important;
-        justify-content: center !important;
-        align-items: stretch !important;
-        gap: 14px !important;
-        width: 100% !important;
-        max-width: 480px !important;
-        margin: 8px auto 0 auto !important;
-        padding: 0 4px !important;
-    }
-    .visual-quiz-card {
-        flex: 1 1 0 !important;
-        min-width: 0 !important;
-        min-height: 180px !important;
-        padding: 16px 12px !important;
-        border-radius: 26px !important;
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        justify-content: center !important;
-        gap: 10px !important;
-        background: #FFFFFF !important;
-        border: 3.5px solid #FFE082 !important;
-        box-shadow: 0 6px 0 #FFB300, 0 10px 24px rgba(0,0,0,0.1) !important;
-        cursor: pointer !important;
-        transition: transform 0.15s ease, box-shadow 0.15s ease !important;
-    }
-    .visual-quiz-card:active {
-        transform: translateY(4px) scale(0.98) !important;
-        box-shadow: 0 2px 0 #FFB300, 0 4px 12px rgba(0,0,0,0.1) !important;
-    }
-    .visual-quiz-card img, .choice-thumb {
-        width: 96px !important;
-        height: 96px !important;
-        object-fit: contain !important;
-        border-radius: 18px !important;
-        filter: drop-shadow(0 4px 10px rgba(0,0,0,0.08)) !important;
-    }
-    .visual-quiz-card .quiz-label {
-        font-size: 15px !important;
-        font-weight: 900 !important;
-        color: #263238 !important;
-        text-align: center !important;
-        line-height: 1.3 !important;
-    }
-
-    /* BOARDING PASS TRÊN MOBILE */
-    .real-boarding-pass {
-        width: 98% !important;
-        max-width: 480px !important;
-        margin: 4px auto !important;
-        border-radius: 20px !important;
-    }
-    .pass-body-grid {
-        padding: 14px 16px !important;
-        gap: 10px !important;
-    }
-    .pass-field-value {
-        font-size: 16px !important;
-    }
-    .pass-gate-num {
-        font-size: 28px !important;
-    }
-
-    /* X-RAY SCANNER TRÊN MOBILE */
-    .xray-focused-arena {
-        width: 100% !important;
-        max-width: 480px !important;
-        gap: 10px !important;
-    }
-    .xray-scanner-chunky {
-        width: 100% !important;
-        padding: 14px !important;
-        border-radius: 22px !important;
-    }
-    .xray-screen-art-grid {
-        height: 94px !important;
-        padding: 4px !important;
-    }
-    .xray-item-tile {
-        min-height: 52px !important;
-        font-size: 15px !important;
-        font-weight: 900 !important;
-        padding: 10px 14px !important;
-        border-radius: 16px !important;
-    }
-
-    /* CỔNG BAY & MÂY TRÊN MOBILE */
-    .gate-hud-btn, .morph-cloud-btn {
-        font-size: 16px !important;
-        font-weight: 900 !important;
-        padding: 12px 20px !important;
-        min-height: 50px !important;
-        border-radius: 20px !important;
-    }
-
-    /* VALI BĂNG CHUYỀN TRÊN MOBILE - TỐI ƯU CÂN ĐỐI MÀN HÌNH */
-    .real-carousel-track {
-        width: 100% !important;
-        max-width: 480px !important;
-        min-height: 310px !important;
-        padding: 16px 12px !important;
-        border-radius: 24px !important;
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        justify-content: center !important;
-        margin: 10px auto !important;
-        box-shadow: inset 0 4px 16px rgba(0,0,0,0.5), 0 8px 24px rgba(0,0,0,0.18) !important;
-    }
-    .real-suitcases-orbit {
-        display: grid !important;
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 14px !important;
-        justify-items: center !important;
-        width: 100% !important;
-        position: relative !important;
-        animation: none !important;
-    }
-    .real-suitcase-card {
-        width: 135px !important;
-        height: 145px !important;
-        border-radius: 20px !important;
-        padding: 6px !important;
-        box-shadow: 0 6px 14px rgba(0,0,0,0.15) !important;
-    }
-
-    /* OVERLAY PHẢN HỒI HOÀN THÀNH - KHÔNG BỊ TRÀN HAY CHE KHUẤT */
-    .activity-feedback-overlay {
-        position: fixed !important;
-        bottom: max(10px, env(safe-area-inset-bottom)) !important;
-        left: 50% !important;
-        transform: translateX(-50%) !important;
-        width: 94% !important;
-        max-width: 440px !important;
-        padding: 6px 12px !important;
-        border-radius: 18px !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: space-between !important;
-        z-index: 9999 !important;
-        box-shadow: 0 8px 24px rgba(0,0,0,0.25) !important;
-        background: rgba(255, 255, 255, 0.98) !important;
-        white-space: normal !important;
-    }
-    .activity-feedback-overlay.hidden {
-        display: none !important;
-    }
-    .feedback-text {
-        font-size: 12px !important;
-        line-height: 1.2 !important;
-        flex: 1 !important;
-    }
-    .btn-next-activity {
-        font-size: 12px !important;
-        padding: 5px 12px !important;
-        min-height: 34px !important;
-        white-space: nowrap !important;
-        flex-shrink: 0 !important;
-    }
-}
-
-/* ==========================================================================
-   TỐI ƯU KHI XOAY NGANG ĐIỆN THOẠI (LANDSCAPE MOBILE)
-   ========================================================================== */
-@media (max-height: 500px) and (orientation: landscape) {
-    #app-root {
-        padding-bottom: 2px !important;
-    }
-    .top-nav {
-        height: 34px !important;
-        padding: 2px 8px !important;
-    }
-    .parent-prompt-container {
-        display: none !important;
-    }
-    .screens-viewport {
-        min-height: calc(100dvh - 38px) !important;
-    }
-    .activity-container {
-        padding: 2px 8px 38px 8px !important;
-    }
-    .activity-gameplay-view {
-        flex-direction: row !important;
-        justify-content: center !important;
-        align-items: center !important;
-        gap: 12px !important;
-    }
-    .unified-scene-stage {
-        height: 72vh !important;
-        max-height: 260px !important;
-        max-width: 50vw !important;
-        width: auto !important;
-        aspect-ratio: 16/9 !important;
-        margin: 0 !important;
-    }
-    .scene-interactive-hud {
-        margin: 0 !important;
-        max-width: 45vw !important;
-        flex-direction: column !important;
-    }
-    .visual-quiz-container {
-        flex-direction: column !important;
-        gap: 6px !important;
-    }
-    .visual-quiz-card {
-        flex-direction: row !important;
-        min-width: 180px !important;
-        padding: 4px 10px !important;
-        gap: 8px !important;
-    }
-    .visual-quiz-card img, .choice-thumb {
-        width: 38px !important;
-        height: 38px !important;
-    }
-    .visual-quiz-card .quiz-label {
-        font-size: 11px !important;
-        text-align: left !important;
-    }
-}
     </style>
-
-<script>
-// Tự động tìm nạp ảnh từ bất kỳ thư mục nào trên GitHub (image/, root, assets/images/, Demo.plane/image/)
-window.addEventListener('error', function(e) {
-  if (e.target && e.target.tagName === 'IMG') {
-    const img = e.target;
-    const src = img.getAttribute('src') || '';
-    if (!src || src.startsWith('data:')) return;
-
-    if (img.dataset.tryCount === undefined) img.dataset.tryCount = '0';
-    let count = parseInt(img.dataset.tryCount);
-    if (count >= 4) return;
-    img.dataset.tryCount = (count + 1).toString();
-
-    const filename = src.split('/').pop().split('?')[0];
-    if (!filename) return;
-
-    const candidatePaths = [
-      filename,
-      'image/' + filename,
-      'assets/images/' + filename,
-      'Demo.plane/image/' + filename
-    ];
-
-    img.src = candidatePaths[count % candidatePaths.length];
-  }
-}, true);
-</script>
-<style id="runtime-hotfix-css">
-/* ===== HOTFIX SHELL ===== */
-.hidden { display: none !important; }
-.activity-container { display: none; }
-.activity-container.active { display: block; }
-.activity-intro-view.hidden,
-.activity-gameplay-view.hidden,
-.activity-feedback-overlay.hidden { display: none !important; }
-
-.parent-modal-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  background: rgba(22,34,49,.55);
-  align-items: center;
-  justify-content: center;
-  padding: 18px;
-}
-.parent-modal-overlay.open { display: flex; }
-.parent-control-card {
-  width: min(720px, 94vw);
-  max-height: 88vh;
-  overflow: auto;
-  background: #fff;
-  border-radius: 24px;
-  padding: 18px;
-  box-shadow: 0 20px 60px rgba(0,0,0,.25);
-}
-
-
-.stage-dot.locked { opacity: .38; cursor: not-allowed; filter: grayscale(1); }
-.stage-dot.completed { opacity: .9; }
-.stage-dot.active { opacity: 1; filter: none; }
-
-.asset-load-error {
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  min-height:140px;
-  border:2px dashed #d66;
-  background:#fff7f7;
-  color:#9d2929;
-  border-radius:16px;
-  padding:12px;
-  font:700 14px/1.4 system-ui,sans-serif;
-  text-align:center;
-}
-
-#bin-character-mount-lvl1 {
-  position: relative;
-  min-width: 180px;
-  min-height: 300px;
-}
-.bin-runtime-base,
-.bin-runtime-layer {
-  position:absolute;
-  left:50%;
-  transform:translateX(-50%);
-  object-fit:contain;
-  pointer-events:none;
-}
-.bin-runtime-base {
-  inset:0;
-  width:100%;
-  height:100%;
-}
-.bin-runtime-layer.shirt { width:48%; top:31%; z-index:3; }
-.bin-runtime-layer.pants { width:46%; top:55%; z-index:4; }
-.bin-runtime-layer.shoes { width:52%; top:78%; z-index:5; }
-
-.runtime-selected {
-  outline: 4px solid #4CAF50 !important;
-  border-color: #4CAF50 !important;
-  background: #E8F5E9 !important;
-  transform: scale(1.05);
-  box-shadow: 0 0 0 4px #A5D6A7, 0 6px 16px rgba(76, 175, 80, 0.35) !important;
-}
-.clothes-tile-item.shake-wobble,
-.luggage-item-card.shake-wobble {
-  animation: runtimeShake 0.4s ease-in-out;
-  border-color: #E53935 !important;
-  background: #FFEBEE !important;
-}
-.luggage-item-card {
-  position: relative;
-  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-.luggage-item-card.runtime-packed {
-  opacity: 0.88;
-  background: #E8F5E9 !important;
-  border-color: #2E7D32 !important;
-  box-shadow: 0 0 0 3px #81C784, 0 4px 12px rgba(46, 125, 50, 0.3) !important;
-  pointer-events: none;
-}
-.luggage-item-card.runtime-packed::after {
-  content: '✓ ĐÃ XẾP';
-  position: absolute;
-  right: -6px;
-  top: -8px;
-  background: #2E7D32;
-  color: white;
-  font-size: 10px;
-  font-weight: 900;
-  padding: 2px 8px;
-  border-radius: 999px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
-  z-index: 5;
-}
-.xray-item-tile.runtime-checked {
-  outline:4px solid #4caf50;
-  border-radius:14px;
-}
-.gate-hud-btn.runtime-correct {
-  background:#c8f7d1 !important;
-  border-color:#2e7d32 !important;
-}
-.real-suitcase-card.runtime-wrong {
-  animation: runtimeShake .25s linear 2;
-}
-@keyframes runtimeShake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-6px); }
-  75% { transform: translateX(6px); }
-}
-
-/* ===== REMOVE WHITE BOX AROUND BIN ===== */
-.room-bin-character-mount,
-#bin-character-mount-lvl1,
-.bin-character-frame,
-.bin-character-mount {
-    background: transparent !important;
-    background-color: transparent !important;
-    border: none !important;
-    outline: none !important;
-    box-shadow: none !important;
-    border-radius: 0 !important;
-    overflow: visible !important;
-}
-
-#bin-character-mount-lvl1 img,
-.bin-character-frame img,
-.bin-character-mount img,
-.bin-runtime-base,
-.bin-runtime-layer {
-    background: transparent !important;
-    background-color: transparent !important;
-    border: none !important;
-    outline: none !important;
-    box-shadow: none !important;
-}
-
-.room-bin-character-mount::before,
-.room-bin-character-mount::after,
-.bin-character-frame::before,
-.bin-character-frame::after,
-.bin-character-mount::before,
-.bin-character-mount::after {
-    content: none !important;
-    display: none !important;
-}
-</style>
-
 </head>
 <body>
     <div id="app-root">
-        <!-- Canvas Pháo hoa, Sao lấp lánh & Trái tim -->
+        <!-- Canvas Hiệu Ứng Sao & Pháo Hoa -->
         <canvas id="effects-canvas"></canvas>
 
         <!-- TẦNG 1: TOP BAR - 8 CHẶNG LỚN & CỔNG BA MẸ -->
         <header class="top-nav">
             <nav class="stage-indicators" aria-label="Tiến trình 8 chặng chuyến bay">
-                <button class="stage-dot active" data-stage="1" aria-label="Chặng 1: Chuẩn bị trang phục">👕</button>
+                <button class="stage-dot active" data-stage="1" aria-label="Chặng 1: Chuẩn bị ở nhà">👕</button>
                 <button class="stage-dot locked" data-stage="2" aria-label="Chặng 2: Xếp hành lý">🧳</button>
                 <button class="stage-dot locked" data-stage="3" aria-label="Chặng 3: Kiểm tra an ninh">🎫</button>
                 <button class="stage-dot locked" data-stage="4" aria-label="Chặng 4: Tìm Cổng Bay">🚪</button>
@@ -906,7 +365,6 @@ window.addEventListener('error', function(e) {
                 <button class="stage-dot locked" data-stage="8" aria-label="Chặng 8: Hạ cánh & Nhận vali">🏆</button>
             </nav>
 
-            <!-- Cổng Ba Mẹ (Giữ 3 giây để mở) -->
             <button id="btn-parent-gate" class="tycoon-btn parent-gate-btn" aria-label="Cổng Ba Mẹ (Giữ 3 giây)">
                 <svg class="parent-hold-ring" viewBox="0 0 60 60">
                     <circle id="parent-ring-circle" cx="30" cy="30" r="26"></circle>
@@ -915,7 +373,7 @@ window.addEventListener('error', function(e) {
             </button>
         </header>
 
-        <!-- TẦNG 2: TIẾN TRÌNH PHỤ & LỜI THOẠI BA MẸ ĐỌC -->
+        <!-- TẦNG 2: TIẾN TRÌNH & THOẠI HƯỚNG DẪN TÍCH CỰC -->
         <div class="parent-prompt-container">
             <div id="sub-progress-bar" class="sub-progress-bar">
                 <span id="sub-progress-text">Chặng 1 — Hoạt động 1: Chọn trang phục</span>
@@ -927,31 +385,26 @@ window.addEventListener('error', function(e) {
             </div>
         </div>
 
-        <!-- TẦNG 3: VIEWPORT 13 HOẠT ĐỘNG ĐỘC LẬP -->
+        <!-- TẦNG 3: VIEWPORT 13 HOẠT ĐỘNG (CHUẨN PORTRAIT DỌC 3:4) -->
         <main class="screens-viewport">
 
-            <!-- ==========================================================================
-                 CHẶNG 1 — HOẠT ĐỘNG 1: CHỌN TRANG PHỤC THOẢI MÁI (100% JPG ARTWORK)
-                 ========================================================================== -->
+            <!-- HĐ 1: CHỌN TRANG PHỤC THOẢI MÁI -->
             <section id="act-1" class="activity-container active" data-act="1" data-stage="1">
                 <div class="activity-intro-view" id="intro-act-1">
                     <span class="intro-header-badge">CHẶNG 1 — HOẠT ĐỘNG 1</span>
                     <h2 class="intro-activity-title">CHỌN TRANG PHỤC THOẢI MÁI</h2>
                     <div class="intro-art-frame">
-                        <img src="act1_bedroom_initial_bin_1787803669361.jpg" alt="Phòng ngủ Bé Bin">
+                        <img src="act1_p_bed_init_1787826323333.jpg" alt="Phòng ngủ Bé Bin">
                     </div>
-                    <p class="intro-prompt-quote">Mẹ: “Bin sắp đi máy bay rồi. Con chọn bộ đồ nào giúp Bin dễ vận động nhé!”</p>
-                    <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="1" style="font-size: 17px; padding: 8px 28px;">
+                    <p class="intro-prompt-quote">Mẹ: “Bin sắp đi máy bay rồi. Con giúp Bin chọn đồ mềm và giày dễ tháo nhé!”</p>
+                    <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="1">
                         BẮT ĐẦU HOẠT ĐỘNG 🚀
                     </button>
                 </div>
 
                 <div class="activity-gameplay-view hidden" id="gameplay-act-1">
                     <div class="level1-room-scene">
-                        <!-- Bối cảnh 16:9 của Bé Bin trong phòng ngủ -->
-                        <img id="act1-room-scene-img" src="act1_bedroom_initial_bin_1787803669361.jpg" alt="Phòng ngủ Bé Bin">
-
-                        <!-- Tủ quần áo bên trái căn phòng (Desktop) / Bên dưới Bé Bin (Mobile) -->
+                        <img id="act1-room-scene-img" src="act1_p_bed_init_1787826323333.jpg" alt="Phòng ngủ Bé Bin">
                         <div class="room-wardrobe-grid">
                             <button class="clothes-tile-item" data-clothing-item="true" data-fit="soft" data-type="shirt">
                                 <span>👕</span>
@@ -979,555 +432,373 @@ window.addEventListener('error', function(e) {
                             </button>
                         </div>
                     </div>
-
-                    <div class="activity-feedback-overlay hidden" id="feedback-act-1">
-                        <span class="feedback-text">Mẹ: “Bin sẵn sàng rồi! Mình đi xếp vali nhé!”</span>
-                        <button class="tycoon-btn tycoon-btn-green btn-next-activity" data-next="2">
-                            TIẾP TỤC 🧳 ➡️
-                        </button>
-                    </div>
                 </div>
             </section>
 
-            <!-- ==========================================================================
-                 CHẶNG 2 — HOẠT ĐỘNG 2: XẾP ĐỒ VÀO VALI (100% JPG ARTWORK)
-                 ========================================================================== -->
+            <!-- HĐ 2: XẾP ĐỒ VÀO VALI -->
             <section id="act-2" class="activity-container" data-act="2" data-stage="2">
                 <div class="activity-intro-view" id="intro-act-2">
                     <span class="intro-header-badge">CHẶNG 2 — HOẠT ĐỘNG 2</span>
                     <h2 class="intro-activity-title">XẾP ĐỒ VÀO VALI</h2>
                     <div class="intro-art-frame">
-                        <img src="act2_packing_dad_bin_exact_1787803736224.jpg" alt="Bé Bin và Bố xếp đồ vào vali">
+                        <img src="act2_p_packing_1787826393025.jpg" alt="Bé Bin và Bố xếp đồ vào vali">
                     </div>
-                    <p class="intro-prompt-quote">Bố: “Bin mang gì đi máy bay nhỉ? Con xếp vali giúp Bin nhé!”</p>
-                    <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="2" style="font-size: 17px; padding: 8px 28px;">
+                    <p class="intro-prompt-quote">Bố: “Con kiểm tra và xếp các món đồ cần thiết vào vali cho Bin nhé!”</p>
+                    <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="2">
                         BẮT ĐẦU HOẠT ĐỘNG 🚀
                     </button>
                 </div>
 
                 <div class="activity-gameplay-view hidden" id="gameplay-act-2">
-                    <div class="level1-room-scene act2-packing-scene">
-                        <!-- Ảnh nền Vali Mở Rộng 16:9 cùng Bố và Bé Bin -->
-                        <img class="act2-scene-img" src="act2_packing_dad_bin_exact_1787803736224.jpg" alt="Vali mở xếp đồ">
-
-                        <!-- Cột đồ bên trái (Desktop) / Hàng đồ trên (Mobile) -->
-                        <div class="packing-items-grid packing-left">
-                            <button class="luggage-item-card" data-luggage-item="true" data-category="PACK" data-name="Bỉm em bé">
-                                <img class="luggage-item-thumb" src="item_diaper_bin_1787805919326.jpg" alt="Bỉm em bé">
-                                <span class="luggage-item-title">Bỉm em bé</span>
-                            </button>
-                            <button class="luggage-item-card" data-luggage-item="true" data-category="PACK" data-name="Gấu bông nhỏ">
-                                <img class="luggage-item-thumb" src="item_teddy_bin_1787805945593.jpg" alt="Gấu bông nhỏ">
-                                <span class="luggage-item-title">Gấu bông nhỏ</span>
-                            </button>
-                            <button class="luggage-item-card" data-luggage-item="true" data-category="PACK" data-name="Quần áo mềm">
-                                <img class="luggage-item-thumb" src="item_clothes_bin_1787805969758.jpg" alt="Quần áo mềm">
-                                <span class="luggage-item-title">Quần áo mềm</span>
-                            </button>
-                            <button class="luggage-item-card" data-luggage-item="true" data-category="LEAVE_HOME" data-name="Kéo nhọn">
-                                <img class="luggage-item-thumb" src="item_sharp_scissors_1787806087872.jpg" alt="Kéo nhọn">
-                                <span class="luggage-item-title">Kéo nhọn</span>
-                            </button>
-                        </div>
-
-                        <!-- Cột đồ bên phải (Desktop) / Hàng đồ dưới (Mobile) -->
-                        <div class="packing-items-grid packing-right">
-                            <button class="luggage-item-card" data-luggage-item="true" data-category="PACK" data-name="Bàn chải">
-                                <img class="luggage-item-thumb" src="item_toothbrush_bin_1787805999817.jpg" alt="Bàn chải">
-                                <span class="luggage-item-title">Bàn chải</span>
-                            </button>
-                            <button class="luggage-item-card" data-luggage-item="true" data-category="PACK" data-name="Mũ che nắng">
-                                <img class="luggage-item-thumb" src="item_sunhat_bin_1787806030489.jpg" alt="Mũ che nắng">
-                                <span class="luggage-item-title">Mũ che nắng</span>
-                            </button>
-                            <button class="luggage-item-card" data-luggage-item="true" data-category="LEAVE_HOME" data-name="Ô tô to">
-                                <img class="luggage-item-thumb" src="item_big_car_toy_1787806058422.jpg" alt="Ô tô to">
-                                <span class="luggage-item-title">Ô tô to</span>
-                            </button>
-                            <button class="luggage-item-card" data-luggage-item="true" data-category="LEAVE_HOME" data-name="Bình nước lớn">
-                                <img class="luggage-item-thumb" src="item_large_bottle_1787806116315.jpg" alt="Bình nước lớn">
-                                <span class="luggage-item-title">Bình nước lớn</span>
-                            </button>
-                        </div>
+                    <div class="unified-scene-stage">
+                        <img class="unified-scene-img" src="act2_p_packing_1787826393025.jpg" alt="Xếp vali phòng khách">
                     </div>
 
-                    <div class="activity-feedback-overlay hidden" id="feedback-act-2">
-                        <span class="feedback-text">Mẹ: “Vali của Bin sẵn sàng rồi! Đến sân bay thôi!”</span>
-                        <button class="tycoon-btn tycoon-btn-green btn-next-activity" data-next="3">
-                            ĐẾN SÂN BAY 🚗 ➡️
+                    <div class="packing-items-grid">
+                        <button class="luggage-item-card" data-luggage-item="true" data-category="PACK" data-name="Bỉm em bé">
+                            <img class="luggage-item-thumb" src="item_diaper_bin_1787805919326.jpg" alt="Bỉm em bé">
+                            <span class="luggage-item-title">Bỉm em bé</span>
+                        </button>
+                        <button class="luggage-item-card" data-luggage-item="true" data-category="PACK" data-name="Gấu bông nhỏ">
+                            <img class="luggage-item-thumb" src="item_teddy_bin_1787805945593.jpg" alt="Gấu bông nhỏ">
+                            <span class="luggage-item-title">Gấu bông nhỏ</span>
+                        </button>
+                        <button class="luggage-item-card" data-luggage-item="true" data-category="PACK" data-name="Quần áo mềm">
+                            <img class="luggage-item-thumb" src="item_clothes_bin_1787805969758.jpg" alt="Quần áo mềm">
+                            <span class="luggage-item-title">Quần áo mềm</span>
+                        </button>
+                        <button class="luggage-item-card" data-luggage-item="true" data-category="PACK" data-name="Mũ che nắng">
+                            <img class="luggage-item-thumb" src="item_sunhat_bin_1787806030489.jpg" alt="Mũ che nắng">
+                            <span class="luggage-item-title">Mũ che nắng</span>
                         </button>
                     </div>
                 </div>
             </section>
 
-            <!-- ==========================================================================
-                 CHẶNG 3 — HOẠT ĐỘNG 3: KIỂM TRA VÉ & CHỌN SỐ GHẾ (100% JPG ARTWORK)
-                 ========================================================================== -->
+            <!-- HĐ 3: KIỂM TRA VÉ & CHỌN SỐ GHẾ -->
             <section id="act-3" class="activity-container" data-act="3" data-stage="3">
                 <div class="activity-intro-view" id="intro-act-3">
                     <span class="intro-header-badge">CHẶNG 3 — HOẠT ĐỘNG 3</span>
                     <h2 class="intro-activity-title">KIỂM TRA VÉ & CHỌN SỐ GHẾ</h2>
                     <div class="intro-art-frame">
-                        <img src="act3_checkin_mom_bin_exact_1787803769855.jpg" alt="Quầy làm thủ tục sân bay">
+                        <img src="act3_p_checkin_1787826415064.jpg" alt="Quầy làm thủ tục sân bay">
                     </div>
-                    <p class="intro-prompt-quote">Mẹ: “Đến quầy kiểm tra rồi. Con tìm và chọn số ghế của Bin trên vé nhé!”</p>
-                    <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="3" style="font-size: 17px; padding: 8px 28px;">
+                    <p class="intro-prompt-quote">Mẹ: “Vé máy bay có thông tin quan trọng. Con xem vé để biết số ghế của Bin nhé!”</p>
+                    <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="3">
                         BẮT ĐẦU HOẠT ĐỘNG 🚀
                     </button>
                 </div>
 
                 <div class="activity-gameplay-view hidden" id="gameplay-act-3">
-                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 88%; gap: 14px;">
+                    <div class="unified-scene-stage" style="max-height: 32vh !important;">
+                        <img class="unified-scene-img" src="act3_p_checkin_1787826415064.jpg" alt="Quầy check-in">
+                    </div>
+
+                    <!-- THẺ LÊN MÁY BAY CHUẨN CỦA BÉ BIN -->
+                    <div class="real-boarding-pass" id="boarding-pass-card">
+                        <div class="pass-header-strip">
+                            <span>✈️ THẺ LÊN MÁY BAY (BOARDING PASS)</span>
+                            <span>CHUYẾN BAY VN-304</span>
+                        </div>
                         
-                        <div style="background: rgba(255, 255, 255, 0.95); padding: 6px 20px; border-radius: 999px; font-size: 14px; font-weight: 900; color: #0277BD; border: 2px solid #81D4FA; box-shadow: 0 4px 10px rgba(0,0,0,0.06);">
-                            👇 Chạm vào ô <strong style="color: #E65100;">SỐ GHẾ</strong> trên vé để khoanh tròn và xác nhận
-                        </div>
-
-                        <!-- THẺ LÊN MÁY BAY CHUẨN CỦA BÉ BIN -->
-                        <div class="real-boarding-pass" id="boarding-pass-card" style="width: 100%; max-width: 660px; background: #FFFFFF; border-radius: 24px; border: 4px solid #0288D1; box-shadow: 0 14px 35px rgba(2, 136, 209, 0.22); overflow: hidden; position: relative;">
-                            <!-- Dải tiêu đề vé -->
-                            <div style="background: linear-gradient(90deg, #0288D1, #01579B); color: white; padding: 12px 24px; display: flex; justify-content: space-between; align-items: center;">
-                                <div style="font-weight: 900; font-size: 16px; display: flex; align-items: center; gap: 8px;">
-                                    <span>✈️ THẺ LÊN MÁY BAY (BOARDING PASS)</span>
-                                </div>
-                                <div style="font-weight: 900; font-size: 14px; background: rgba(255,255,255,0.25); padding: 4px 14px; border-radius: 999px;">
-                                    CHUYẾN BAY VN-304
-                                </div>
-                            </div>
-                            
-                            <!-- Nội dung vé máy bay -->
-                            <div style="padding: 22px 26px; background: #FFFDF9; display: grid; grid-template-columns: 1.4fr 1fr; gap: 16px; align-items: center;">
-                                <div style="display: flex; flex-direction: column; gap: 12px;">
-                                    <div>
-                                        <div style="font-size: 11px; font-weight: 800; color: #78909C; text-transform: uppercase;">HÀNH KHÁCH / PASSENGER</div>
-                                        <div style="font-size: 22px; font-weight: 900; color: #01579B;">BÉ BIN 🧒</div>
-                                    </div>
-                                    
-                                    <div style="display: flex; gap: 16px; align-items: center;">
-                                        <div>
-                                            <div style="font-size: 11px; font-weight: 800; color: #78909C;">TỪ / FROM</div>
-                                            <div style="font-size: 17px; font-weight: 900; color: #263238;">HÀ NỘI (HAN)</div>
-                                        </div>
-                                        <div style="font-size: 22px; color: #0288D1; font-weight: 900;">➔</div>
-                                        <div>
-                                            <div style="font-size: 11px; font-weight: 800; color: #78909C;">ĐẾN / TO</div>
-                                            <div style="font-size: 17px; font-weight: 900; color: #263238;">ĐÀ NẴNG (DAD)</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div style="display: flex; gap: 12px; justify-content: flex-end; align-items: center;">
-                                    <!-- Ô SỐ GHẾ -->
-                                    <div id="seat-selection-btn" class="circle-highlight-seat" style="background: #E1F5FE; border: 3px solid #0288D1; border-radius: 18px; padding: 10px 16px; text-align: center; min-width: 90px;">
-                                        <div style="font-size: 11px; font-weight: 800; color: #0288D1;">SỐ GHẾ</div>
-                                        <div style="font-size: 26px; font-weight: 900; color: #01579B;">12A</div>
-                                        <!-- Vòng tròn đỏ vẽ tay -->
-                                        <div id="seat-red-circle" class="seat-red-circle"></div>
-                                    </div>
-
-                                    <div style="background: #FFF3E0; border: 2px solid #FF9800; border-radius: 18px; padding: 10px 16px; text-align: center; min-width: 90px;">
-                                        <div style="font-size: 11px; font-weight: 800; color: #E65100;">CỬA RA</div>
-                                        <div style="font-size: 26px; font-weight: 900; color: #E65100;">03</div>
-                                    </div>
-                                </div>
+                        <div class="pass-body-grid">
+                            <div>
+                                <div class="pass-field-label">HÀNH KHÁCH / PASSENGER</div>
+                                <div class="pass-field-value">BÉ BIN 🧒</div>
+                                <div style="font-size: 12px; color: #546E7A; margin-top: 4px;">HÀ NỘI ➔ ĐÀ NẴNG</div>
                             </div>
 
-                            <!-- Con dấu ĐÃ KIỂM TRA -->
-                            <div id="pass-stamp-overlay" style="display: none; position: absolute; right: 30px; top: 48%; transform: translateY(-50%) rotate(-12deg); border: 4px solid #D32F2F; color: #D32F2F; padding: 8px 20px; border-radius: 14px; font-weight: 900; font-size: 20px; text-transform: uppercase; letter-spacing: 1.5px; background: rgba(255,255,255,0.92); box-shadow: 0 4px 16px rgba(211,47,47,0.35); z-index: 20;">
-                                ✓ ĐÃ KIỂM TRA
+                            <div style="display: flex; gap: 8px; justify-content: flex-end;">
+                                <div id="seat-selection-btn" class="circle-highlight-seat" style="background: #E1F5FE; border: 2.5px solid #0288D1; border-radius: 16px; padding: 8px 12px; text-align: center;">
+                                    <div style="font-size: 10px; font-weight: 800; color: #0288D1;">SỐ GHẾ</div>
+                                    <div style="font-size: 24px; font-weight: 900; color: #01579B;">12A</div>
+                                    <div id="seat-red-circle" class="seat-red-circle"></div>
+                                </div>
+
+                                <div style="background: #FFF3E0; border: 2px solid #FF9800; border-radius: 16px; padding: 8px 12px; text-align: center;">
+                                    <div style="font-size: 10px; font-weight: 800; color: #E65100;">CỔNG RA</div>
+                                    <div class="pass-gate-num">03</div>
+                                </div>
                             </div>
                         </div>
-
-                        <button id="btn-show-ticket-3" class="tycoon-btn tycoon-btn-primary" style="font-size: 16px; padding: 8px 28px;">
-                            🎫 Chạm chọn Ghế 12A & đóng dấu vé
-                        </button>
                     </div>
 
-                    <div class="activity-feedback-overlay hidden" id="feedback-act-3">
-                        <span class="feedback-text">Mẹ: “Giỏi lắm! Ghế 12A là ghế cạnh cửa sổ của Bin đấy!”</span>
-                        <button class="tycoon-btn tycoon-btn-green btn-next-activity" data-next="4">
-                            SOI HÀNH LÝ 📦 ➡️
-                        </button>
-                    </div>
+                    <button id="btn-show-ticket-3" class="tycoon-btn tycoon-btn-primary" style="font-size: 15px; padding: 8px 24px; margin-top: 4px;">
+                        🎫 Chạm chọn Ghế 12A để xác nhận
+                    </button>
                 </div>
             </section>
 
-            <!-- ==========================================================================
-                 CHẶNG 3 — HOẠT ĐỘNG 4: SOI HÀNH LÝ QUA MÁY QUÉT (100% JPG ARTWORK)
-                 ========================================================================== -->
+            <!-- HĐ 4: SOI HÀNH LÝ QUA MÁY QUÉT -->
             <section id="act-4" class="activity-container" data-act="4" data-stage="3">
                 <div class="activity-intro-view" id="intro-act-4">
                     <span class="intro-header-badge">CHẶNG 3 — HOẠT ĐỘNG 4</span>
                     <h2 class="intro-activity-title">SOI HÀNH LÝ QUA MÁY QUÉT</h2>
                     <div class="intro-art-frame">
-                        <img src="act4_xray_dad_bin_exact_1787803835711.jpg" alt="Bin và Bố quan sát vali qua máy soi">
+                        <img src="act4_p_xray_1787826439928.jpg" alt="Bin và Bố tại máy soi X-Ray">
                     </div>
-                    <p class="intro-prompt-quote">Bố: “Bây giờ vali của Bin sẽ đi qua máy soi. Con xem bên trong có gì nhé!”</p>
-                    <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="4" style="font-size: 17px; padding: 8px 28px;">
+                    <p class="intro-prompt-quote">Bố: “Đến lượt kiểm tra rồi. Bin lắng nghe hướng dẫn và kiểm tra đồ an toàn nhé!”</p>
+                    <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="4">
                         BẮT ĐẦU HOẠT ĐỘNG 🚀
                     </button>
                 </div>
 
                 <div class="activity-gameplay-view hidden" id="gameplay-act-4">
                     <div class="unified-scene-stage">
-                        <img class="unified-scene-img" src="act4_xray_dad_bin_exact_1787803835711.jpg" alt="Màn hình soi X-Ray">
+                        <img class="unified-scene-img" src="act4_p_xray_1787826439928.jpg" alt="Màn hình soi X-Ray">
                     </div>
 
                     <div class="scene-interactive-hud">
-                        <span style="font-size: 13px; font-weight: 900; color: #004D40;">Chạm 3 vật an toàn trong vali:</span>
+                        <span style="font-size: 13px; font-weight: 900; color: #004D40; width: 100%; text-align: center;">Chạm 3 vật an toàn trong vali:</span>
                         <button class="tycoon-btn xray-item-tile" data-name="Bỉm">🍼 Bỉm</button>
                         <button class="tycoon-btn xray-item-tile" data-name="Gấu bông">🧸 Gấu bông</button>
                         <button class="tycoon-btn xray-item-tile" data-name="Quần áo">👕 Quần áo</button>
                         <button class="tycoon-btn xray-item-tile" data-name="Mũ che nắng">👒 Mũ nắng</button>
                     </div>
-
-                    <div class="activity-feedback-overlay hidden" id="feedback-act-4">
-                        <span class="feedback-text">Mẹ: “Vali của Bin an toàn rồi! Qua cổng kiểm tra nhé!”</span>
-                        <button class="tycoon-btn tycoon-btn-green btn-next-activity" data-next="5">
-                            QUA CỔNG AN NINH 🚪 ➡️
-                        </button>
-                    </div>
                 </div>
             </section>
 
-            <!-- ==========================================================================
-                 CHẶNG 3 — HOẠT ĐỘNG 5: ĐI QUA CỔNG AN NINH (100% JPG ARTWORK)
-                 ========================================================================== -->
+            <!-- HĐ 5: ĐI QUA CỔNG AN NINH -->
             <section id="act-5" class="activity-container" data-act="5" data-stage="3">
                 <div class="activity-intro-view" id="intro-act-5">
                     <span class="intro-header-badge">CHẶNG 3 — HOẠT ĐỘNG 5</span>
                     <h2 class="intro-activity-title">ĐI QUA CỔNG AN NINH</h2>
                     <div class="intro-art-frame">
-                        <img src="act5_gate_bin_exact_1787803993294.jpg" alt="Bin đi qua cổng an ninh">
+                        <img src="act5_p_gate_1787826490425.jpg" alt="Bin đi qua cổng an ninh">
                     </div>
-                    <p class="intro-prompt-quote">Mẹ: “Đến cổng an ninh rồi. Con giúp Bin đi qua nhé!”</p>
-                    <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="5" style="font-size: 17px; padding: 8px 28px;">
+                    <p class="intro-prompt-quote">Mẹ: “Nhiều người đang chờ qua cổng. Con giúp Bin xếp hàng và bước qua nhé!”</p>
+                    <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="5">
                         BẮT ĐẦU HOẠT ĐỘNG 🚀
                     </button>
                 </div>
 
                 <div class="activity-gameplay-view hidden" id="gameplay-act-5">
                     <div class="unified-scene-stage">
-                        <img id="scene-img-act-5" class="unified-scene-img" src="act5_gate_bin_exact_1787803993294.jpg" alt="Scene Cổng an ninh">
+                        <img id="scene-img-act-5" class="unified-scene-img" src="act5_p_gate_1787826490425.jpg" alt="Cổng an ninh">
                     </div>
 
                     <div class="scene-interactive-hud">
-                        <button id="btn-walk-gate-5" class="tycoon-btn tycoon-btn-primary" style="font-size: 17px; padding: 8px 24px;">
+                        <button id="btn-walk-gate-5" class="tycoon-btn tycoon-btn-primary" style="font-size: 16px; padding: 10px 24px;">
                             🚶 Chạm để Bin bước qua cổng an ninh
-                        </button>
-                    </div>
-
-                    <div class="activity-feedback-overlay hidden" id="feedback-act-5">
-                        <span class="feedback-text">Mẹ: “Bíp boong! Bin qua cửa an toàn rồi!”</span>
-                        <button class="tycoon-btn tycoon-btn-green btn-next-activity" data-next="6">
-                            TÌM CỔNG BAY 🚪 ➡️
                         </button>
                     </div>
                 </div>
             </section>
 
-            <!-- ==========================================================================
-                 CHẶNG 4 — HOẠT ĐỘNG 6: TÌM ĐÚNG CỔNG 03 (100% JPG ARTWORK)
-                 ========================================================================== -->
+            <!-- HĐ 6: TÌM ĐÚNG CỔNG 03 -->
             <section id="act-6" class="activity-container" data-act="6" data-stage="4">
                 <div class="activity-intro-view" id="intro-act-6">
                     <span class="intro-header-badge">CHẶNG 4 — HOẠT ĐỘNG 6</span>
                     <h2 class="intro-activity-title">TÌM ĐÚNG CỔNG 03</h2>
                     <div class="intro-art-frame">
-                        <img src="act6_gate03_dad_bin_exact_1787804038291.jpg" alt="Tìm Cổng 03">
+                        <img src="act6_p_gate03_1787826519653.jpg" alt="Tìm Cổng 03">
                     </div>
-                    <p class="intro-prompt-quote">Bố: “Vé của Bin ghi số 03. Con tìm cổng số 03 nhé!”</p>
-                    <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="6" style="font-size: 17px; padding: 8px 28px;">
+                    <p class="intro-prompt-quote">Bố: “Vé của Bin ghi Cổng 03. Con nhìn biển chỉ dẫn để dẫn Bin đến Cổng 03 nhé!”</p>
+                    <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="6">
                         BẮT ĐẦU HOẠT ĐỘNG 🚀
                     </button>
                 </div>
 
                 <div class="activity-gameplay-view hidden" id="gameplay-act-6">
                     <div class="unified-scene-stage">
-                        <img class="unified-scene-img" src="act6_gate03_dad_bin_exact_1787804038291.jpg" alt="Sảnh chờ Cổng 03">
+                        <img class="unified-scene-img" src="act6_p_gate03_1787826519653.jpg" alt="Sảnh Cổng 03">
                     </div>
 
                     <div class="scene-interactive-hud">
-                        <span style="font-weight: 900; font-size: 13px; color: #37474F;">Vé ghi Cổng 03. Con chọn:</span>
-                        <button class="tycoon-btn gate-hud-btn" data-gate="01">Cổng 01</button>
-                        <button class="tycoon-btn gate-hud-btn" data-gate="02">Cổng 02</button>
-                        <button class="tycoon-btn gate-hud-btn" data-gate="03">Cổng 03 ✈️</button>
-                        <button class="tycoon-btn gate-hud-btn" data-gate="05">Cổng 05</button>
-                    </div>
-
-                    <div class="activity-feedback-overlay hidden" id="feedback-act-6">
-                        <span class="feedback-text">Tiếp viên: “Đúng rồi! Cổng 03 đây rồi! Chào mừng Bin lên máy bay!”</span>
-                        <button class="tycoon-btn tycoon-btn-green btn-next-activity" data-next="7">
-                            LÊN MÁY BAY ✈️ ➡️
-                        </button>
+                        <span style="font-weight: 900; font-size: 13px; color: #37474F; width: 100%; text-align: center;">Vé ghi Cổng 03. Con chọn hướng:</span>
+                        <button class="tycoon-btn gate-hud-btn" data-gate="01">← Cổng 01</button>
+                        <button class="tycoon-btn gate-hud-btn" data-gate="03">Cổng 03 ➔</button>
+                        <button class="tycoon-btn gate-hud-btn" data-gate="05">↑ Cổng 05</button>
                     </div>
                 </div>
             </section>
 
-            <!-- ==========================================================================
-                 CHẶNG 5 — HOẠT ĐỘNG 7: CÀI DÂY AN TOÀN (100% JPG ARTWORK)
-                 ========================================================================== -->
+            <!-- HĐ 7: CÀI DÂY AN TOÀN TRÊN GHẾ -->
             <section id="act-7" class="activity-container" data-act="7" data-stage="5">
                 <div class="activity-intro-view" id="intro-act-7">
                     <span class="intro-header-badge">CHẶNG 5 — HOẠT ĐỘNG 7</span>
                     <h2 class="intro-activity-title">CÀI DÂY AN TOÀN TRÊN GHẾ</h2>
                     <div class="intro-art-frame">
-                        <img src="act7_cabin_family_exact_1787803601954.jpg" alt="Dãy 3 ghế máy bay cùng Bố Mẹ">
+                        <img src="act7_p_unbuckled_1787826548604.jpg" alt="Bin ngồi ghế máy bay">
                     </div>
-                    <p class="intro-prompt-quote">Mẹ: “Bin ngồi vào ghế 12A rồi. Con chọn hành động đúng để bảo vệ an toàn nhé!”</p>
-                    <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="7" style="font-size: 17px; padding: 8px 28px;">
+                    <p class="intro-prompt-quote">Mẹ: “Bin đã ngồi vào ghế 12A. Con giúp Bin cài dây an toàn chắc chắn nhé!”</p>
+                    <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="7">
                         BẮT ĐẦU HOẠT ĐỘNG 🚀
                     </button>
                 </div>
 
                 <div class="activity-gameplay-view hidden" id="gameplay-act-7">
                     <div class="unified-scene-stage">
-                        <img id="scene-img-act-7" class="unified-scene-img" src="act7_cabin_family_exact_1787803601954.jpg" alt="Cài dây an toàn 3 ghế">
+                        <img id="scene-img-act-7" class="unified-scene-img" src="act7_p_unbuckled_1787826548604.jpg" alt="Cài dây an toàn">
                     </div>
                     
                     <div class="scene-interactive-hud" id="hud-quiz-act-7">
-                        <div class="visual-quiz-container">
-                            <button class="visual-quiz-card" data-choice="wrong" data-act="7">
-                                <img src="choice_act7_unbuckled_1787806276793.jpg" class="choice-thumb" alt="Đứng nhảy trên ghế">
-                                <span class="quiz-label">Đứng nhảy trên ghế</span>
-                            </button>
-                            <button class="visual-quiz-card" data-choice="correct" data-act="7">
-                                <img src="choice_act7_buckled_1787806309848.jpg" class="choice-thumb" alt="Cài dây an toàn">
-                                <span class="quiz-label">Cài dây an toàn (CẠCH!)</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="activity-feedback-overlay hidden" id="feedback-act-7">
-                        <span class="feedback-text">Mẹ: “CẠCH! Dây an toàn chắc chắn rồi! Máy bay chuẩn bị cất cánh!”</span>
-                        <button class="tycoon-btn tycoon-btn-green btn-next-activity" data-next="8">
-                            GIÚP TAI DỄ CHỊU 🥤 ➡️
+                        <button id="btn-buckle-seatbelt-7" class="tycoon-btn tycoon-btn-primary" style="font-size: 16px; padding: 12px 28px; width: 90%;">
+                            🔒 Chạm để cài khóa dây an toàn (CẠCH!)
                         </button>
                     </div>
                 </div>
             </section>
 
-            <!-- ==========================================================================
-                 CHẶNG 5 — HOẠT ĐỘNG 8: GIÚP TAI DỄ CHỊU (100% JPG ARTWORK)
-                 ========================================================================== -->
+            <!-- HĐ 8: GIÚP TAI DỄ CHỊU KHI CẤT CÁNH -->
             <section id="act-8" class="activity-container" data-act="8" data-stage="5">
                 <div class="activity-intro-view" id="intro-act-8">
                     <span class="intro-header-badge">CHẶNG 5 — HOẠT ĐỘNG 8</span>
                     <h2 class="intro-activity-title">GIÚP TAI DỄ CHỊU KHI CẤT CÁNH</h2>
                     <div class="intro-art-frame">
-                        <img src="act8_cabin_drink_exact_1787803876001.jpg" alt="Bin uống nước trên ghế máy bay">
+                        <img src="act8_p_drink_1787826607801.jpg" alt="Bin uống nước">
                     </div>
-                    <p class="intro-prompt-quote">Mẹ: “Khi máy bay bay lên cao làm tai khó chịu, con chọn cách nào giúp Bin nhé!”</p>
-                    <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="8" style="font-size: 17px; padding: 8px 28px;">
+                    <p class="intro-prompt-quote">Mẹ: “Máy bay đang lên cao. Con giúp Bin uống từng ngụm nước nhỏ và nuốt nhẹ nhé!”</p>
+                    <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="8">
                         BẮT ĐẦU HOẠT ĐỘNG 🚀
                     </button>
                 </div>
 
                 <div class="activity-gameplay-view hidden" id="gameplay-act-8">
                     <div class="unified-scene-stage">
-                        <img id="scene-img-act-8" class="unified-scene-img" src="act8_cabin_drink_exact_1787803876001.jpg" alt="Bin uống nước trên ghế">
+                        <img id="scene-img-act-8" class="unified-scene-img" src="act8_p_drink_1787826607801.jpg" alt="Bin uống nước">
                     </div>
                     
                     <div class="scene-interactive-hud" id="hud-quiz-act-8">
-                        <div class="visual-quiz-container">
-                            <button class="visual-quiz-card" data-choice="wrong" data-act="8">
-                                <img src="choice_act8_cry_1787806342582.jpg" class="choice-thumb" alt="Bịt tai, khóc nhè">
-                                <span class="quiz-label">Bịt tai, khóc nhè</span>
-                            </button>
-                            <button class="visual-quiz-card" data-choice="correct" data-act="8">
-                                <img src="choice_act8_drink_1787806384301.jpg" class="choice-thumb" alt="Uống từng ngụm nước">
-                                <span class="quiz-label">Uống từng ngụm nước nhỏ</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="activity-feedback-overlay hidden" id="feedback-act-8">
-                        <span class="feedback-text">Bin: “Nuốt nước ực một cái, tai Bin hết khó chịu rồi!”</span>
-                        <button class="tycoon-btn tycoon-btn-green btn-next-activity" data-next="9">
-                            NGẮM MÂY ☁️ ➡️
+                        <button id="btn-drink-water-8" class="tycoon-btn tycoon-btn-primary" style="font-size: 16px; padding: 12px 28px; width: 90%;">
+                            🥤 Chạm để Bin uống nước & nuốt nhẹ
                         </button>
                     </div>
                 </div>
             </section>
 
-            <!-- ==========================================================================
-                 CHẶNG 6 — HOẠT ĐỘNG 9: NGẮM MÂY VÀ TƯỞNG TƯỢNG (100% JPG ARTWORK)
-                 ========================================================================== -->
+            <!-- HĐ 9: NGẮM MÂY VÀ TƯỞNG TƯỢNG -->
             <section id="act-9" class="activity-container" data-act="9" data-stage="6">
                 <div class="activity-intro-view" id="intro-act-9">
                     <span class="intro-header-badge">CHẶNG 6 — HOẠT ĐỘNG 9</span>
                     <h2 class="intro-activity-title">NGẮM MÂY VÀ TƯỞNG TƯỢNG</h2>
                     <div class="intro-art-frame">
-                        <img src="scene_act9_window_1787730327041.jpg" alt="Ngắm mây">
+                        <img src="act9_p_clouds_1787826640477.jpg" alt="Ngắm mây qua cửa sổ">
                     </div>
-                    <p class="intro-prompt-quote">Bin: “Bin thấy đám mây giống hình gì nhỉ? Con nhìn cùng Bin nhé!”</p>
-                    <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="9" style="font-size: 17px; padding: 8px 28px;">
+                    <p class="intro-prompt-quote">Bin: “Ngoài cửa sổ có nhiều đám mây kỳ diệu. Con cùng Bin ngắm mây nhé!”</p>
+                    <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="9">
                         BẮT ĐẦU HOẠT ĐỘNG 🚀
                     </button>
                 </div>
 
                 <div class="activity-gameplay-view hidden" id="gameplay-act-9">
                     <div class="unified-scene-stage">
-                        <img id="scene-img-act-9" class="unified-scene-img" src="scene_act9_window_1787730327041.jpg" alt="Scene Ngắm mây qua cửa sổ">
+                        <img id="scene-img-act-9" class="unified-scene-img" src="act9_p_clouds_1787826640477.jpg" alt="Ngắm mây">
                     </div>
 
                     <div class="scene-interactive-hud">
-                        <span style="font-weight: 900; font-size: 14px; color: #0277BD;">Chạm đám mây:</span>
-                        <button class="tycoon-btn morph-cloud-btn" data-name="Chú thỏ 🐰">🐰 Thỏ</button>
-                        <button class="tycoon-btn morph-cloud-btn" data-name="Con rồng bay 🐉">🐉 Rồng</button>
-                        <button class="tycoon-btn morph-cloud-btn" data-name="Thuyền buồm ⛵">⛵ Thuyền</button>
-                    </div>
-
-                    <div class="activity-feedback-overlay hidden" id="feedback-act-9">
-                        <span class="feedback-text">Bin: “Những đám mây thật kỳ diệu!”</span>
-                        <button class="tycoon-btn tycoon-btn-green btn-next-activity" data-next="10">
-                            HỌC NÓI NHỎ 🤫 ➡️
-                        </button>
+                        <button class="tycoon-btn morph-cloud-btn" data-name="Chú thỏ 🐰">🐰 Thỏ con</button>
+                        <button class="tycoon-btn morph-cloud-btn" data-name="Con rồng 🐉">🐉 Rồng bay</button>
+                        <button class="tycoon-btn morph-cloud-btn" data-name="Thuyền buồm ⛵">⛵ Thuyền buồm</button>
                     </div>
                 </div>
             </section>
 
-            <!-- ==========================================================================
-                 CHẶNG 7 — HOẠT ĐỘNG 10: NÓI NHỎ VỪA ĐỦ NGHE (100% JPG ARTWORK)
-                 ========================================================================== -->
+            <!-- HĐ 10: NÓI NHỎ VỪA ĐỦ NGHE -->
             <section id="act-10" class="activity-container" data-act="10" data-stage="7">
                 <div class="activity-intro-view" id="intro-act-10">
                     <span class="intro-header-badge">CHẶNG 7 — HOẠT ĐỘNG 10</span>
                     <h2 class="intro-activity-title">NÓI NHỎ VỪA ĐỦ NGHE</h2>
                     <div class="intro-art-frame">
-                        <img src="act10_cabin_whisper_exact_1787803921672.jpg" alt="Nói nhỏ trên ghế máy bay">
+                        <img src="act10_p_whisper_1787826674278.jpg" alt="Nói nhỏ trên máy bay">
                     </div>
-                    <p class="intro-prompt-quote">Mẹ: “Trên máy bay đông người, con chọn cách nói chuyện lịch sự nhé!”</p>
-                    <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="10" style="font-size: 17px; padding: 8px 28px;">
+                    <p class="intro-prompt-quote">Mẹ: “Trên máy bay đông người. Con chọn mức âm lượng lịch sự cho Bin nhé!”</p>
+                    <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="10">
                         BẮT ĐẦU HOẠT ĐỘNG 🚀
                     </button>
                 </div>
 
                 <div class="activity-gameplay-view hidden" id="gameplay-act-10">
                     <div class="unified-scene-stage">
-                        <img id="scene-img-act-10" class="unified-scene-img" src="act10_cabin_whisper_exact_1787803921672.jpg" alt="Nói nhỏ dãy 3 ghế">
+                        <img id="scene-img-act-10" class="unified-scene-img" src="act10_p_whisper_1787826674278.jpg" alt="Nói nhỏ lịch sự">
                     </div>
 
                     <div class="scene-interactive-hud" id="hud-quiz-act-10">
                         <div class="visual-quiz-container">
-                            <button class="visual-quiz-card" data-choice="wrong" data-act="10">
-                                <img src="choice_act10_loud_1787806150946.jpg" class="choice-thumb" alt="Nói to, la hét">
-                                <span class="quiz-label">Nói to, la hét</span>
-                            </button>
                             <button class="visual-quiz-card" data-choice="correct" data-act="10">
                                 <img src="choice_act10_whisper_1787806183105.jpg" class="choice-thumb" alt="Nói nhỏ vừa đủ nghe">
-                                <span class="quiz-label">Nói nhỏ vừa đủ nghe</span>
+                                <span class="quiz-label">🤫 Nói nhỏ vừa đủ nghe</span>
+                            </button>
+                            <button class="visual-quiz-card" data-choice="wrong" data-act="10">
+                                <img src="choice_act10_loud_1787806150946.jpg" class="choice-thumb" alt="Nói to, la hét">
+                                <span class="quiz-label">📢 Nói to, la hét</span>
                             </button>
                         </div>
-                    </div>
-
-                    <div class="activity-feedback-overlay hidden" id="feedback-act-10">
-                        <span class="feedback-text">Bin: “Đúng rồi! Mình nói nhỏ vừa đủ nghe để không làm phiền mọi người!”</span>
-                        <button class="tycoon-btn tycoon-btn-green btn-next-activity" data-next="11">
-                            NGỒI GỌN GÀNG 👟 ➡️
-                        </button>
                     </div>
                 </div>
             </section>
 
-            <!-- ==========================================================================
-                 CHẶNG 7 — HOẠT ĐỘNG 11: NGỒI GỌN — KHÔNG ĐẠP GHẾ TRƯỚC (100% JPG ARTWORK)
-                 ========================================================================== -->
+            <!-- HĐ 11: NGỒI GỌN — KHÔNG ĐẠP GHẾ TRƯỚC -->
             <section id="act-11" class="activity-container" data-act="11" data-stage="7">
                 <div class="activity-intro-view" id="intro-act-11">
                     <span class="intro-header-badge">CHẶNG 7 — HOẠT ĐỘNG 11</span>
                     <h2 class="intro-activity-title">NGỒI GỌN — KHÔNG ĐẠP GHẾ TRƯỚC</h2>
                     <div class="intro-art-frame">
-                        <img src="act11_cabin_tuckfeet_exact_1787803962458.jpg" alt="Ngồi thu chân gọn gàng">
+                        <img src="act11_p_tuckfeet_1787826704927.jpg" alt="Ngồi thu chân gọn gàng">
                     </div>
-                    <p class="intro-prompt-quote">Bố: “Con chọn tư thế ngồi ngoan giúp Bin không làm phiền người phía trước nhé!”</p>
-                    <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="11" style="font-size: 17px; padding: 8px 28px;">
+                    <p class="intro-prompt-quote">Bố: “Con giúp Bin ngồi ngay ngắn, thu chân gọn gàng để giữ lịch sự nhé!”</p>
+                    <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="11">
                         BẮT ĐẦU HOẠT ĐỘNG 🚀
                     </button>
                 </div>
 
                 <div class="activity-gameplay-view hidden" id="gameplay-act-11">
                     <div class="unified-scene-stage">
-                        <img id="scene-img-act-11" class="unified-scene-img" src="act11_cabin_tuckfeet_exact_1787803962458.jpg" alt="Ngồi thu chân gọn">
+                        <img id="scene-img-act-11" class="unified-scene-img" src="act11_p_tuckfeet_1787826704927.jpg" alt="Ngồi thu chân gọn">
                     </div>
 
                     <div class="scene-interactive-hud" id="hud-quiz-act-11">
                         <div class="visual-quiz-container">
-                            <button class="visual-quiz-card" data-choice="wrong" data-act="11">
-                                <img src="choice_act11_kick_1787806213307.jpg" class="choice-thumb" alt="Duỗi chân đạp ghế trước">
-                                <span class="quiz-label">Duỗi chân đạp ghế trước</span>
-                            </button>
                             <button class="visual-quiz-card" data-choice="correct" data-act="11">
                                 <img src="choice_act11_tuck_1787806246494.jpg" class="choice-thumb" alt="Thu chân gọn gàng">
-                                <span class="quiz-label">Thu chân gọn gàng</span>
+                                <span class="quiz-label">👟 Thu chân gọn gàng</span>
+                            </button>
+                            <button class="visual-quiz-card" data-choice="wrong" data-act="11">
+                                <img src="choice_act11_kick_1787806213307.jpg" class="choice-thumb" alt="Duỗi chân đạp ghế trước">
+                                <span class="quiz-label">🦵 Đạp lưng ghế trước</span>
                             </button>
                         </div>
-                    </div>
-
-                    <div class="activity-feedback-overlay hidden" id="feedback-act-11">
-                        <span class="feedback-text">Bố: “Giỏi lắm! Bin ngồi rất ngoan, không đạp vào ghế phía trước!”</span>
-                        <button class="tycoon-btn tycoon-btn-green btn-next-activity" data-next="12">
-                            MÁY BAY HẠ CÁNH 🛬 ➡️
-                        </button>
                     </div>
                 </div>
             </section>
 
-            <!-- ==========================================================================
-                 CHẶNG 8 — HOẠT ĐỘNG 12: CHỜ DỪNG HẲN RỒI MỚI MỞ DÂY (100% JPG ARTWORK)
-                 ========================================================================== -->
+            <!-- HĐ 12: CHỜ MÁY BAY DỪNG HẲN RỒI MỚI MỞ DÂY -->
             <section id="act-12" class="activity-container" data-act="12" data-stage="8">
                 <div class="activity-intro-view" id="intro-act-12">
                     <span class="intro-header-badge">CHẶNG 8 — HOẠT ĐỘNG 12</span>
-                    <h2 class="intro-activity-title">CHỜ MÁY BAY DỪNG HẲN RỒI MỚI MỞ DÂY</h2>
+                    <h2 class="intro-activity-title">CHỜ DỪNG HẲN RỒI MỚI MỞ DÂY</h2>
                     <div class="intro-art-frame">
-                        <img src="act7_cabin_family_exact_1787803601954.jpg" alt="Chờ máy bay dừng">
+                        <img src="act12_p_landing_1787826742480.jpg" alt="Máy bay hạ cánh">
                     </div>
-                    <p class="intro-prompt-quote">Bố: “Máy bay vừa đáp xuống. Con chọn hành động an toàn giúp Bin nhé!”</p>
-                    <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="12" style="font-size: 17px; padding: 8px 28px;">
+                    <p class="intro-prompt-quote">Bố: “Máy bay vừa đáp xuống. Khi nào máy bay dừng hẳn mình mới mở dây nhé!”</p>
+                    <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="12">
                         BẮT ĐẦU HOẠT ĐỘNG 🚀
                     </button>
                 </div>
 
                 <div class="activity-gameplay-view hidden" id="gameplay-act-12">
                     <div class="unified-scene-stage">
-                        <img id="scene-img-act-12" class="unified-scene-img" src="act7_cabin_family_exact_1787803601954.jpg" alt="Scene Chờ máy bay dừng">
+                        <img id="scene-img-act-12" class="unified-scene-img" src="act12_p_landing_1787826742480.jpg" alt="Chờ dừng hẳn">
                     </div>
 
-                    <div class="scene-interactive-hud" id="hud-quiz-act-12">
-                        <div class="visual-quiz-container">
-                            <button class="visual-quiz-card" data-choice="wrong" data-act="12">
-                                <img src="choice_act12_stand_1787806424639.jpg" class="choice-thumb" alt="Đứng dậy lấy đồ sớm">
-                                <span class="quiz-label">Đứng dậy lấy đồ sớm</span>
-                            </button>
-                            <button class="visual-quiz-card" data-choice="correct" data-act="12">
-                                <img src="choice_act12_sit_1787806461834.jpg" class="choice-thumb" alt="Ngồi yên thắt dây chờ">
-                                <span class="quiz-label">Ngồi yên thắt dây chờ</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="activity-feedback-overlay hidden" id="feedback-act-12">
-                        <span class="feedback-text">Mẹ: “Máy bay dừng hẳn rồi. Bây giờ mình mới mở dây nhé!”</span>
-                        <button class="tycoon-btn tycoon-btn-green btn-next-activity" data-next="13">
-                            TÌM VALI CỦA BIN 🧳 ➡️
+                    <div class="scene-interactive-hud">
+                        <button id="unbuckle-latch-btn" class="tycoon-btn" style="font-size: 15px; padding: 12px 24px; width: 92%;">
+                            ⏳ Đèn đỏ sáng: Máy bay đang chạy vào bãi đỗ...
                         </button>
                     </div>
                 </div>
             </section>
 
-            <!-- ==========================================================================
-                 CHẶNG 8 — HOẠT ĐỘNG 13: TÌM ĐÚNG VALI CỦA BIN (100% JPG ARTWORK)
-                 ========================================================================== -->
+            <!-- HĐ 13: TÌM ĐÚNG VALI CỦA BIN -->
             <section id="act-13" class="activity-container" data-act="13" data-stage="8">
                 <div class="activity-intro-view" id="intro-act-13">
                     <span class="intro-header-badge">CHẶNG 8 — HOẠT ĐỘNG 13</span>
                     <h2 class="intro-activity-title">TÌM ĐÚNG VALI CỦA BIN</h2>
                     <div class="intro-art-frame">
-                        <img src="act13_carousel_bin_exact_1787804082739.jpg" alt="Bé Bin chờ nhận vali tại băng chuyền">
+                        <img src="act13_p_carousel_1787826776348.jpg" alt="Băng chuyền hành lý">
                     </div>
-                    <p class="intro-prompt-quote">Bố: “Con tìm chiếc vali đỏ có hình gấu của Bin nhé!”</p>
-                    <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="13" style="font-size: 17px; padding: 8px 28px;">
+                    <p class="intro-prompt-quote">Bố: “Vali của Bin màu đỏ và có hình chú gấu. Con nhìn kỹ và nhận đúng vali nhé!”</p>
+                    <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="13">
                         BẮT ĐẦU HOẠT ĐỘNG 🚀
                     </button>
                 </div>
@@ -1551,10 +822,6 @@ window.addEventListener('error', function(e) {
                             <button class="real-suitcase-card" data-is-bin="false">
                                 <img src="suitcase_green_ball_1787731424638.jpg" alt="Vali xanh bóng">
                             </button>
-                            <!-- 5. Vali tím ngôi sao -->
-                            <button class="real-suitcase-card" data-is-bin="false">
-                                <img src="suitcase_purple_star_1787731513646.jpg" alt="Vali tím sao">
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -1563,7 +830,7 @@ window.addEventListener('error', function(e) {
                 <div id="golden-medal-modal" class="golden-medal-modal">
                     <div class="golden-medal-card">
                         <div style="display: flex; justify-content: center; margin-bottom: 8px;">
-                            <img src="bin_avatar_exact_1787804218103.jpg" style="width: 140px; height: 140px; object-fit: contain; border-radius: 50%; border: 4px solid #FFD54F; box-shadow: 0 6px 18px rgba(255, 193, 7, 0.4); background: #FFF9C4;" alt="Bin nhận huy hiệu">
+                            <img src="bin_avatar_exact_1787804218103.jpg" style="width: 130px; height: 130px; object-fit: contain; border-radius: 50%; border: 4px solid #FFD54F; box-shadow: 0 6px 18px rgba(255, 193, 7, 0.4); background: #FFF9C4;" alt="Bin nhận huy hiệu">
                         </div>
                         <h2 style="font-size: 22px; font-weight: 900; color: #E65100; margin: 4px 0;">HÀNH KHÁCH NHÍ XUẤT SẮC</h2>
                         <p style="font-size: 15px; font-weight: 800; color: #37474F; margin: 4px 0;">Bé Bin đã hoàn thành chuyến bay đầu tiên!</p>
@@ -1571,7 +838,7 @@ window.addEventListener('error', function(e) {
                             ✈️ Đã nhận Huy Hiệu Máy Bay vào bộ sưu tập!
                         </div>
 
-                        <button id="btn-replay-adventure" class="tycoon-btn tycoon-btn-primary" style="font-size: 17px; padding: 10px 28px; margin-top: 12px; width: 88%;">
+                        <button id="btn-replay-adventure" class="tycoon-btn tycoon-btn-primary" style="font-size: 17px; padding: 10px 28px; margin-top: 12px; width: 90%;">
                             🔄 CHƠI LẠI CÙNG BIN
                         </button>
                     </div>
@@ -1579,6 +846,18 @@ window.addEventListener('error', function(e) {
             </section>
 
         </main>
+
+        <!-- MODAL THẺ ⭐ BIN GHI NHỚ ⭐ -->
+        <div id="bin-memorize-overlay" class="bin-memorize-overlay">
+            <div class="bin-memorize-card">
+                <img src="bin_avatar_exact_1787804218103.jpg" class="bin-memorize-avatar" alt="Bé Bin">
+                <div class="bin-memorize-badge">⭐ BIN GHI NHỚ ⭐</div>
+                <div id="bin-memorize-quote-text" class="bin-memorize-quote">“Chọn đồ thoải mái, dễ vận động.”</div>
+                <button id="bin-memorize-continue-btn" class="tycoon-btn tycoon-btn-green bin-memorize-btn">
+                    TIẾP TỤC HÀNH TRÌNH ✈️ ➡️
+                </button>
+            </div>
+        </div>
 
         <!-- CỔNG BA MẸ -->
         <div id="parent-modal" class="parent-modal-overlay">
@@ -1613,11 +892,6 @@ window.addEventListener('error', function(e) {
                     <input id="setting-volume" type="range" min="0" max="1" step="0.1" value="0.85" style="width: 120px; height: 22px;">
                 </div>
 
-                <div style="display: flex; justify-content: space-between; align-items: center; margin: 6px 0; font-weight: 800; font-size: 13px;">
-                    <span>Giảm hiệu ứng chuyển động:</span>
-                    <input id="setting-reduced-motion" type="checkbox" style="width: 20px; height: 20px;">
-                </div>
-
                 <div style="display: flex; gap: 8px; margin-top: 10px;">
                     <button id="btn-reset-app" class="tycoon-btn" style="flex: 1; font-size: 14px;">
                         🔄 Chơi lại từ đầu
@@ -1631,47 +905,48 @@ window.addEventListener('error', function(e) {
 
     </div>
 
-    <!-- Scripts: character-renderer -> runtime-hotfix-js -->
-    <script>
-    // character-renderer.js (inline)
-    class BinCharacterRenderer {
-        constructor() {
-            this.currentOutfit = { shirt: false, pants: false, shoes: false, seatbelt: null };
-            this.singleScene = 'act1_bedroom_initial_bin_1787803669361.jpg';
-        }
-        mountAll() { const s = document.getElementById('act1-room-scene-img'); if (s) s.src = this.singleScene; }
-        getCurrentImageSrc() { return this.singleScene; }
-        updateScene() { const s = document.getElementById('act1-room-scene-img'); if (s) s.src = this.singleScene; }
-        setShirt(k) { this.currentOutfit.shirt = true; }
-        setPants(k) { this.currentOutfit.pants = true; }
-        setShoes(k) { this.currentOutfit.shoes = true; }
-        setSeatbelt(k) { this.currentOutfit.seatbelt = k; }
-        reset() { this.currentOutfit = { shirt: false, pants: false, shoes: false, seatbelt: null }; this.updateScene(); }
-    }
-    window.binRenderer = new BinCharacterRenderer();
-    </script>
-
-<script id="runtime-controller-js">
+    <!-- PURE JAVASCRIPT GAME ENGINE -->
+    <script id="runtime-controller-js">
 (() => {
   'use strict';
 
   const ACTIVITY_META = {
-    1:{stage:1,label:'Chọn trang phục',speaker:'Mẹ',prompt:'Bin sắp đi máy bay rồi. Con chọn bộ đồ nào giúp Bin dễ vận động nhé!'},
-    2:{stage:2,label:'Xếp hành lý',speaker:'Bố',prompt:'Bin mang gì đi máy bay nhỉ? Con xếp vali giúp Bin nhé!'},
-    3:{stage:3,label:'Kiểm tra vé',speaker:'Mẹ',prompt:'Đến quầy kiểm tra rồi. Con giúp Bin đưa vé nhé!'},
-    4:{stage:3,label:'Soi hành lý',speaker:'Bố',prompt:'Bây giờ vali của Bin sẽ đi qua máy soi. Con xem bên trong có gì nhé!'},
-    5:{stage:3,label:'Cổng an ninh',speaker:'Mẹ',prompt:'Đến cổng an ninh rồi. Con giúp Bin đi qua nhé!'},
-    6:{stage:4,label:'Tìm Cổng 03',speaker:'Bố',prompt:'Vé của Bin ghi số 03. Con tìm cổng số 03 nhé!'},
-    7:{stage:5,label:'Cài dây an toàn',speaker:'Mẹ',prompt:'Bin ngồi vào ghế rồi. Con giúp Bin cài dây an toàn nhé!'},
-    8:{stage:5,label:'Giúp tai dễ chịu',speaker:'Mẹ',prompt:'Tai Bin hơi khó chịu. Bin uống một ngụm nước nhé.'},
-    9:{stage:6,label:'Ngắm mây',speaker:'Bin',prompt:'Bin thấy đám mây giống hình gì nhỉ? Con nhìn cùng Bin nhé!'},
-    10:{stage:7,label:'Nói nhỏ',speaker:'Mẹ',prompt:'Trên máy bay mình nói nhỏ vừa đủ nghe nhé.'},
-    11:{stage:7,label:'Ngồi gọn',speaker:'Bố',prompt:'Bin thu chân gọn lại để không chạm ghế phía trước nhé!'},
-    12:{stage:8,label:'Mở dây sau khi dừng',speaker:'Bố',prompt:'Máy bay đang chạy vào chỗ đỗ. Bin vẫn ngồi yên và giữ dây an toàn nhé!'},
-    13:{stage:8,label:'Nhận vali',speaker:'Bố',prompt:'Con tìm chiếc vali đỏ có hình gấu của Bin nhé!'}
+    1:{stage:1,label:'Chọn trang phục',speaker:'Mẹ',prompt:'Bin sắp đi máy bay rồi. Con giúp Bin chọn đồ mềm và giày dễ tháo nhé!'},
+    2:{stage:2,label:'Xếp hành lý',speaker:'Bố',prompt:'Con kiểm tra và xếp các món đồ cần thiết vào vali cho Bin nhé!'},
+    3:{stage:3,label:'Kiểm tra vé',speaker:'Mẹ',prompt:'Vé máy bay có thông tin quan trọng. Con xem vé để biết số ghế của Bin nhé!'},
+    4:{stage:3,label:'Soi hành lý',speaker:'Bố',prompt:'Đến lượt kiểm tra rồi. Bin lắng nghe hướng dẫn và kiểm tra đồ an toàn nhé!'},
+    5:{stage:3,label:'Cổng an ninh',speaker:'Mẹ',prompt:'Nhiều người đang chờ qua cổng. Con giúp Bin xếp hàng và bước qua nhé!'},
+    6:{stage:4,label:'Tìm Cổng 03',speaker:'Bố',prompt:'Vé của Bin ghi Cổng 03. Con nhìn biển chỉ dẫn để dẫn Bin đến Cổng 03 nhé!'},
+    7:{stage:5,label:'Cài dây an toàn',speaker:'Mẹ',prompt:'Bin đã ngồi vào ghế 12A. Con giúp Bin cài dây an toàn chắc chắn nhé!'},
+    8:{stage:5,label:'Giúp tai dễ chịu',speaker:'Mẹ',prompt:'Máy bay đang lên cao. Con giúp Bin uống từng ngụm nước nhỏ và nuốt nhẹ nhé!'},
+    9:{stage:6,label:'Ngắm mây',speaker:'Bin',prompt:'Ngoài cửa sổ có nhiều đám mây kỳ diệu. Con cùng Bin ngắm mây nhé!'},
+    10:{stage:7,label:'Nói nhỏ',speaker:'Mẹ',prompt:'Trên máy bay đông người. Con chọn mức âm lượng lịch sự cho Bin nhé!'},
+    11:{stage:7,label:'Ngồi gọn',speaker:'Bố',prompt:'Con giúp Bin ngồi ngay ngắn, thu chân gọn gàng để giữ lịch sự nhé!'},
+    12:{stage:8,label:'Mở dây sau khi dừng',speaker:'Bố',prompt:'Máy bay vừa đáp xuống. Khi nào máy bay dừng hẳn mình mới mở dây nhé!'},
+    13:{stage:8,label:'Nhận vali',speaker:'Bố',prompt:'Vali của Bin màu đỏ và có hình chú gấu. Con nhìn kỹ và nhận đúng vali nhé!'}
   };
 
-  const SPEAKER_ICON = { 'Mẹ':'👩', 'Bố':'👨', 'Bin':'🧒', 'Tiếp viên':'👩‍✈️' };
+  const BIN_MEMORIZE_QUOTES = {
+    1: 'Chọn đồ thoải mái, dễ vận động.',
+    2: 'Chỉ mang đồ cần thiết và xếp thật gọn.',
+    3: 'Giữ vé cẩn thận và nhìn vé để biết số ghế.',
+    4: 'Dừng lại, lắng nghe và làm theo hướng dẫn.',
+    5: 'Xếp hàng và chờ đến lượt.',
+    6: 'Nhìn số cổng và đi theo biển chỉ dẫn.',
+    7: 'Ngồi vào ghế là cài dây an toàn.',
+    8: 'Khi tai khó chịu, uống nước và nuốt nhẹ.',
+    9: 'Ngồi yên ngắm cảnh và thư giãn vui vẻ.',
+    10: 'Nói nhỏ vừa đủ nghe.',
+    11: 'Ngồi gọn và giữ đồ gọn gàng.',
+    12: 'Máy bay dừng hẳn mới mở dây an toàn.',
+    13: 'Kiểm tra đúng đặc điểm trước khi lấy vali.'
+  };
+
+  const SPEAKER_AVATAR = {
+    'Mẹ': 'mom_avatar_exact_1787804124981.jpg',
+    'Bố': 'dad_avatar_exact_1787804167793.jpg',
+    'Bin': 'bin_avatar_exact_1787804218103.jpg'
+  };
 
   const state = {
     currentAct: 1,
@@ -1682,13 +957,12 @@ window.addEventListener('error', function(e) {
     outfit: {shirt:false, pants:false, shoes:false},
     packed: new Set(),
     xrayChecked: new Set(),
-    clouds: new Set(),
-    reducedMotion: false
+    clouds: new Set()
   };
 
   function el(id) { return document.getElementById(id); }
 
-  // ---- Pure Web Audio API Synth Engine ----
+  // ---- Web Audio API Synthesizer ----
   let audioCtx = null;
   let volume = 0.85;
 
@@ -1715,16 +989,14 @@ window.addEventListener('error', function(e) {
   const sfx = {
     good() { tone(1046, 0.15); setTimeout(() => tone(1318, 0.22), 90); },
     bad() { tone(220, 0.12, 'triangle'); },
-    clack() { tone(260, 0.08, 'square'); },
+    clack() { tone(260, 0.08, 'square'); setTimeout(() => tone(520, 0.09, 'square'), 50); },
     stamp() { tone(520, 0.07, 'square'); },
-    pop() { tone(620, 0.08); }
-  };
-
-  const SPEAKER_AVATAR = {
-    'Mẹ': 'mom_avatar_exact_1787804124981.jpg',
-    'Bố': 'dad_avatar_exact_1787804167793.jpg',
-    'Bin': 'bin_avatar_exact_1787804218103.jpg',
-    'Tiếp viên': 'attendant_character_sheet_1787725525796.jpg'
+    fanfare() {
+      tone(523, 0.12);
+      setTimeout(() => tone(659, 0.12), 100);
+      setTimeout(() => tone(784, 0.15), 200);
+      setTimeout(() => tone(1046, 0.28), 320);
+    }
   };
 
   function showPrompt(speaker, text) {
@@ -1735,15 +1007,29 @@ window.addEventListener('error', function(e) {
       const avatarSrc = SPEAKER_AVATAR[speaker];
       if (avatarSrc) {
         a.innerHTML = `<img src="${avatarSrc}" alt="${speaker}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;
-      } else {
-        a.textContent = SPEAKER_ICON[speaker] || '🌟';
       }
     }
   }
 
-  function showFeedback(act) {
-    const f = el(`feedback-act-${act}`);
-    if (f) f.classList.remove('hidden');
+  function showBinMemorize(actNum, onContinue) {
+    const overlay = el('bin-memorize-overlay');
+    const quoteEl = el('bin-memorize-quote-text');
+    const btn = el('bin-memorize-continue-btn');
+    const quote = BIN_MEMORIZE_QUOTES[actNum] || 'Chúc mừng Bin đã hoàn thành xuất sắc!';
+
+    if (!overlay || !quoteEl || !btn) {
+      if (onContinue) onContinue();
+      return;
+    }
+
+    quoteEl.textContent = `“${quote}”`;
+    overlay.classList.add('show');
+    sfx.fanfare();
+
+    btn.onclick = () => {
+      overlay.classList.remove('show');
+      if (onContinue) onContinue();
+    };
   }
 
   function completeActivity(act) {
@@ -1759,6 +1045,15 @@ window.addEventListener('error', function(e) {
         });
       }
     }
+
+    // Hiển thị thẻ ⭐ BIN GHI NHỚ ⭐
+    showBinMemorize(act, () => {
+      if (act < 13) {
+        showActivity(act + 1);
+      } else {
+        el('golden-medal-modal')?.classList.add('show');
+      }
+    });
   }
 
   function updateProgress(act) {
@@ -1784,22 +1079,15 @@ window.addEventListener('error', function(e) {
     const actContainer = el(`act-${act}`);
     if (actContainer) {
       actContainer.classList.add('active');
-      // Show intro view by default
       const intro = el(`intro-act-${act}`);
       const gameplay = el(`gameplay-act-${act}`);
-      const feedback = el(`feedback-act-${act}`);
       if (intro) intro.classList.remove('hidden');
       if (gameplay) gameplay.classList.add('hidden');
-      if (feedback) feedback.classList.add('hidden');
     }
 
     state.currentAct = act;
     updateProgress(act);
     showPrompt(ACTIVITY_META[act].speaker, ACTIVITY_META[act].prompt);
-
-    if (window.binRenderer) {
-      window.binRenderer.mountAll();
-    }
   }
 
   function startActivity(act) {
@@ -1811,14 +1099,6 @@ window.addEventListener('error', function(e) {
     if (act === 12) {
       armLandingWait();
     }
-
-    if (window.binRenderer) {
-      window.binRenderer.mountAll();
-    }
-  }
-
-  function nextActivity(nextAct) {
-    showActivity(nextAct);
   }
 
   function bindActivity1() {
@@ -1842,28 +1122,26 @@ window.addEventListener('error', function(e) {
         btn.classList.add('runtime-selected');
         sfx.good();
 
-        // Cập nhật trang phục của Bé Bin trực tiếp trên tranh phòng ngủ
         if (sceneImg) {
           sceneImg.classList.remove('pop-in-soft');
           void sceneImg.offsetWidth;
           if (state.outfit.shirt && (state.outfit.pants || state.outfit.shoes)) {
-            sceneImg.src = 'act1_bedroom_full_bin_1787803632562.jpg';
+            sceneImg.src = 'act1_p_bed_full_1787826367609.jpg';
           } else if (state.outfit.shirt) {
-            sceneImg.src = 'act1_bedroom_shirt_bin_1787803700813.jpg';
+            sceneImg.src = 'act1_p_bed_shirt_1787826346710.jpg';
           } else if (state.outfit.pants || state.outfit.shoes) {
-            sceneImg.src = 'act1_bedroom_shirt_bin_1787803700813.jpg';
+            sceneImg.src = 'act1_p_bed_shirt_1787826346710.jpg';
           }
           sceneImg.classList.add('pop-in-soft');
         }
 
-        if (type === 'shirt') showPrompt('Mẹ', 'Đúng rồi! Bé Bin đã mặc áo thun in máy bay vừa đẹp vừa mát!');
+        if (type === 'shirt') showPrompt('Mẹ', 'Đúng rồi! Bé Bin đã mặc áo thun máy bay vừa đẹp vừa mát!');
         else if (type === 'pants') showPrompt('Mẹ', 'Chuẩn rồi! Quần short co giãn giúp Bin dễ vận động!');
         else if (type === 'shoes') showPrompt('Mẹ', 'Tuyệt vời! Giày dán xé êm chân và dễ cởi khi qua an ninh!');
 
         if (state.outfit.shirt && state.outfit.pants && state.outfit.shoes) {
-          if (sceneImg) sceneImg.src = 'act1_bedroom_full_bin_1787803632562.jpg';
-          completeActivity(1);
-          showFeedback(1);
+          if (sceneImg) sceneImg.src = 'act1_p_bed_full_1787826367609.jpg';
+          setTimeout(() => completeActivity(1), 350);
         }
       });
     });
@@ -1882,56 +1160,42 @@ window.addEventListener('error', function(e) {
           showPrompt('Bố', `Đúng rồi! ${name} rất cần thiết, đã được xếp gọn vào vali!`);
 
           if (state.packed.size >= 4) {
-            completeActivity(2);
-            showFeedback(2);
+            setTimeout(() => completeActivity(2), 350);
           }
         } else {
           btn.classList.remove('shake-wobble');
-          void btn.offsetWidth; // Trigger reflow for animation restart
+          void btn.offsetWidth;
           btn.classList.add('shake-wobble');
           sfx.bad();
-
-          if (name.includes('Kéo')) {
-            showPrompt('Bố', 'Kéo nhọn kim loại nguy hiểm, không được mang lên máy bay con nhé!');
-          } else if (name.includes('Ô tô')) {
-            showPrompt('Bố', 'Ô tô to quá cồng kềnh chiếm hết vali, mình để ở nhà về chơi sau nhé!');
-          } else {
-            showPrompt('Bố', 'Bình nước lớn hơn 100ml không qua được cổng an ninh, mình để ở nhà nhé!');
-          }
+          showPrompt('Bố', 'Món này mình để ở nhà nhé, chỉ mang đồ cần thiết thôi con!');
         }
       });
     });
   }
 
   function bindSimpleActivities() {
-    // Act 3: Kiểm tra vé & Khoanh tròn Đỏ Số Ghế 12A & Đóng dấu Boarding Pass
+    // Act 3: Kiểm tra vé & Khoanh tròn số ghế 12A
     const onTicketCheck = () => {
       const redCircle = el('seat-red-circle');
       if (redCircle) redCircle.style.display = 'block';
-      const stamp = el('pass-stamp-overlay');
-      if (stamp) stamp.style.display = 'block';
-
       sfx.good();
-      setTimeout(() => sfx.stamp(), 200);
-
+      setTimeout(() => sfx.stamp(), 150);
       showPrompt('Mẹ', 'Giỏi lắm! Ghế 12A là ghế cạnh cửa sổ của Bin đấy!');
-      completeActivity(3);
-      showFeedback(3);
+      setTimeout(() => completeActivity(3), 400);
     };
 
     el('seat-selection-btn')?.addEventListener('click', onTicketCheck);
     el('btn-show-ticket-3')?.addEventListener('click', onTicketCheck);
     el('boarding-pass-card')?.addEventListener('click', onTicketCheck);
 
-    // Act 4: Soi hành lý
+    // Act 4: Soi hành lý X-Ray
     document.querySelectorAll('#act-4 .xray-item-tile').forEach((tile, i) => {
       tile.addEventListener('click', () => {
         state.xrayChecked.add(i);
-        tile.classList.add('runtime-checked');
+        tile.classList.add('tycoon-btn-green');
         sfx.good();
         if (state.xrayChecked.size >= 3) {
-          completeActivity(4);
-          showFeedback(4);
+          setTimeout(() => completeActivity(4), 350);
         }
       });
     });
@@ -1939,28 +1203,55 @@ window.addEventListener('error', function(e) {
     // Act 5: Cổng an ninh
     el('btn-walk-gate-5')?.addEventListener('click', () => {
       sfx.good();
-      showPrompt('Mẹ', 'Bíp boong! Bin qua cửa an toàn rồi!');
-      completeActivity(5);
-      showFeedback(5);
+      showPrompt('Mẹ', 'Bíp boong! Bin xếp hàng và qua cửa an toàn rồi!');
+      setTimeout(() => completeActivity(5), 350);
     });
 
     // Act 6: Tìm Cổng 03
     document.querySelectorAll('#act-6 .gate-hud-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         if (btn.dataset.gate === '03') {
-          btn.classList.add('runtime-correct');
+          btn.classList.add('tycoon-btn-green');
           sfx.good();
-          showPrompt('Bố', 'Đúng rồi! Cổng 03 đây rồi!');
-          completeActivity(6);
-          showFeedback(6);
+          showPrompt('Bố', 'Đúng rồi! Cổng 03 theo mũi tên đây rồi!');
+          setTimeout(() => completeActivity(6), 350);
         } else {
           sfx.bad();
-          showPrompt('Bố', 'Con nhìn lại số trên vé nhé!');
+          showPrompt('Bố', 'Con nhìn lại số 03 trên vé nhé!');
         }
       });
     });
 
-    // XỬ LÝ TRẮC NGHIỆM HÌNH ẢNH (ACTS 7, 8, 10, 11, 12)
+    // Act 7: Cài dây an toàn
+    el('btn-buckle-seatbelt-7')?.addEventListener('click', () => {
+      sfx.clack();
+      const sceneImg7 = el('scene-img-act-7');
+      if (sceneImg7) sceneImg7.src = 'act7_p_buckled_1787826577849.jpg';
+      showPrompt('Mẹ', 'CẠCH! Dây an toàn chắc chắn rồi! Máy bay chuẩn bị cất cánh!');
+      setTimeout(() => completeActivity(7), 500);
+    });
+
+    // Act 8: Uống nước
+    el('btn-drink-water-8')?.addEventListener('click', () => {
+      sfx.good();
+      showPrompt('Bin', 'Nuốt nước ực một cái, tai Bin hết khó chịu rồi!');
+      setTimeout(() => completeActivity(8), 400);
+    });
+
+    // Act 9: Ngắm mây
+    document.querySelectorAll('#act-9 .morph-cloud-btn').forEach((btn, i) => {
+      btn.addEventListener('click', () => {
+        state.clouds.add(i);
+        btn.classList.add('tycoon-btn-green');
+        sfx.good();
+        showPrompt('Bin', `Bin thấy đám mây giống ${btn.dataset.name || 'một hình thật vui'}!`);
+        if (state.clouds.size >= 3) {
+          setTimeout(() => completeActivity(9), 350);
+        }
+      });
+    });
+
+    // Act 10 & 11: Trắc nghiệm thói quen lịch sự
     document.querySelectorAll('.visual-quiz-card').forEach(btn => {
       btn.addEventListener('click', () => {
         const actNum = parseInt(btn.dataset.act, 10);
@@ -1969,53 +1260,16 @@ window.addEventListener('error', function(e) {
         if (isCorrect) {
           btn.classList.add('correct');
           sfx.good();
-
-          if (actNum === 7) {
-            if (window.binRenderer) window.binRenderer.setSeatbelt('fastened');
-            showPrompt('Mẹ', 'CẠCH! Dây an toàn chắc chắn rồi! Máy bay chuẩn bị cất cánh!');
-          } else if (actNum === 8) {
-            showPrompt('Bin', 'Nuốt nước ực một cái, tai Bin hết khó chịu rồi!');
-          } else if (actNum === 10) {
-            showPrompt('Bin', 'Đúng rồi! Mình nói nhỏ vừa đủ nghe để giữ yên tĩnh cho mọi người!');
-          } else if (actNum === 11) {
-            showPrompt('Bố', 'Giỏi lắm! Bin ngồi rất ngoan, thu chân gọn gàng không chạm ghế phía trước!');
-          } else if (actNum === 12) {
-            showPrompt('Mẹ', 'Máy bay dừng hẳn rồi. Bây giờ mình mới mở dây nhé!');
-          }
-
-          completeActivity(actNum);
-          showFeedback(actNum);
+          if (actNum === 10) showPrompt('Bin', 'Đúng rồi! Mình nói nhỏ vừa đủ nghe để giữ yên tĩnh!');
+          else if (actNum === 11) showPrompt('Bố', 'Giỏi lắm! Bin ngồi thu chân gọn gàng không chạm ghế trước!');
+          setTimeout(() => completeActivity(actNum), 400);
         } else {
           btn.classList.remove('incorrect');
-          void btn.offsetWidth; // Trigger reflow for animation restart
+          void btn.offsetWidth;
           btn.classList.add('incorrect');
           sfx.bad();
-
-          if (actNum === 7) {
-            showPrompt('Mẹ', 'Đứng trên ghế rất nguy hiểm khi máy bay di chuyển con nhé. Bin cài dây an toàn lại nào!');
-          } else if (actNum === 8) {
-            showPrompt('Mẹ', 'Bịt tai khóc sẽ không làm hết khó chịu. Bin thử uống từng ngụm nước nhỏ nhé!');
-          } else if (actNum === 10) {
-            showPrompt('Mẹ', 'Nói to sẽ làm ồn mọi người xung quanh đấy. Bin nói nhỏ thì thầm nhé!');
-          } else if (actNum === 11) {
-            showPrompt('Bố', 'Đạp vào lưng ghế trước làm rung và phiền người ngồi trước con nhé. Mình thu chân gọn lại nào!');
-          } else if (actNum === 12) {
-            showPrompt('Bố', 'Đèn báo hiệu còn sáng, máy bay đang di chuyển, mình chưa được đứng dậy lấy đồ con nhé!');
-          }
-        }
-      });
-    });
-
-    // Act 9: Ngắm mây
-    document.querySelectorAll('#act-9 .morph-cloud-btn').forEach((btn, i) => {
-      btn.addEventListener('click', () => {
-        state.clouds.add(i);
-        btn.classList.add('runtime-selected');
-        sfx.good();
-        showPrompt('Bin', `Bin thấy giống ${btn.dataset.name || 'một hình thật vui'}! Còn con thấy giống gì?`);
-        if (state.clouds.size >= 3) {
-          completeActivity(9);
-          showFeedback(9);
+          if (actNum === 10) showPrompt('Mẹ', 'Nói to sẽ làm ồn mọi người xung quanh đấy. Bin nói nhỏ nhé!');
+          else if (actNum === 11) showPrompt('Bố', 'Đạp vào lưng ghế trước làm phiền người khác con nhé. Mình thu chân gọn nào!');
         }
       });
     });
@@ -2024,15 +1278,15 @@ window.addEventListener('error', function(e) {
     document.querySelectorAll('#act-13 .real-suitcase-card').forEach(btn => {
       btn.addEventListener('click', () => {
         if (btn.dataset.isBin === 'true') {
+          btn.classList.add('bin-picked');
           sfx.good();
-          completeActivity(13);
-          el('golden-medal-modal')?.classList.add('show');
+          setTimeout(() => completeActivity(13), 400);
         } else {
           btn.classList.remove('runtime-wrong');
           void btn.offsetWidth;
           btn.classList.add('runtime-wrong');
           sfx.bad();
-          showPrompt('Bố', 'Vali này của bạn khác rồi. Con tìm lại nhé!');
+          showPrompt('Bố', 'Vali này của bạn khác rồi. Vali của Bin màu đỏ hình gấu con nhé!');
         }
       });
     });
@@ -2045,23 +1299,20 @@ window.addEventListener('error', function(e) {
       state.packed.clear();
       state.xrayChecked.clear();
       state.clouds.clear();
+
       const sceneImg1 = el('act1-room-scene-img');
-      if (sceneImg1) sceneImg1.src = 'act1_bedroom_initial_bin_1787803669361.jpg';
+      if (sceneImg1) sceneImg1.src = 'act1_p_bed_init_1787826323333.jpg';
+      const sceneImg7 = el('scene-img-act-7');
+      if (sceneImg7) sceneImg7.src = 'act7_p_unbuckled_1787826548604.jpg';
+
       document.querySelectorAll('#act-1 [data-clothing-item="true"]').forEach(b => b.classList.remove('runtime-selected'));
-      const packedContainer = el('suitcase-packed-items');
-      if (packedContainer) packedContainer.innerHTML = '';
-      document.querySelectorAll('#act-2 [data-luggage-item="true"]').forEach(b => {
-        b.classList.remove('runtime-packed', 'wobble-shake');
-      });
-      document.querySelectorAll('.visual-quiz-card').forEach(b => {
-        b.classList.remove('correct', 'incorrect');
-      });
+      document.querySelectorAll('#act-2 [data-luggage-item="true"]').forEach(b => b.classList.remove('runtime-packed', 'shake-wobble'));
+      document.querySelectorAll('.visual-quiz-card').forEach(b => b.classList.remove('correct', 'incorrect'));
+      document.querySelectorAll('.xray-item-tile, .morph-cloud-btn, .gate-hud-btn').forEach(b => b.classList.remove('tycoon-btn-green'));
+
       const redCircle = el('seat-red-circle');
       if (redCircle) redCircle.style.display = 'none';
-      const stamp = el('pass-stamp-overlay');
-      if (stamp) stamp.style.display = 'none';
-      document.querySelectorAll('#act-4 .xray-item-tile').forEach(t => t.classList.remove('runtime-checked'));
-      if (window.binRenderer) window.binRenderer.reset();
+
       showActivity(1);
     });
   }
@@ -2070,8 +1321,8 @@ window.addEventListener('error', function(e) {
     const btn = el('unbuckle-latch-btn');
     if (!btn) return;
     btn.disabled = true;
-    btn.style.opacity = '0.6';
-    btn.innerHTML = '<span>⏳ Máy bay đang chạy vào bãi đỗ...</span>';
+    btn.style.opacity = '0.65';
+    btn.innerHTML = '<span>⏳ Đèn đỏ sáng: Máy bay đang chạy vào bãi đỗ...</span>';
     showPrompt('Bố', 'Máy bay đang chạy vào chỗ đỗ. Bin vẫn ngồi yên và giữ dây an toàn nhé!');
 
     if (state.activity12Timer) clearTimeout(state.activity12Timer);
@@ -2079,25 +1330,20 @@ window.addEventListener('error', function(e) {
       btn.disabled = false;
       btn.style.opacity = '1';
       btn.classList.add('tycoon-btn-primary');
-      btn.innerHTML = '<span>🔓 Máy bay đã dừng hẳn — Mở dây an toàn (CẠCH!)</span>';
+      btn.innerHTML = '<span>🔓 Đèn xanh bật: Mở dây an toàn (CẠCH!)</span>';
       showPrompt('Mẹ', 'Máy bay dừng hẳn rồi. Bây giờ mình mới mở dây nhé!');
-    }, state.reducedMotion ? 700 : 2500);
+    }, 2200);
 
     btn.onclick = () => {
       if (btn.disabled) return;
-      if (window.binRenderer) window.binRenderer.setSeatbelt('none');
       sfx.clack();
       completeActivity(12);
-      showFeedback(12);
     };
   }
 
   function bindNavigation() {
     document.querySelectorAll('.btn-start-activity').forEach(btn => {
       btn.addEventListener('click', () => startActivity(Number(btn.dataset.act)));
-    });
-    document.querySelectorAll('.btn-next-activity').forEach(btn => {
-      btn.addEventListener('click', () => nextActivity(Number(btn.dataset.next)));
     });
 
     document.querySelectorAll('.stage-dot').forEach(dot => {
@@ -2152,12 +1398,7 @@ window.addEventListener('error', function(e) {
     });
 
     el('btn-reset-app')?.addEventListener('click', () => location.reload());
-
     el('setting-volume')?.addEventListener('input', e => volume = Number(e.target.value));
-    el('setting-reduced-motion')?.addEventListener('change', e => {
-      state.reducedMotion = e.target.checked;
-      document.documentElement.classList.toggle('reduced-motion', state.reducedMotion);
-    });
   }
 
   function init() {
@@ -2169,7 +1410,7 @@ window.addEventListener('error', function(e) {
     bindActivity2();
     bindSimpleActivities();
     showActivity(1);
-    console.log('[APP READY] 13-activity controller loaded successfully');
+    console.log('[APP READY] 13-activity portrait storybook loaded successfully');
   }
 
   if (document.readyState === 'loading') {
@@ -2178,7 +1419,6 @@ window.addEventListener('error', function(e) {
     init();
   }
 })();
-</script>
-
+    </script>
 </body>
 </html>
