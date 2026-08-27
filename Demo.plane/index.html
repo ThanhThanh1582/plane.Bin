@@ -9,6 +9,56 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 
+<script>
+// Tự động chuyển hướng hình ảnh sang SVG có sẵn trong assets nếu ảnh JPG chưa được tải lên
+(function() {
+  const FALLBACK_MAP = {
+    'act1_bedroom_full_bin': 'assets/scenes/intro_act1_wardrobe.svg',
+    'act1_bedroom_initial_bin': 'assets/scenes/intro_act1_wardrobe_bg.svg',
+    'act2_packing_dad_bin': 'assets/scenes/intro_act2_packing.svg',
+    'act3_checkin_mom_bin': 'assets/scenes/boarding_pass_scene.svg',
+    'act4_xray_dad_bin': 'assets/scenes/intro_act4_xray.svg',
+    'act5_gate_bin': 'assets/scenes/intro_act5_gate.svg',
+    'act6_gate03_dad_bin': 'assets/scenes/scene_act6_gate03.svg',
+    'act7_cabin_family': 'assets/scenes/scene_act7_buckled.svg',
+    'act8_cabin_drink': 'assets/scenes/scene_act8_drinking.svg',
+    'scene_act9_window': 'assets/scenes/scene_act9_window.svg',
+    'act10_cabin_whisper': 'assets/scenes/scene_act10_whisper.svg',
+    'act11_cabin_tuckfeet': 'assets/scenes/scene_act11_feet.svg',
+    'act13_carousel_bin': 'assets/scenes/intro_act13_carousel.svg',
+    'suitcase_red_bear': 'assets/suitcases/suitcase_red_bear.svg',
+    'suitcase_blue_rocket': 'assets/suitcases/suitcase_blue_rocket.svg',
+    'suitcase_yellow_cherry': 'assets/suitcases/suitcase_yellow_cherry.svg',
+    'suitcase_green_ball': 'assets/suitcases/suitcase_green_ball.svg',
+    'suitcase_purple_star': 'assets/suitcases/suitcase_purple_star.svg',
+    'mom_avatar': 'assets/characters/mom_point.svg',
+    'bin_avatar': 'assets/characters/bin_base.svg',
+    'dad_avatar': 'assets/characters/bin_blue_buckled.svg',
+    'attendant_character_sheet': 'assets/characters/mom_point.svg'
+  };
+
+  window.addEventListener('error', function(e) {
+    if (e.target && e.target.tagName === 'IMG') {
+      const img = e.target;
+      const src = img.src || '';
+      if (img.dataset.fallbackApplied) return;
+      img.dataset.fallbackApplied = 'true';
+
+      for (const [key, fallbackUrl] of Object.entries(FALLBACK_MAP)) {
+        if (src.includes(key)) {
+          img.src = fallbackUrl;
+          return;
+        }
+      }
+
+      // Fallback cho thẻ quiz hoặc luggage item nếu ảnh lỗi
+      if (img.classList.contains('luggage-item-thumb') || img.parentElement.classList.contains('visual-quiz-card')) {
+        img.style.display = 'none';
+      }
+    }
+  }, true);
+})();
+</script>
 <style id="runtime-hotfix-css">
 /* ===== HOTFIX SHELL ===== */
 .hidden { display: none !important; }
