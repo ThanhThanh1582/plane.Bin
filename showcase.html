@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bộ Sưu Tập Hình Ảnh Đã Khóa - Cùng Bé Bin Đi Máy Bay</title>
+    <style>
+        :root {
+            --primary: #0288D1;
+            --primary-dark: #01579B;
+            --accent: #FFA726;
+            --bg: #F4F7F9;
+            --card-bg: #FFFFFF;
+            --text-main: #263238;
+            --text-sub: #546E7A;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text-main);
+            margin: 0;
+            padding: 32px 24px;
+        }
+
+        .header {
+            max-width: 1200px;
+            margin: 0 auto 32px;
+            background: linear-gradient(135deg, #0288D1, #01579B);
+            color: white;
+            padding: 28px 36px;
+            border-radius: 24px;
+            box-shadow: 0 10px 25px rgba(2, 136, 209, 0.25);
+        }
+
+        .header h1 {
+            margin: 0 0 8px;
+            font-size: 28px;
+            font-weight: 900;
+        }
+
+        .header p {
+            margin: 0;
+            font-size: 15px;
+            opacity: 0.95;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto 40px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--primary-dark);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 24px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            border: 2px solid #E2E8F0;
+            overflow: hidden;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+        }
+
+        .card-img-wrapper {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: #EDF2F7;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-img-wrapper.square {
+            aspect-ratio: 1/1;
+        }
+
+        .card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-img-wrapper.contain img {
+            object-fit: contain;
+            padding: 12px;
+        }
+
+        .card-body {
+            padding: 18px 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .badge {
+            align-self: flex-start;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            background: #E1F5FE;
+            color: #0288D1;
+        }
+
+        .badge.gold {
+            background: #FFF8E1;
+            color: #F57F17;
+        }
+
+        .badge.green {
+            background: #E8F5E9;
+            color: #2E7D32;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 6px;
+        }
+
+        .card-desc {
+            font-size: 13px;
+            color: var(--text-sub);
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>✈️ THƯ VIỆN ARTWORK ARTIFACTS — CÙNG BÉ BIN ĐI MÁY BAY</h1>
+        <p>Tập hợp toàn bộ các hình ảnh 2D Comic Line-Art chuẩn storybook đã được khởi tạo trong Artifacts.</p>
+    </div>
+
+    <!-- 1. BỐI CẢNH PHÒNG NGỦ VÀ KHOANG MÁY BAY CHUẨN (KHÔNG CÓ BÉ BIN) -->
+    <div class="section-container">
+        <div class="section-title">🏡 1. Bối Cảnh Phòng Ngủ & Khoang Ghế Máy Bay (Không Nhân Vật)</div>
+        <div class="gallery-grid">
+            <div class="card">
+                <div class="card-img-wrapper">
+                    <img src="bg_bedroom_scene_1787799419820.jpg" alt="Phòng ngủ Bé Bin">
+                </div>
+                <div class="card-body">
+                    <span class="badge gold">BACKGROUND GỐC — HOẠT ĐỘNG 1</span>
+                    <div class="card-title">Phòng Ngủ Ấm Áp & Tủ Quần Áo Mở Cánh</div>
+                    <div class="card-desc">Bối cảnh phòng ngủ đón nắng, tủ gỗ sồi mở cánh sinh động, cửa sổ nhìn trời mây và thảm tròn ngọc bích. Sẵn sàng cho CharacterRenderer mount lên trên.</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-img-wrapper">
+                    <img src="bg_airplane_cabin_1787799444247.jpg" alt="Khoang ghế máy bay">
+                </div>
+                <div class="card-body">
+                    <span class="badge green">BACKGROUND GỐC — HOẠT ĐỘNG 7, 8, 10, 11</span>
+                    <div class="card-title">Khoang Ghế Hành Khách Máy Bay</div>
+                    <div class="card-desc">Ghế ngồi bọc đệm xanh êm ái, cửa sổ máy bay bầu dục ngắm mây trời, tựa đầu trắng và tay vịn. Chuẩn bối cảnh cho Bé Bin ngồi cài đai an toàn.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. 5 BẰNG CHỨNG GOLDEN SAMPLE HOẠT ĐỘNG 1 -->
+    <div class="section-container">
+        <div class="section-title">🌟 2. Bộ 5 Bằng Chứng Visual Golden Sample (Hoạt Động 1: Chọn Trang Phục)</div>
+        <div class="gallery-grid">
+            <div class="card">
+                <div class="card-img-wrapper">
+                    <img src="proof_01_intro_1787734176918.jpg" alt="Proof 01 Intro">
+                </div>
+                <div class="card-body">
+                    <span class="badge">PROOF 01 — INTRO</span>
+                    <div class="card-title">Màn Giới Thiệu — Bé Bin Trước Tủ Đồ</div>
+                    <div class="card-desc">Bé Bin đứng trước tủ quần áo trong phòng ngủ, đúng Character Sheet, nét vẽ Comic Line-Art ấm áp.</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-img-wrapper">
+                    <img src="proof_02_gameplay_initial_1787734199474.jpg" alt="Proof 02 Initial">
+                </div>
+                <div class="card-body">
+                    <span class="badge">PROOF 02 — GAMEPLAY BAN ĐẦU</span>
+                    <div class="card-title">Bé Bin Trạng Thái Mộc & Lưới 6 Món Đồ</div>
+                    <div class="card-desc">Bin đứng trong phòng ngủ, tủ đồ bên trái chứa 6 ô trang phục (áo thun mềm, quần bò cứng, quần thun mềm, yếm, giày dán xé, bốt).</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-img-wrapper">
+                    <img src="proof_03_gameplay_shirt_1787734223647.jpg" alt="Proof 03 Shirt">
+                </div>
+                <div class="card-body">
+                    <span class="badge">PROOF 03 — SAU KHI CHỌN ÁO</span>
+                    <div class="card-title">Bé Bin Mặc Áo Thun Vàng Máy Bay</div>
+                    <div class="card-desc">Bé Bin mặc áo thun vàng in hình máy bay giấy mềm mại, lời thoại Mẹ khen ngợi phản hồi tích cực.</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-img-wrapper">
+                    <img src="proof_04_gameplay_shirt_pants_1787734246739.jpg" alt="Proof 04 Pants">
+                </div>
+                <div class="card-body">
+                    <span class="badge">PROOF 04 — SAU KHI CHỌN QUẦN</span>
+                    <div class="card-title">Bé Bin Mặc Áo Vàng + Quần Short Xanh</div>
+                    <div class="card-desc">Giữ nguyên áo thun vàng và đổi sang quần short thun xanh co giãn thoải mái.</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-img-wrapper">
+                    <img src="proof_05_gameplay_full_outfit_1787734359076.jpg" alt="Proof 05 Full Outfit">
+                </div>
+                <div class="card-body">
+                    <span class="badge gold">PROOF 05 — HOÀN THÀNH BỘ ĐỒ</span>
+                    <div class="card-title">Full Bộ Trang Phục & Pháo Hoa Rực Rỡ</div>
+                    <div class="card-desc">Đầy đủ áo vàng + quần xanh + giày dán xé thể thao. Hiệu ứng pháo hoa sao chúc mừng và nút Tiếp tục xuất hiện.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. CÁC CẢNH SCENE CHÍNH TRÊN SÂN BAY & TRÊN MÁY BAY -->
+    <div class="section-container">
+        <div class="section-title">🛫 3. Các Hoạt Động Trọng Điểm Tại Sân Bay & Trên Chuyến Bay</div>
+        <div class="gallery-grid">
+            <div class="card">
+                <div class="card-img-wrapper">
+                    <img src="intro_act5_gate_1787731020418.jpg" alt="Act 5 Cổng an ninh">
+                </div>
+                <div class="card-body">
+                    <span class="badge">HOẠT ĐỘNG 5</span>
+                    <div class="card-title">Đi Qua Cổng An Ninh Sân Bay</div>
+                    <div class="card-desc">Bé Bin bước qua cổng từ an ninh có đèn xanh an toàn, công an sân bay vẫy tay chào thân thiện.</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-img-wrapper">
+                    <img src="scene_act6_gate03_1787731051625.jpg" alt="Act 6 Cổng 03">
+                </div>
+                <div class="card-body">
+                    <span class="badge">HOẠT ĐỘNG 6</span>
+                    <div class="card-title">Tìm Đúng Cổng 03 (Boarding Gate)</div>
+                    <div class="card-desc">Sảnh chờ bay hiện đại, biển báo Cổng 03 nổi bật, cửa kính nhìn ra máy bay đỗ tại sân đỗ.</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-img-wrapper">
+                    <img src="scene_act9_window_1787730327041.jpg" alt="Act 9 Ngắm mây">
+                </div>
+                <div class="card-body">
+                    <span class="badge">HOẠT ĐỘNG 9</span>
+                    <div class="card-title">Ngắm Mây Qua Cửa Sổ Máy Bay</div>
+                    <div class="card-desc">Bầu trời xanh trong vắt, những đám mây trắng bồng bềnh biến hóa thành hình thỏ con, rồng bay và thuyền buồm.</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-img-wrapper">
+                    <img src="scene_act11_feet_1787730357038.jpg" alt="Act 11 Ngồi gọn chân">
+                </div>
+                <div class="card-body">
+                    <span class="badge">HOẠT ĐỘNG 11</span>
+                    <div class="card-title">Ngồi Thu Chân Gọn Gàng</div>
+                    <div class="card-desc">Bé Bin ngồi ngay ngắn, thu hai chân gọn gàng không chạm hoặc đạp vào lưng ghế phía trước.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. BỘ 5 VALI HOẠT ĐỘNG 13 -->
+    <div class="section-container">
+        <div class="section-title">🧳 4. Bộ 5 Vali Thực Tế Trên Băng Chuyền Hành Lý (Hoạt Động 13)</div>
+        <div class="gallery-grid">
+            <div class="card">
+                <div class="card-img-wrapper square contain">
+                    <img src="suitcase_red_bear_1787731110032.jpg" alt="Vali đỏ hình gấu">
+                </div>
+                <div class="card-body">
+                    <span class="badge green">VALI CỦA BÉ BIN ✓</span>
+                    <div class="card-title">1. Vali Đỏ Hình Gấu Nâu</div>
+                    <div class="card-desc">Vali du lịch màu đỏ tươi có quai kéo, bánh xe và dán hình chú gấu nâu dễ thương.</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-img-wrapper square contain">
+                    <img src="suitcase_blue_rocket_1787731213059.jpg" alt="Vali xanh tên lửa">
+                </div>
+                <div class="card-body">
+                    <span class="badge">VALI HÀNH KHÁCH KHÁC</span>
+                    <div class="card-title">2. Vali Xanh Dương Tên Lửa</div>
+                    <div class="card-desc">Vali du lịch màu xanh dương dán hình tên lửa vũ trụ bay vút lên.</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-img-wrapper square contain">
+                    <img src="suitcase_yellow_cherry_1787731243683.jpg" alt="Vali vàng quả cherry">
+                </div>
+                <div class="card-body">
+                    <span class="badge">VALI HÀNH KHÁCH KHÁC</span>
+                    <div class="card-title">3. Vali Vàng Quả Cherry</div>
+                    <div class="card-desc">Vali du lịch màu vàng ấm áp dán hình đôi quả cherry đỏ mọng.</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-img-wrapper square contain">
+                    <img src="suitcase_green_ball_1787731424638.jpg" alt="Vali xanh quả bóng">
+                </div>
+                <div class="card-body">
+                    <span class="badge">VALI HÀNH KHÁCH KHÁC</span>
+                    <div class="card-title">4. Vali Xanh Lá Quả Bóng</div>
+                    <div class="card-desc">Vali du lịch màu xanh lá pastel dán hình quả bóng tròn ngộ nghĩnh.</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-img-wrapper square contain">
+                    <img src="suitcase_purple_star_1787731513646.jpg" alt="Vali tím ngôi sao">
+                </div>
+                <div class="card-body">
+                    <span class="badge">VALI HÀNH KHÁCH KHÁC</span>
+                    <div class="card-title">5. Vali Tím Ngôi Sao</div>
+                    <div class="card-desc">Vali du lịch màu tím mộng mơ dán hình ngôi sao lấp lánh màu vàng.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
