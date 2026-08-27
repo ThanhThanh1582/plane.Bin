@@ -118,9 +118,9 @@ body, html { width: 100%; height: 100%; overflow: hidden; font-family: "Nunito",
 
 .room-bin-character-mount { width: 260px; height: 380px; display: flex; align-items: center; justify-content: center; position: relative; background: transparent !important; border: none !important; box-shadow: none !important; z-index: 10; margin-right: 30px; margin-top: 15px; }
 .bin-sprite-img { width: 100%; height: 100%; object-fit: contain; pointer-events: none; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.16)); }
-.unified-scene-stage { width: 100%; max-width: 860px; height: 88%; position: relative; border-radius: 24px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.18), 0 0 0 4px #FFFFFF; background: #000; display: flex; align-items: center; justify-content: center; margin: auto 0; }
+.unified-scene-stage { width: 100%; max-width: 860px; height: 380px; max-height: 52vh; position: relative; border-radius: 24px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.18), 0 0 0 4px #FFFFFF; background: #FFFFFF; display: flex; align-items: center; justify-content: center; margin: 4px auto; }
 .unified-scene-img { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.3s ease; }
-.scene-interactive-hud { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px); border-radius: var(--radius-round); padding: 6px 18px; border: 2px solid #FFE082; box-shadow: 0 4px 0 #FFCA28, var(--shadow-soft); display: flex; align-items: center; gap: 12px; z-index: 20; }
+.scene-interactive-hud { position: relative; margin: 8px auto 0 auto; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px); border-radius: var(--radius-round); padding: 6px 18px; border: 2px solid #FFE082; box-shadow: 0 4px 0 #FFCA28, var(--shadow-soft); display: flex; align-items: center; justify-content: center; gap: 12px; z-index: 20; }
 .activity-feedback-overlay { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); background: rgba(255, 255, 255, 0.98); border-radius: 28px; padding: 6px 20px; border: 3px solid #82C99A; box-shadow: 0 6px 0 #43A047, var(--shadow-chunky); display: flex; align-items: center; gap: 14px; z-index: 60; animation: popBounce 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); white-space: nowrap; }
 .activity-feedback-overlay.hidden { display: none !important; }
 .feedback-text { font-size: 16px; font-weight: 900; color: #1B5E20; }
@@ -415,17 +415,24 @@ body, html { width: 100%; height: 100%; overflow: hidden; font-family: "Nunito",
 
     /* UNIFIED SCENE STAGE (CÁC CHẶNG 3 -> 13) */
     .unified-scene-stage {
-        width: 98% !important;
+        width: 100% !important;
         max-width: 480px !important;
         height: auto !important;
-        min-height: 220px !important;
-        max-height: 38vh !important;
-        aspect-ratio: 16/10 !important;
+        min-height: auto !important;
+        max-height: 35vh !important;
+        aspect-ratio: 16/9 !important;
         border-radius: 18px !important;
-        margin: 4px auto 6px auto !important;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.12), 0 0 0 3px #FFFFFF !important;
+        background: #FFFFFF !important;
+        margin: 2px auto 6px auto !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        overflow: hidden !important;
     }
     .unified-scene-img {
         object-fit: cover !important;
+        object-position: center !important;
         width: 100% !important;
         height: 100% !important;
     }
@@ -436,39 +443,58 @@ body, html { width: 100%; height: 100%; overflow: hidden; font-family: "Nunito",
         bottom: auto !important;
         left: auto !important;
         transform: none !important;
-        width: 98% !important;
+        width: 100% !important;
         max-width: 480px !important;
-        margin: 4px auto !important;
-        padding: 4px 8px !important;
+        margin: 4px auto 0 auto !important;
+        padding: 2px 4px !important;
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        display: flex !important;
         justify-content: center !important;
-        gap: 6px !important;
-        border-radius: 14px !important;
+        align-items: center !important;
+        gap: 8px !important;
         flex-wrap: wrap !important;
     }
 
-    /* TRẮC NGHIỆM HÌNH ẢNH TRÊN MOBILE */
+    /* TRẮC NGHIỆM HÌNH ẢNH TRÊN MOBILE (2 Ô SONG SONG BÊN DƯỚI TRANH) */
     .visual-quiz-container {
         display: flex !important;
         flex-direction: row !important;
         justify-content: center !important;
-        gap: 6px !important;
+        align-items: stretch !important;
+        gap: 10px !important;
         width: 100% !important;
-        margin: 4px auto !important;
+        max-width: 460px !important;
+        margin: 0 auto !important;
     }
     .visual-quiz-card {
-        min-width: 120px !important;
-        max-width: 155px !important;
-        padding: 5px 6px !important;
-        border-radius: 12px !important;
-        gap: 3px !important;
+        flex: 1 1 0 !important;
+        min-width: 0 !important;
+        max-width: 220px !important;
+        padding: 8px 6px !important;
+        border-radius: 16px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 4px !important;
+        background: #FFFFFF !important;
+        border: 3px solid #FFE082 !important;
+        box-shadow: 0 4px 0 #FFCA28, 0 6px 14px rgba(0,0,0,0.08) !important;
     }
-    .visual-quiz-card img {
-        width: 54px !important;
-        height: 54px !important;
-        border-radius: 8px !important;
+    .visual-quiz-card img, .choice-thumb {
+        width: 58px !important;
+        height: 58px !important;
+        object-fit: contain !important;
+        border-radius: 10px !important;
     }
     .visual-quiz-card .quiz-label {
-        font-size: 11px !important;
+        font-size: 12px !important;
+        font-weight: 900 !important;
+        color: #263238 !important;
+        text-align: center !important;
+        line-height: 1.2 !important;
     }
 
     /* BOARDING PASS TRÊN MOBILE */
@@ -564,6 +590,65 @@ body, html { width: 100%; height: 100%; overflow: hidden; font-family: "Nunito",
         min-height: 34px !important;
         white-space: nowrap !important;
         flex-shrink: 0 !important;
+    }
+}
+
+/* ==========================================================================
+   TỐI ƯU KHI XOAY NGANG ĐIỆN THOẠI (LANDSCAPE MOBILE)
+   ========================================================================== */
+@media (max-height: 500px) and (orientation: landscape) {
+    #app-root {
+        padding-bottom: 2px !important;
+    }
+    .top-nav {
+        height: 34px !important;
+        padding: 2px 8px !important;
+    }
+    .parent-prompt-container {
+        display: none !important;
+    }
+    .screens-viewport {
+        min-height: calc(100dvh - 38px) !important;
+    }
+    .activity-container {
+        padding: 2px 8px 38px 8px !important;
+    }
+    .activity-gameplay-view {
+        flex-direction: row !important;
+        justify-content: center !important;
+        align-items: center !important;
+        gap: 12px !important;
+    }
+    .unified-scene-stage {
+        height: 72vh !important;
+        max-height: 260px !important;
+        max-width: 50vw !important;
+        width: auto !important;
+        aspect-ratio: 16/9 !important;
+        margin: 0 !important;
+    }
+    .scene-interactive-hud {
+        margin: 0 !important;
+        max-width: 45vw !important;
+        flex-direction: column !important;
+    }
+    .visual-quiz-container {
+        flex-direction: column !important;
+        gap: 6px !important;
+    }
+    .visual-quiz-card {
+        flex-direction: row !important;
+        min-width: 180px !important;
+        padding: 4px 10px !important;
+        gap: 8px !important;
+    }
+    .visual-quiz-card img, .choice-thumb {
+        width: 38px !important;
+        height: 38px !important;
+    }
+    .visual-quiz-card .quiz-label {
+        font-size: 11px !important;
+        text-align: left !important;
     }
 }
     </style>
@@ -1053,14 +1138,14 @@ window.addEventListener('error', function(e) {
                 <div class="activity-gameplay-view hidden" id="gameplay-act-4">
                     <div class="unified-scene-stage">
                         <img class="unified-scene-img" src="act4_xray_dad_bin_exact_1787803835711.jpg" alt="Màn hình soi X-Ray">
+                    </div>
 
-                        <div class="scene-interactive-hud" style="position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); z-index: 20; background: rgba(255,255,255,0.95); padding: 8px 18px; border-radius: 18px; display: flex; gap: 10px; align-items: center; box-shadow: 0 6px 16px rgba(0,0,0,0.15);">
-                            <span style="font-size: 13px; font-weight: 900; color: #004D40;">Chạm 3 vật an toàn trong vali:</span>
-                            <button class="tycoon-btn xray-item-tile" data-name="Bỉm">🍼 Bỉm</button>
-                            <button class="tycoon-btn xray-item-tile" data-name="Gấu bông">🧸 Gấu bông</button>
-                            <button class="tycoon-btn xray-item-tile" data-name="Quần áo">👕 Quần áo</button>
-                            <button class="tycoon-btn xray-item-tile" data-name="Mũ che nắng">👒 Mũ nắng</button>
-                        </div>
+                    <div class="scene-interactive-hud">
+                        <span style="font-size: 13px; font-weight: 900; color: #004D40;">Chạm 3 vật an toàn trong vali:</span>
+                        <button class="tycoon-btn xray-item-tile" data-name="Bỉm">🍼 Bỉm</button>
+                        <button class="tycoon-btn xray-item-tile" data-name="Gấu bông">🧸 Gấu bông</button>
+                        <button class="tycoon-btn xray-item-tile" data-name="Quần áo">👕 Quần áo</button>
+                        <button class="tycoon-btn xray-item-tile" data-name="Mũ che nắng">👒 Mũ nắng</button>
                     </div>
 
                     <div class="activity-feedback-overlay hidden" id="feedback-act-4">
@@ -1091,12 +1176,12 @@ window.addEventListener('error', function(e) {
                 <div class="activity-gameplay-view hidden" id="gameplay-act-5">
                     <div class="unified-scene-stage">
                         <img id="scene-img-act-5" class="unified-scene-img" src="act5_gate_bin_exact_1787803993294.jpg" alt="Scene Cổng an ninh">
+                    </div>
 
-                        <div class="scene-interactive-hud">
-                            <button id="btn-walk-gate-5" class="tycoon-btn tycoon-btn-primary" style="font-size: 17px; padding: 8px 24px;">
-                                🚶 Chạm để Bin bước qua cổng an ninh
-                            </button>
-                        </div>
+                    <div class="scene-interactive-hud">
+                        <button id="btn-walk-gate-5" class="tycoon-btn tycoon-btn-primary" style="font-size: 17px; padding: 8px 24px;">
+                            🚶 Chạm để Bin bước qua cổng an ninh
+                        </button>
                     </div>
 
                     <div class="activity-feedback-overlay hidden" id="feedback-act-5">
@@ -1127,14 +1212,14 @@ window.addEventListener('error', function(e) {
                 <div class="activity-gameplay-view hidden" id="gameplay-act-6">
                     <div class="unified-scene-stage">
                         <img class="unified-scene-img" src="act6_gate03_dad_bin_exact_1787804038291.jpg" alt="Sảnh chờ Cổng 03">
+                    </div>
 
-                        <div class="scene-interactive-hud">
-                            <span style="font-weight: 900; font-size: 13px; color: #37474F;">Vé ghi Cổng 03. Con chọn:</span>
-                            <button class="tycoon-btn gate-hud-btn" data-gate="01">Cổng 01</button>
-                            <button class="tycoon-btn gate-hud-btn" data-gate="02">Cổng 02</button>
-                            <button class="tycoon-btn gate-hud-btn" data-gate="03">Cổng 03 ✈️</button>
-                            <button class="tycoon-btn gate-hud-btn" data-gate="05">Cổng 05</button>
-                        </div>
+                    <div class="scene-interactive-hud">
+                        <span style="font-weight: 900; font-size: 13px; color: #37474F;">Vé ghi Cổng 03. Con chọn:</span>
+                        <button class="tycoon-btn gate-hud-btn" data-gate="01">Cổng 01</button>
+                        <button class="tycoon-btn gate-hud-btn" data-gate="02">Cổng 02</button>
+                        <button class="tycoon-btn gate-hud-btn" data-gate="03">Cổng 03 ✈️</button>
+                        <button class="tycoon-btn gate-hud-btn" data-gate="05">Cổng 05</button>
                     </div>
 
                     <div class="activity-feedback-overlay hidden" id="feedback-act-6">
@@ -1165,18 +1250,18 @@ window.addEventListener('error', function(e) {
                 <div class="activity-gameplay-view hidden" id="gameplay-act-7">
                     <div class="unified-scene-stage">
                         <img id="scene-img-act-7" class="unified-scene-img" src="act7_cabin_family_exact_1787803601954.jpg" alt="Cài dây an toàn 3 ghế">
-                        
-                        <div class="scene-interactive-hud" id="hud-quiz-act-7">
-                            <div class="visual-quiz-container">
-                                <button class="visual-quiz-card" data-choice="wrong" data-act="7">
-                                    <img src="choice_act7_unbuckled_1787806276793.jpg" class="choice-thumb" alt="Đứng nhảy trên ghế" style="width: 72px; height: 72px; object-fit: cover; border-radius: 12px; margin-bottom: 4px;">
-                                    <span class="quiz-label">Đứng nhảy trên ghế</span>
-                                </button>
-                                <button class="visual-quiz-card" data-choice="correct" data-act="7">
-                                    <img src="choice_act7_buckled_1787806309848.jpg" class="choice-thumb" alt="Cài dây an toàn" style="width: 72px; height: 72px; object-fit: cover; border-radius: 12px; margin-bottom: 4px;">
-                                    <span class="quiz-label">Cài dây an toàn (CẠCH!)</span>
-                                </button>
-                            </div>
+                    </div>
+                    
+                    <div class="scene-interactive-hud" id="hud-quiz-act-7">
+                        <div class="visual-quiz-container">
+                            <button class="visual-quiz-card" data-choice="wrong" data-act="7">
+                                <img src="choice_act7_unbuckled_1787806276793.jpg" class="choice-thumb" alt="Đứng nhảy trên ghế">
+                                <span class="quiz-label">Đứng nhảy trên ghế</span>
+                            </button>
+                            <button class="visual-quiz-card" data-choice="correct" data-act="7">
+                                <img src="choice_act7_buckled_1787806309848.jpg" class="choice-thumb" alt="Cài dây an toàn">
+                                <span class="quiz-label">Cài dây an toàn (CẠCH!)</span>
+                            </button>
                         </div>
                     </div>
 
@@ -1208,18 +1293,18 @@ window.addEventListener('error', function(e) {
                 <div class="activity-gameplay-view hidden" id="gameplay-act-8">
                     <div class="unified-scene-stage">
                         <img id="scene-img-act-8" class="unified-scene-img" src="act8_cabin_drink_exact_1787803876001.jpg" alt="Bin uống nước trên ghế">
-                        
-                        <div class="scene-interactive-hud" id="hud-quiz-act-8">
-                            <div class="visual-quiz-container">
-                                <button class="visual-quiz-card" data-choice="wrong" data-act="8">
-                                    <img src="choice_act8_cry_1787806342582.jpg" class="choice-thumb" alt="Bịt tai, khóc nhè" style="width: 72px; height: 72px; object-fit: cover; border-radius: 12px; margin-bottom: 4px;">
-                                    <span class="quiz-label">Bịt tai, khóc nhè</span>
-                                </button>
-                                <button class="visual-quiz-card" data-choice="correct" data-act="8">
-                                    <img src="choice_act8_drink_1787806384301.jpg" class="choice-thumb" alt="Uống từng ngụm nước" style="width: 72px; height: 72px; object-fit: cover; border-radius: 12px; margin-bottom: 4px;">
-                                    <span class="quiz-label">Uống từng ngụm nước nhỏ</span>
-                                </button>
-                            </div>
+                    </div>
+                    
+                    <div class="scene-interactive-hud" id="hud-quiz-act-8">
+                        <div class="visual-quiz-container">
+                            <button class="visual-quiz-card" data-choice="wrong" data-act="8">
+                                <img src="choice_act8_cry_1787806342582.jpg" class="choice-thumb" alt="Bịt tai, khóc nhè">
+                                <span class="quiz-label">Bịt tai, khóc nhè</span>
+                            </button>
+                            <button class="visual-quiz-card" data-choice="correct" data-act="8">
+                                <img src="choice_act8_drink_1787806384301.jpg" class="choice-thumb" alt="Uống từng ngụm nước">
+                                <span class="quiz-label">Uống từng ngụm nước nhỏ</span>
+                            </button>
                         </div>
                     </div>
 
@@ -1251,13 +1336,13 @@ window.addEventListener('error', function(e) {
                 <div class="activity-gameplay-view hidden" id="gameplay-act-9">
                     <div class="unified-scene-stage">
                         <img id="scene-img-act-9" class="unified-scene-img" src="scene_act9_window_1787730327041.jpg" alt="Scene Ngắm mây qua cửa sổ">
+                    </div>
 
-                        <div class="scene-interactive-hud">
-                            <span style="font-weight: 900; font-size: 14px; color: #0277BD;">Chạm đám mây:</span>
-                            <button class="tycoon-btn morph-cloud-btn" data-name="Chú thỏ 🐰">🐰 Thỏ</button>
-                            <button class="tycoon-btn morph-cloud-btn" data-name="Con rồng bay 🐉">🐉 Rồng</button>
-                            <button class="tycoon-btn morph-cloud-btn" data-name="Thuyền buồm ⛵">⛵ Thuyền</button>
-                        </div>
+                    <div class="scene-interactive-hud">
+                        <span style="font-weight: 900; font-size: 14px; color: #0277BD;">Chạm đám mây:</span>
+                        <button class="tycoon-btn morph-cloud-btn" data-name="Chú thỏ 🐰">🐰 Thỏ</button>
+                        <button class="tycoon-btn morph-cloud-btn" data-name="Con rồng bay 🐉">🐉 Rồng</button>
+                        <button class="tycoon-btn morph-cloud-btn" data-name="Thuyền buồm ⛵">⛵ Thuyền</button>
                     </div>
 
                     <div class="activity-feedback-overlay hidden" id="feedback-act-9">
@@ -1288,18 +1373,18 @@ window.addEventListener('error', function(e) {
                 <div class="activity-gameplay-view hidden" id="gameplay-act-10">
                     <div class="unified-scene-stage">
                         <img id="scene-img-act-10" class="unified-scene-img" src="act10_cabin_whisper_exact_1787803921672.jpg" alt="Nói nhỏ dãy 3 ghế">
+                    </div>
 
-                        <div class="scene-interactive-hud" id="hud-quiz-act-10">
-                            <div class="visual-quiz-container">
-                                <button class="visual-quiz-card" data-choice="wrong" data-act="10">
-                                    <img src="choice_act10_loud_1787806150946.jpg" class="choice-thumb" alt="Nói to, la hét" style="width: 72px; height: 72px; object-fit: cover; border-radius: 12px; margin-bottom: 4px;">
-                                    <span class="quiz-label">Nói to, la hét</span>
-                                </button>
-                                <button class="visual-quiz-card" data-choice="correct" data-act="10">
-                                    <img src="choice_act10_whisper_1787806183105.jpg" class="choice-thumb" alt="Nói nhỏ vừa đủ nghe" style="width: 72px; height: 72px; object-fit: cover; border-radius: 12px; margin-bottom: 4px;">
-                                    <span class="quiz-label">Nói nhỏ vừa đủ nghe</span>
-                                </button>
-                            </div>
+                    <div class="scene-interactive-hud" id="hud-quiz-act-10">
+                        <div class="visual-quiz-container">
+                            <button class="visual-quiz-card" data-choice="wrong" data-act="10">
+                                <img src="choice_act10_loud_1787806150946.jpg" class="choice-thumb" alt="Nói to, la hét">
+                                <span class="quiz-label">Nói to, la hét</span>
+                            </button>
+                            <button class="visual-quiz-card" data-choice="correct" data-act="10">
+                                <img src="choice_act10_whisper_1787806183105.jpg" class="choice-thumb" alt="Nói nhỏ vừa đủ nghe">
+                                <span class="quiz-label">Nói nhỏ vừa đủ nghe</span>
+                            </button>
                         </div>
                     </div>
 
@@ -1331,18 +1416,18 @@ window.addEventListener('error', function(e) {
                 <div class="activity-gameplay-view hidden" id="gameplay-act-11">
                     <div class="unified-scene-stage">
                         <img id="scene-img-act-11" class="unified-scene-img" src="act11_cabin_tuckfeet_exact_1787803962458.jpg" alt="Ngồi thu chân gọn">
+                    </div>
 
-                        <div class="scene-interactive-hud" id="hud-quiz-act-11">
-                            <div class="visual-quiz-container">
-                                <button class="visual-quiz-card" data-choice="wrong" data-act="11">
-                                    <img src="choice_act11_kick_1787806213307.jpg" class="choice-thumb" alt="Duỗi chân đạp ghế trước" style="width: 72px; height: 72px; object-fit: cover; border-radius: 12px; margin-bottom: 4px;">
-                                    <span class="quiz-label">Duỗi chân đạp ghế trước</span>
-                                </button>
-                                <button class="visual-quiz-card" data-choice="correct" data-act="11">
-                                    <img src="choice_act11_tuck_1787806246494.jpg" class="choice-thumb" alt="Thu chân gọn gàng" style="width: 72px; height: 72px; object-fit: cover; border-radius: 12px; margin-bottom: 4px;">
-                                    <span class="quiz-label">Thu chân gọn gàng</span>
-                                </button>
-                            </div>
+                    <div class="scene-interactive-hud" id="hud-quiz-act-11">
+                        <div class="visual-quiz-container">
+                            <button class="visual-quiz-card" data-choice="wrong" data-act="11">
+                                <img src="choice_act11_kick_1787806213307.jpg" class="choice-thumb" alt="Duỗi chân đạp ghế trước">
+                                <span class="quiz-label">Duỗi chân đạp ghế trước</span>
+                            </button>
+                            <button class="visual-quiz-card" data-choice="correct" data-act="11">
+                                <img src="choice_act11_tuck_1787806246494.jpg" class="choice-thumb" alt="Thu chân gọn gàng">
+                                <span class="quiz-label">Thu chân gọn gàng</span>
+                            </button>
                         </div>
                     </div>
 
@@ -1374,18 +1459,18 @@ window.addEventListener('error', function(e) {
                 <div class="activity-gameplay-view hidden" id="gameplay-act-12">
                     <div class="unified-scene-stage">
                         <img id="scene-img-act-12" class="unified-scene-img" src="act7_cabin_family_exact_1787803601954.jpg" alt="Scene Chờ máy bay dừng">
+                    </div>
 
-                        <div class="scene-interactive-hud" id="hud-quiz-act-12">
-                            <div class="visual-quiz-container">
-                                <button class="visual-quiz-card" data-choice="wrong" data-act="12">
-                                    <img src="choice_act12_stand_1787806424639.jpg" class="choice-thumb" alt="Đứng dậy lấy đồ sớm" style="width: 72px; height: 72px; object-fit: cover; border-radius: 12px; margin-bottom: 4px;">
-                                    <span class="quiz-label">Đứng dậy lấy đồ sớm</span>
-                                </button>
-                                <button class="visual-quiz-card" data-choice="correct" data-act="12">
-                                    <img src="choice_act12_sit_1787806461834.jpg" class="choice-thumb" alt="Ngồi yên thắt dây chờ" style="width: 72px; height: 72px; object-fit: cover; border-radius: 12px; margin-bottom: 4px;">
-                                    <span class="quiz-label">Ngồi yên thắt dây chờ</span>
-                                </button>
-                            </div>
+                    <div class="scene-interactive-hud" id="hud-quiz-act-12">
+                        <div class="visual-quiz-container">
+                            <button class="visual-quiz-card" data-choice="wrong" data-act="12">
+                                <img src="choice_act12_stand_1787806424639.jpg" class="choice-thumb" alt="Đứng dậy lấy đồ sớm">
+                                <span class="quiz-label">Đứng dậy lấy đồ sớm</span>
+                            </button>
+                            <button class="visual-quiz-card" data-choice="correct" data-act="12">
+                                <img src="choice_act12_sit_1787806461834.jpg" class="choice-thumb" alt="Ngồi yên thắt dây chờ">
+                                <span class="quiz-label">Ngồi yên thắt dây chờ</span>
+                            </button>
                         </div>
                     </div>
 
