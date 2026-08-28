@@ -61,27 +61,27 @@ body, html { width: 100%; height: 100%; overflow-x: hidden; overflow-y: auto; fo
 .activity-container { position: relative; width: 100%; display: none; flex-direction: column; align-items: center; justify-content: flex-start; padding: 4px 0 20px 0; }
 .activity-container.active { display: flex !important; }
 
-/* INTRO VIEW TRÊN MOBILE DỌC */
+/* INTRO VIEW TRÊN MOBILE */
 .activity-intro-view { width: 98%; max-width: 480px; background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(8px); border-radius: 24px; border: 3px solid #FFE082; box-shadow: 0 8px 0 #FFCA28, var(--shadow-chunky); display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 14px 16px; text-align: center; margin: 4px auto; gap: 10px; }
 .intro-header-badge { background: #E1F5FE; color: #0288D1; font-size: 12px; font-weight: 900; padding: 4px 16px; border-radius: var(--radius-round); border: 2px solid #B3E5FC; }
 .intro-activity-title { font-size: 18px; font-weight: 900; color: #E65100; margin: 2px 0; }
-.intro-art-frame { width: 100%; max-width: 440px; height: 260px; max-height: 42vh; aspect-ratio: 3/4; border-radius: 20px; overflow: hidden; box-shadow: 0 6px 18px rgba(0,0,0,0.12); border: 3px solid #FFF; display: flex; align-items: center; justify-content: center; background: #FFF; }
-.intro-art-frame img { width: 100%; height: 100%; object-fit: cover; }
+.intro-art-frame { width: 100%; max-width: 440px; height: 210px; max-height: 34vh; aspect-ratio: 16/10; border-radius: 20px; overflow: hidden; box-shadow: 0 6px 18px rgba(0,0,0,0.12); border: 3px solid #FFF; display: flex; align-items: center; justify-content: center; background: #FFF; }
+.intro-art-frame img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
 .intro-prompt-quote { font-size: 14px; font-weight: 800; color: #37474F; line-height: 1.35; }
 .btn-start-activity { font-size: 16px !important; padding: 10px 24px !important; border-radius: 999px !important; }
 
-/* GAMEPLAY VIEW TRÊN MOBILE DỌC */
+/* GAMEPLAY VIEW TRÊN MOBILE */
 .activity-gameplay-view { width: 100%; max-width: 480px; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; margin: 0 auto; gap: 8px; }
 
-/* UNIFIED SCENE STAGE (CHUẨN PORTRAIT DỌC 3:4 CHO MOBILE) */
+/* UNIFIED SCENE STAGE (TỐI ƯU KÍCH THƯỚC 16:10 RÕ NÉT) */
 .unified-scene-stage {
     width: 100% !important;
-    max-width: 440px !important;
+    max-width: 480px !important;
     height: auto !important;
-    max-height: 44vh !important;
-    aspect-ratio: 3/4 !important;
-    border-radius: 24px !important;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.15), 0 0 0 3px #FFFFFF !important;
+    max-height: 38vh !important;
+    aspect-ratio: 16/10 !important;
+    border-radius: 22px !important;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.14), 0 0 0 3px #FFFFFF !important;
     background: #FFFFFF !important;
     margin: 2px auto 6px auto !important;
     display: flex !important;
@@ -113,26 +113,26 @@ body, html { width: 100%; height: 100%; overflow-x: hidden; overflow-y: auto; fo
     z-index: 20;
 }
 
-/* HĐ 1: CHỌN TRANG PHỤC */
+/* HĐ 1: PHÒNG NGỦ BÉ BIN */
 .level1-room-scene {
     display: flex !important;
     flex-direction: column !important;
     width: 100% !important;
-    max-width: 440px !important;
-    border-radius: 24px !important;
+    max-width: 480px !important;
+    border-radius: 22px !important;
     margin: 2px auto !important;
     overflow: hidden !important;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.15), 0 0 0 3px #FFFFFF !important;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.14), 0 0 0 3px #FFFFFF !important;
     background: #FFFFFF !important;
 }
 #act1-room-scene-img {
     width: 100% !important;
-    height: auto !important;
-    max-height: 42vh !important;
-    aspect-ratio: 3/4 !important;
+    height: 240px !important;
+    max-height: 38vh !important;
+    aspect-ratio: 16/10 !important;
     object-fit: cover !important;
-    object-position: center !important;
-    border-radius: 24px 24px 0 0 !important;
+    object-position: top center !important;
+    border-radius: 22px 22px 0 0 !important;
 }
 .room-wardrobe-grid {
     width: 96% !important;
@@ -212,7 +212,7 @@ body, html { width: 100%; height: 100%; overflow-x: hidden; overflow-y: auto; fo
 .circle-highlight-seat { position: relative; cursor: pointer; }
 .seat-red-circle { display: none; position: absolute; inset: -6px -10px; border: 4px solid #E53935; border-radius: 20px; transform: rotate(-6deg); animation: drawCircle 0.35s forwards; pointer-events: none; }
 
-/* TRẮC NGHIỆM HÌNH ẢNH TRÊN MOBILE */
+/* TRẮC NGHIỆM HÌNH ẢNH TO RÕ TRÊN MOBILE */
 .visual-quiz-container {
     display: flex !important;
     flex-direction: row !important;
@@ -220,7 +220,7 @@ body, html { width: 100%; height: 100%; overflow-x: hidden; overflow-y: auto; fo
     align-items: stretch !important;
     gap: 12px !important;
     width: 100% !important;
-    max-width: 460px !important;
+    max-width: 480px !important;
     margin: 6px auto !important;
 }
 .visual-quiz-card {
@@ -228,7 +228,7 @@ body, html { width: 100%; height: 100%; overflow-x: hidden; overflow-y: auto; fo
     min-width: 0 !important;
     min-height: 165px !important;
     padding: 14px 10px !important;
-    border-radius: 22px !important;
+    border-radius: 24px !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
@@ -236,19 +236,20 @@ body, html { width: 100%; height: 100%; overflow-x: hidden; overflow-y: auto; fo
     gap: 8px !important;
     background: #FFFFFF !important;
     border: 3.5px solid #FFE082 !important;
-    box-shadow: 0 5px 0 #FFB300, 0 8px 20px rgba(0,0,0,0.1) !important;
+    box-shadow: 0 6px 0 #FFB300, 0 10px 24px rgba(0,0,0,0.1) !important;
     cursor: pointer !important;
+    transition: transform 0.15s ease, box-shadow 0.15s ease !important;
 }
-.visual-quiz-card:active { transform: translateY(3px); box-shadow: 0 2px 0 #FFB300 !important; }
-.visual-quiz-card img { width: 88px !important; height: 88px !important; object-fit: contain !important; border-radius: 16px !important; }
+.visual-quiz-card:active { transform: translateY(4px) scale(0.98) !important; box-shadow: 0 2px 0 #FFB300 !important; }
+.visual-quiz-card img { width: 90px !important; height: 90px !important; object-fit: contain !important; border-radius: 16px !important; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.08)) !important; }
 .visual-quiz-card .quiz-label { font-size: 14px !important; font-weight: 900 !important; color: #263238 !important; text-align: center; line-height: 1.25; }
-.visual-quiz-card.correct { border-color: #4CAF50 !important; box-shadow: 0 5px 0 #2E7D32 !important; background: #E8F5E9 !important; }
+.visual-quiz-card.correct { border-color: #4CAF50 !important; box-shadow: 0 6px 0 #2E7D32 !important; background: #E8F5E9 !important; }
 .visual-quiz-card.incorrect { animation: springShake 0.4s both; border-color: #E53935 !important; background: #FFEBEE !important; }
 
 /* HĐ 13: BĂNG CHUYỀN VALI */
-.real-carousel-track { width: 100%; max-width: 440px; min-height: 280px; padding: 14px 8px; border-radius: 24px; background: #263238; box-shadow: inset 0 4px 14px rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; margin: 4px auto; }
-.real-suitcases-orbit { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; justify-items: center; width: 100%; }
-.real-suitcase-card { width: 130px; height: 140px; background: #FFF; border-radius: 20px; padding: 6px; border: 3px solid #E2E8F0; box-shadow: 0 6px 14px rgba(0,0,0,0.2); cursor: pointer; }
+.real-carousel-track { width: 100%; max-width: 480px; min-height: 290px; padding: 14px 8px; border-radius: 24px; background: #263238; box-shadow: inset 0 4px 16px rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; margin: 4px auto; }
+.real-suitcases-orbit { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; justify-items: center; width: 100%; }
+.real-suitcase-card { width: 135px; height: 145px; background: #FFF; border-radius: 20px; padding: 6px; border: 3px solid #E2E8F0; box-shadow: 0 6px 14px rgba(0,0,0,0.2); cursor: pointer; }
 .real-suitcase-card img { width: 100%; height: 100%; object-fit: cover; border-radius: 14px; }
 .real-suitcase-card.bin-picked { transform: scale(1.15); border-color: #FFD54F; box-shadow: 0 0 16px #FFD54F; }
 
@@ -394,7 +395,7 @@ body, html { width: 100%; height: 100%; overflow-x: hidden; overflow-y: auto; fo
                     <span class="intro-header-badge">CHẶNG 1 — HOẠT ĐỘNG 1</span>
                     <h2 class="intro-activity-title">CHỌN TRANG PHỤC THOẢI MÁI</h2>
                     <div class="intro-art-frame">
-                        <img src="act1_p_bed_init_1787826323333.jpg" alt="Phòng ngủ Bé Bin">
+                        <img src="act1_bedroom_initial_bin_1787803669361.jpg" alt="Phòng ngủ Bé Bin">
                     </div>
                     <p class="intro-prompt-quote">Mẹ: “Bin sắp đi máy bay rồi. Con giúp Bin chọn đồ mềm và giày dễ tháo nhé!”</p>
                     <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="1">
@@ -404,7 +405,7 @@ body, html { width: 100%; height: 100%; overflow-x: hidden; overflow-y: auto; fo
 
                 <div class="activity-gameplay-view hidden" id="gameplay-act-1">
                     <div class="level1-room-scene">
-                        <img id="act1-room-scene-img" src="act1_p_bed_init_1787826323333.jpg" alt="Phòng ngủ Bé Bin">
+                        <img id="act1-room-scene-img" src="act1_bedroom_initial_bin_1787803669361.jpg" alt="Phòng ngủ Bé Bin">
                         <div class="room-wardrobe-grid">
                             <button class="clothes-tile-item" data-clothing-item="true" data-fit="soft" data-type="shirt">
                                 <span>👕</span>
@@ -441,7 +442,7 @@ body, html { width: 100%; height: 100%; overflow-x: hidden; overflow-y: auto; fo
                     <span class="intro-header-badge">CHẶNG 2 — HOẠT ĐỘNG 2</span>
                     <h2 class="intro-activity-title">XẾP ĐỒ VÀO VALI</h2>
                     <div class="intro-art-frame">
-                        <img src="act2_p_packing_1787826393025.jpg" alt="Bé Bin và Bố xếp đồ vào vali">
+                        <img src="act2_packing_dad_bin_exact_1787803736224.jpg" alt="Bé Bin và Bố xếp đồ vào vali">
                     </div>
                     <p class="intro-prompt-quote">Bố: “Con kiểm tra và xếp các món đồ cần thiết vào vali cho Bin nhé!”</p>
                     <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="2">
@@ -451,7 +452,7 @@ body, html { width: 100%; height: 100%; overflow-x: hidden; overflow-y: auto; fo
 
                 <div class="activity-gameplay-view hidden" id="gameplay-act-2">
                     <div class="unified-scene-stage">
-                        <img class="unified-scene-img" src="act2_p_packing_1787826393025.jpg" alt="Xếp vali phòng khách">
+                        <img class="unified-scene-img" src="act2_packing_dad_bin_exact_1787803736224.jpg" alt="Xếp vali phòng khách">
                     </div>
 
                     <div class="packing-items-grid">
@@ -481,7 +482,7 @@ body, html { width: 100%; height: 100%; overflow-x: hidden; overflow-y: auto; fo
                     <span class="intro-header-badge">CHẶNG 3 — HOẠT ĐỘNG 3</span>
                     <h2 class="intro-activity-title">KIỂM TRA VÉ & CHỌN SỐ GHẾ</h2>
                     <div class="intro-art-frame">
-                        <img src="act3_p_checkin_1787826415064.jpg" alt="Quầy làm thủ tục sân bay">
+                        <img src="act3_checkin_mom_bin_exact_1787803769855.jpg" alt="Quầy làm thủ tục sân bay">
                     </div>
                     <p class="intro-prompt-quote">Mẹ: “Vé máy bay có thông tin quan trọng. Con xem vé để biết số ghế của Bin nhé!”</p>
                     <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="3">
@@ -491,7 +492,7 @@ body, html { width: 100%; height: 100%; overflow-x: hidden; overflow-y: auto; fo
 
                 <div class="activity-gameplay-view hidden" id="gameplay-act-3">
                     <div class="unified-scene-stage" style="max-height: 32vh !important;">
-                        <img class="unified-scene-img" src="act3_p_checkin_1787826415064.jpg" alt="Quầy check-in">
+                        <img class="unified-scene-img" src="act3_checkin_mom_bin_exact_1787803769855.jpg" alt="Quầy check-in">
                     </div>
 
                     <!-- THẺ LÊN MÁY BAY CHUẨN CỦA BÉ BIN -->
@@ -535,7 +536,7 @@ body, html { width: 100%; height: 100%; overflow-x: hidden; overflow-y: auto; fo
                     <span class="intro-header-badge">CHẶNG 3 — HOẠT ĐỘNG 4</span>
                     <h2 class="intro-activity-title">SOI HÀNH LÝ QUA MÁY QUÉT</h2>
                     <div class="intro-art-frame">
-                        <img src="act4_p_xray_1787826439928.jpg" alt="Bin và Bố tại máy soi X-Ray">
+                        <img src="act4_xray_dad_bin_exact_1787803835711.jpg" alt="Bin và Bố tại máy soi X-Ray">
                     </div>
                     <p class="intro-prompt-quote">Bố: “Đến lượt kiểm tra rồi. Bin lắng nghe hướng dẫn và kiểm tra đồ an toàn nhé!”</p>
                     <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="4">
@@ -545,7 +546,7 @@ body, html { width: 100%; height: 100%; overflow-x: hidden; overflow-y: auto; fo
 
                 <div class="activity-gameplay-view hidden" id="gameplay-act-4">
                     <div class="unified-scene-stage">
-                        <img class="unified-scene-img" src="act4_p_xray_1787826439928.jpg" alt="Màn hình soi X-Ray">
+                        <img class="unified-scene-img" src="act4_xray_dad_bin_exact_1787803835711.jpg" alt="Màn hình soi X-Ray">
                     </div>
 
                     <div class="scene-interactive-hud">
@@ -564,7 +565,7 @@ body, html { width: 100%; height: 100%; overflow-x: hidden; overflow-y: auto; fo
                     <span class="intro-header-badge">CHẶNG 3 — HOẠT ĐỘNG 5</span>
                     <h2 class="intro-activity-title">ĐI QUA CỔNG AN NINH</h2>
                     <div class="intro-art-frame">
-                        <img src="act5_p_gate_1787826490425.jpg" alt="Bin đi qua cổng an ninh">
+                        <img src="act5_gate_bin_exact_1787803993294.jpg" alt="Bin đi qua cổng an ninh">
                     </div>
                     <p class="intro-prompt-quote">Mẹ: “Nhiều người đang chờ qua cổng. Con giúp Bin xếp hàng và bước qua nhé!”</p>
                     <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="5">
@@ -574,7 +575,7 @@ body, html { width: 100%; height: 100%; overflow-x: hidden; overflow-y: auto; fo
 
                 <div class="activity-gameplay-view hidden" id="gameplay-act-5">
                     <div class="unified-scene-stage">
-                        <img id="scene-img-act-5" class="unified-scene-img" src="act5_p_gate_1787826490425.jpg" alt="Cổng an ninh">
+                        <img id="scene-img-act-5" class="unified-scene-img" src="act5_gate_bin_exact_1787803993294.jpg" alt="Cổng an ninh">
                     </div>
 
                     <div class="scene-interactive-hud">
@@ -591,7 +592,7 @@ body, html { width: 100%; height: 100%; overflow-x: hidden; overflow-y: auto; fo
                     <span class="intro-header-badge">CHẶNG 4 — HOẠT ĐỘNG 6</span>
                     <h2 class="intro-activity-title">TÌM ĐÚNG CỔNG 03</h2>
                     <div class="intro-art-frame">
-                        <img src="act6_p_gate03_1787826519653.jpg" alt="Tìm Cổng 03">
+                        <img src="act6_gate03_dad_bin_exact_1787804038291.jpg" alt="Tìm Cổng 03">
                     </div>
                     <p class="intro-prompt-quote">Bố: “Vé của Bin ghi Cổng 03. Con nhìn biển chỉ dẫn để dẫn Bin đến Cổng 03 nhé!”</p>
                     <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="6">
@@ -601,7 +602,7 @@ body, html { width: 100%; height: 100%; overflow-x: hidden; overflow-y: auto; fo
 
                 <div class="activity-gameplay-view hidden" id="gameplay-act-6">
                     <div class="unified-scene-stage">
-                        <img class="unified-scene-img" src="act6_p_gate03_1787826519653.jpg" alt="Sảnh Cổng 03">
+                        <img class="unified-scene-img" src="act6_gate03_dad_bin_exact_1787804038291.jpg" alt="Sảnh Cổng 03">
                     </div>
 
                     <div class="scene-interactive-hud">
@@ -619,7 +620,7 @@ body, html { width: 100%; height: 100%; overflow-x: hidden; overflow-y: auto; fo
                     <span class="intro-header-badge">CHẶNG 5 — HOẠT ĐỘNG 7</span>
                     <h2 class="intro-activity-title">CÀI DÂY AN TOÀN TRÊN GHẾ</h2>
                     <div class="intro-art-frame">
-                        <img src="act7_p_unbuckled_1787826548604.jpg" alt="Bin ngồi ghế máy bay">
+                        <img src="act7_cabin_family_exact_1787803601954.jpg" alt="Bin ngồi ghế máy bay">
                     </div>
                     <p class="intro-prompt-quote">Mẹ: “Bin đã ngồi vào ghế 12A. Con giúp Bin cài dây an toàn chắc chắn nhé!”</p>
                     <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="7">
@@ -629,13 +630,20 @@ body, html { width: 100%; height: 100%; overflow-x: hidden; overflow-y: auto; fo
 
                 <div class="activity-gameplay-view hidden" id="gameplay-act-7">
                     <div class="unified-scene-stage">
-                        <img id="scene-img-act-7" class="unified-scene-img" src="act7_p_unbuckled_1787826548604.jpg" alt="Cài dây an toàn">
+                        <img id="scene-img-act-7" class="unified-scene-img" src="act7_cabin_family_exact_1787803601954.jpg" alt="Cài dây an toàn">
                     </div>
                     
                     <div class="scene-interactive-hud" id="hud-quiz-act-7">
-                        <button id="btn-buckle-seatbelt-7" class="tycoon-btn tycoon-btn-primary" style="font-size: 16px; padding: 12px 28px; width: 90%;">
-                            🔒 Chạm để cài khóa dây an toàn (CẠCH!)
-                        </button>
+                        <div class="visual-quiz-container">
+                            <button class="visual-quiz-card" data-choice="correct" data-act="7">
+                                <img src="choice_act7_buckled_1787806309848.jpg" class="choice-thumb" alt="Cài dây an toàn">
+                                <span class="quiz-label">Cài dây an toàn (CẠCH!)</span>
+                            </button>
+                            <button class="visual-quiz-card" data-choice="wrong" data-act="7">
+                                <img src="choice_act7_unbuckled_1787806276793.jpg" class="choice-thumb" alt="Đứng nhảy trên ghế">
+                                <span class="quiz-label">Đứng nhảy trên ghế</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -646,7 +654,7 @@ body, html { width: 100%; height: 100%; overflow-x: hidden; overflow-y: auto; fo
                     <span class="intro-header-badge">CHẶNG 5 — HOẠT ĐỘNG 8</span>
                     <h2 class="intro-activity-title">GIÚP TAI DỄ CHỊU KHI CẤT CÁNH</h2>
                     <div class="intro-art-frame">
-                        <img src="act8_p_drink_1787826607801.jpg" alt="Bin uống nước">
+                        <img src="act8_cabin_drink_exact_1787803876001.jpg" alt="Bin uống nước">
                     </div>
                     <p class="intro-prompt-quote">Mẹ: “Máy bay đang lên cao. Con giúp Bin uống từng ngụm nước nhỏ và nuốt nhẹ nhé!”</p>
                     <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="8">
@@ -656,13 +664,20 @@ body, html { width: 100%; height: 100%; overflow-x: hidden; overflow-y: auto; fo
 
                 <div class="activity-gameplay-view hidden" id="gameplay-act-8">
                     <div class="unified-scene-stage">
-                        <img id="scene-img-act-8" class="unified-scene-img" src="act8_p_drink_1787826607801.jpg" alt="Bin uống nước">
+                        <img id="scene-img-act-8" class="unified-scene-img" src="act8_cabin_drink_exact_1787803876001.jpg" alt="Bin uống nước">
                     </div>
                     
                     <div class="scene-interactive-hud" id="hud-quiz-act-8">
-                        <button id="btn-drink-water-8" class="tycoon-btn tycoon-btn-primary" style="font-size: 16px; padding: 12px 28px; width: 90%;">
-                            🥤 Chạm để Bin uống nước & nuốt nhẹ
-                        </button>
+                        <div class="visual-quiz-container">
+                            <button class="visual-quiz-card" data-choice="correct" data-act="8">
+                                <img src="choice_act8_drink_1787806384301.jpg" class="choice-thumb" alt="Uống từng ngụm nước">
+                                <span class="quiz-label">Uống từng ngụm nước nhỏ</span>
+                            </button>
+                            <button class="visual-quiz-card" data-choice="wrong" data-act="8">
+                                <img src="choice_act8_cry_1787806342582.jpg" class="choice-thumb" alt="Bịt tai, khóc nhè">
+                                <span class="quiz-label">Bịt tai, khóc nhè</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -673,7 +688,7 @@ body, html { width: 100%; height: 100%; overflow-x: hidden; overflow-y: auto; fo
                     <span class="intro-header-badge">CHẶNG 6 — HOẠT ĐỘNG 9</span>
                     <h2 class="intro-activity-title">NGẮM MÂY VÀ TƯỞNG TƯỢNG</h2>
                     <div class="intro-art-frame">
-                        <img src="act9_p_clouds_1787826640477.jpg" alt="Ngắm mây qua cửa sổ">
+                        <img src="scene_act9_window_1787730327041.jpg" alt="Ngắm mây qua cửa sổ">
                     </div>
                     <p class="intro-prompt-quote">Bin: “Ngoài cửa sổ có nhiều đám mây kỳ diệu. Con cùng Bin ngắm mây nhé!”</p>
                     <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="9">
@@ -683,7 +698,7 @@ body, html { width: 100%; height: 100%; overflow-x: hidden; overflow-y: auto; fo
 
                 <div class="activity-gameplay-view hidden" id="gameplay-act-9">
                     <div class="unified-scene-stage">
-                        <img id="scene-img-act-9" class="unified-scene-img" src="act9_p_clouds_1787826640477.jpg" alt="Ngắm mây">
+                        <img id="scene-img-act-9" class="unified-scene-img" src="scene_act9_window_1787730327041.jpg" alt="Ngắm mây">
                     </div>
 
                     <div class="scene-interactive-hud">
@@ -700,7 +715,7 @@ body, html { width: 100%; height: 100%; overflow-x: hidden; overflow-y: auto; fo
                     <span class="intro-header-badge">CHẶNG 7 — HOẠT ĐỘNG 10</span>
                     <h2 class="intro-activity-title">NÓI NHỎ VỪA ĐỦ NGHE</h2>
                     <div class="intro-art-frame">
-                        <img src="act10_p_whisper_1787826674278.jpg" alt="Nói nhỏ trên máy bay">
+                        <img src="act10_cabin_whisper_exact_1787803921672.jpg" alt="Nói nhỏ trên máy bay">
                     </div>
                     <p class="intro-prompt-quote">Mẹ: “Trên máy bay đông người. Con chọn mức âm lượng lịch sự cho Bin nhé!”</p>
                     <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="10">
@@ -710,7 +725,7 @@ body, html { width: 100%; height: 100%; overflow-x: hidden; overflow-y: auto; fo
 
                 <div class="activity-gameplay-view hidden" id="gameplay-act-10">
                     <div class="unified-scene-stage">
-                        <img id="scene-img-act-10" class="unified-scene-img" src="act10_p_whisper_1787826674278.jpg" alt="Nói nhỏ lịch sự">
+                        <img id="scene-img-act-10" class="unified-scene-img" src="act10_cabin_whisper_exact_1787803921672.jpg" alt="Nói nhỏ lịch sự">
                     </div>
 
                     <div class="scene-interactive-hud" id="hud-quiz-act-10">
@@ -734,7 +749,7 @@ body, html { width: 100%; height: 100%; overflow-x: hidden; overflow-y: auto; fo
                     <span class="intro-header-badge">CHẶNG 7 — HOẠT ĐỘNG 11</span>
                     <h2 class="intro-activity-title">NGỒI GỌN — KHÔNG ĐẠP GHẾ TRƯỚC</h2>
                     <div class="intro-art-frame">
-                        <img src="act11_p_tuckfeet_1787826704927.jpg" alt="Ngồi thu chân gọn gàng">
+                        <img src="act11_cabin_tuckfeet_exact_1787803962458.jpg" alt="Ngồi thu chân gọn gàng">
                     </div>
                     <p class="intro-prompt-quote">Bố: “Con giúp Bin ngồi ngay ngắn, thu chân gọn gàng để giữ lịch sự nhé!”</p>
                     <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="11">
@@ -744,7 +759,7 @@ body, html { width: 100%; height: 100%; overflow-x: hidden; overflow-y: auto; fo
 
                 <div class="activity-gameplay-view hidden" id="gameplay-act-11">
                     <div class="unified-scene-stage">
-                        <img id="scene-img-act-11" class="unified-scene-img" src="act11_p_tuckfeet_1787826704927.jpg" alt="Ngồi thu chân gọn">
+                        <img id="scene-img-act-11" class="unified-scene-img" src="act11_cabin_tuckfeet_exact_1787803962458.jpg" alt="Ngồi thu chân gọn">
                     </div>
 
                     <div class="scene-interactive-hud" id="hud-quiz-act-11">
@@ -768,7 +783,7 @@ body, html { width: 100%; height: 100%; overflow-x: hidden; overflow-y: auto; fo
                     <span class="intro-header-badge">CHẶNG 8 — HOẠT ĐỘNG 12</span>
                     <h2 class="intro-activity-title">CHỜ DỪNG HẲN RỒI MỚI MỞ DÂY</h2>
                     <div class="intro-art-frame">
-                        <img src="act12_p_landing_1787826742480.jpg" alt="Máy bay hạ cánh">
+                        <img src="act7_cabin_family_exact_1787803601954.jpg" alt="Máy bay hạ cánh">
                     </div>
                     <p class="intro-prompt-quote">Bố: “Máy bay vừa đáp xuống. Khi nào máy bay dừng hẳn mình mới mở dây nhé!”</p>
                     <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="12">
@@ -778,13 +793,20 @@ body, html { width: 100%; height: 100%; overflow-x: hidden; overflow-y: auto; fo
 
                 <div class="activity-gameplay-view hidden" id="gameplay-act-12">
                     <div class="unified-scene-stage">
-                        <img id="scene-img-act-12" class="unified-scene-img" src="act12_p_landing_1787826742480.jpg" alt="Chờ dừng hẳn">
+                        <img id="scene-img-act-12" class="unified-scene-img" src="act7_cabin_family_exact_1787803601954.jpg" alt="Chờ dừng hẳn">
                     </div>
 
-                    <div class="scene-interactive-hud">
-                        <button id="unbuckle-latch-btn" class="tycoon-btn" style="font-size: 15px; padding: 12px 24px; width: 92%;">
-                            ⏳ Đèn đỏ sáng: Máy bay đang chạy vào bãi đỗ...
-                        </button>
+                    <div class="scene-interactive-hud" id="hud-quiz-act-12">
+                        <div class="visual-quiz-container">
+                            <button class="visual-quiz-card" data-choice="correct" data-act="12">
+                                <img src="choice_act12_sit_1787806461834.jpg" class="choice-thumb" alt="Ngồi yên thắt dây chờ">
+                                <span class="quiz-label">Ngồi yên thắt dây chờ</span>
+                            </button>
+                            <button class="visual-quiz-card" data-choice="wrong" data-act="12">
+                                <img src="choice_act12_stand_1787806424639.jpg" class="choice-thumb" alt="Đứng dậy lấy đồ sớm">
+                                <span class="quiz-label">Đứng dậy lấy đồ sớm</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -795,7 +817,7 @@ body, html { width: 100%; height: 100%; overflow-x: hidden; overflow-y: auto; fo
                     <span class="intro-header-badge">CHẶNG 8 — HOẠT ĐỘNG 13</span>
                     <h2 class="intro-activity-title">TÌM ĐÚNG VALI CỦA BIN</h2>
                     <div class="intro-art-frame">
-                        <img src="act13_p_carousel_1787826776348.jpg" alt="Băng chuyền hành lý">
+                        <img src="act13_carousel_bin_exact_1787804082739.jpg" alt="Băng chuyền hành lý">
                     </div>
                     <p class="intro-prompt-quote">Bố: “Vali của Bin màu đỏ và có hình chú gấu. Con nhìn kỹ và nhận đúng vali nhé!”</p>
                     <button class="tycoon-btn tycoon-btn-primary btn-start-activity" data-act="13">
@@ -1126,11 +1148,11 @@ body, html { width: 100%; height: 100%; overflow-x: hidden; overflow-y: auto; fo
           sceneImg.classList.remove('pop-in-soft');
           void sceneImg.offsetWidth;
           if (state.outfit.shirt && (state.outfit.pants || state.outfit.shoes)) {
-            sceneImg.src = 'act1_p_bed_full_1787826367609.jpg';
+            sceneImg.src = 'act1_bedroom_full_bin_1787803632562.jpg';
           } else if (state.outfit.shirt) {
-            sceneImg.src = 'act1_p_bed_shirt_1787826346710.jpg';
+            sceneImg.src = 'act1_bedroom_shirt_bin_1787803700813.jpg';
           } else if (state.outfit.pants || state.outfit.shoes) {
-            sceneImg.src = 'act1_p_bed_shirt_1787826346710.jpg';
+            sceneImg.src = 'act1_bedroom_shirt_bin_1787803700813.jpg';
           }
           sceneImg.classList.add('pop-in-soft');
         }
@@ -1140,7 +1162,7 @@ body, html { width: 100%; height: 100%; overflow-x: hidden; overflow-y: auto; fo
         else if (type === 'shoes') showPrompt('Mẹ', 'Tuyệt vời! Giày dán xé êm chân và dễ cởi khi qua an ninh!');
 
         if (state.outfit.shirt && state.outfit.pants && state.outfit.shoes) {
-          if (sceneImg) sceneImg.src = 'act1_p_bed_full_1787826367609.jpg';
+          if (sceneImg) sceneImg.src = 'act1_bedroom_full_bin_1787803632562.jpg';
           setTimeout(() => completeActivity(1), 350);
         }
       });
@@ -1222,22 +1244,6 @@ body, html { width: 100%; height: 100%; overflow-x: hidden; overflow-y: auto; fo
       });
     });
 
-    // Act 7: Cài dây an toàn
-    el('btn-buckle-seatbelt-7')?.addEventListener('click', () => {
-      sfx.clack();
-      const sceneImg7 = el('scene-img-act-7');
-      if (sceneImg7) sceneImg7.src = 'act7_p_buckled_1787826577849.jpg';
-      showPrompt('Mẹ', 'CẠCH! Dây an toàn chắc chắn rồi! Máy bay chuẩn bị cất cánh!');
-      setTimeout(() => completeActivity(7), 500);
-    });
-
-    // Act 8: Uống nước
-    el('btn-drink-water-8')?.addEventListener('click', () => {
-      sfx.good();
-      showPrompt('Bin', 'Nuốt nước ực một cái, tai Bin hết khó chịu rồi!');
-      setTimeout(() => completeActivity(8), 400);
-    });
-
     // Act 9: Ngắm mây
     document.querySelectorAll('#act-9 .morph-cloud-btn').forEach((btn, i) => {
       btn.addEventListener('click', () => {
@@ -1251,7 +1257,7 @@ body, html { width: 100%; height: 100%; overflow-x: hidden; overflow-y: auto; fo
       });
     });
 
-    // Act 10 & 11: Trắc nghiệm thói quen lịch sự
+    // Act 7, 8, 10, 11, 12: Trắc nghiệm hình ảnh
     document.querySelectorAll('.visual-quiz-card').forEach(btn => {
       btn.addEventListener('click', () => {
         const actNum = parseInt(btn.dataset.act, 10);
@@ -1260,16 +1266,23 @@ body, html { width: 100%; height: 100%; overflow-x: hidden; overflow-y: auto; fo
         if (isCorrect) {
           btn.classList.add('correct');
           sfx.good();
-          if (actNum === 10) showPrompt('Bin', 'Đúng rồi! Mình nói nhỏ vừa đủ nghe để giữ yên tĩnh!');
+          if (actNum === 7) showPrompt('Mẹ', 'CẠCH! Dây an toàn chắc chắn rồi! Máy bay chuẩn bị cất cánh!');
+          else if (actNum === 8) showPrompt('Bin', 'Nuốt nước ực một cái, tai Bin hết khó chịu rồi!');
+          else if (actNum === 10) showPrompt('Bin', 'Đúng rồi! Mình nói nhỏ vừa đủ nghe để giữ yên tĩnh!');
           else if (actNum === 11) showPrompt('Bố', 'Giỏi lắm! Bin ngồi thu chân gọn gàng không chạm ghế trước!');
+          else if (actNum === 12) showPrompt('Mẹ', 'Máy bay dừng hẳn rồi. Bây giờ mình mới mở dây nhé!');
+
           setTimeout(() => completeActivity(actNum), 400);
         } else {
           btn.classList.remove('incorrect');
           void btn.offsetWidth;
           btn.classList.add('incorrect');
           sfx.bad();
-          if (actNum === 10) showPrompt('Mẹ', 'Nói to sẽ làm ồn mọi người xung quanh đấy. Bin nói nhỏ nhé!');
+          if (actNum === 7) showPrompt('Mẹ', 'Đứng trên ghế rất nguy hiểm khi máy bay di chuyển con nhé!');
+          else if (actNum === 8) showPrompt('Mẹ', 'Bịt tai khóc sẽ không làm hết khó chịu. Bin thử uống từng ngụm nước nhỏ nhé!');
+          else if (actNum === 10) showPrompt('Mẹ', 'Nói to sẽ làm ồn mọi người xung quanh đấy. Bin nói nhỏ nhé!');
           else if (actNum === 11) showPrompt('Bố', 'Đạp vào lưng ghế trước làm phiền người khác con nhé. Mình thu chân gọn nào!');
+          else if (actNum === 12) showPrompt('Bố', 'Đèn báo hiệu còn sáng, máy bay đang di chuyển, mình chưa được đứng dậy lấy đồ con nhé!');
         }
       });
     });
@@ -1301,9 +1314,7 @@ body, html { width: 100%; height: 100%; overflow-x: hidden; overflow-y: auto; fo
       state.clouds.clear();
 
       const sceneImg1 = el('act1-room-scene-img');
-      if (sceneImg1) sceneImg1.src = 'act1_p_bed_init_1787826323333.jpg';
-      const sceneImg7 = el('scene-img-act-7');
-      if (sceneImg7) sceneImg7.src = 'act7_p_unbuckled_1787826548604.jpg';
+      if (sceneImg1) sceneImg1.src = 'act1_bedroom_initial_bin_1787803669361.jpg';
 
       document.querySelectorAll('#act-1 [data-clothing-item="true"]').forEach(b => b.classList.remove('runtime-selected'));
       document.querySelectorAll('#act-2 [data-luggage-item="true"]').forEach(b => b.classList.remove('runtime-packed', 'shake-wobble'));
